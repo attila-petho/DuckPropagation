@@ -3,33 +3,35 @@ from PIL import Image
 import gym_duckietown
 from datetime import datetime
 from gym_duckietown.simulator import Simulator
+from wrappers import ResizeFrame, CropFrame
 
 # Creating directories for images and logs
 img_dir = "images"
-test_name = "raw_obs"
+test_name = "rsize_crop_obs"
 save_dir = img_dir + "/" + test_name
 if not os.path.exists(save_dir):
     os.makedirs(save_dir)
 
 env = Simulator(
-        seed=666, # random seed
+        seed=123,                   # random seed
         map_name="loop_empty",
-        max_steps=500001, # we don't want the gym to reset itself
+        max_steps=500001,           # we don't want the gym to reset itself
         domain_rand=0,
         camera_width=640,
         camera_height=480,
-        accept_start_angle_deg=1, # start close to straight
+        accept_start_angle_deg=1,   # start close to straight
         full_transparency=True,
         distortion=True,
     )
 
 # Wrapping the env
-
+env = ResizeFrame(env)
+env = CropFrame(env)
        
 images = []
-#while True:
-for step in range(10):
-    action = [0.1,0.1]
+
+for step in range(5):
+    action = [0.5,0.5]
     observation, reward, done, misc = env.step(action)
     env.render()
     if done:
