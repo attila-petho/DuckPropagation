@@ -54,14 +54,34 @@ class ColorSegmentFrame(gym.ObservationWrapper):
 
 class NormalizeFrame(gym.ObservationWrapper):
     '''
-    Description TODO
+    Normalizes the image from the 0-255 interval to 0-1
     '''
-    ...
+    def __init__(self, env, crop=True):
+        super(NormalizeFrame, self).__init__(env)
+    def observation(self, obs):
+        img = obs
+        img /= 255
+        return img.astype("float32")
 
 
 class StackFrame(gym.ObservationWrapper):
     '''
-    Description TODO
+    Concatenates images
+    img_con = The numpy array in which we store the concatenated images
+    i = Number of images we want in a sequence
     '''
-    ...
-
+    #valahogy ciklusban kéne majd meghívni, pl:
+    #img_conc
+    #for i = 0 in range(5):
+    #    if i == 0:
+    #       img_conc = basic observation #simán egy kép
+    #    else:
+    #       img_conc = StackFrame.observation
+    def __init__(self, env, i = 4):
+        super(StackFrame, self).__init__(env)
+    def observation(img_con, obs):
+        if img_con.shape[2] / 3 < i:
+            img = obs
+            return np.concatenate((img_con, img), axis = 2)
+        else:
+            return
