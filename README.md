@@ -1,12 +1,12 @@
 # DuckPropagation
-In this project we are training Deep Reinforcement Learning agents to drive small robots called Duckiebot in the Duckietown environment. There are four challenges in the environment:
+In this project we are training Deep Reinforcement Learning agents to drive small robots called Duckiebots in the Duckietown environment. There are four challenges in the environment:
 
 - LF - simple lane following
 - LFV - lane following with vehicles
 - LFI - lane following with intersections
 - LFVI - lane following with vehicles and intersections
 
-In order to conquer these challenges, autonomous driving agents are first trained in a simulator (gym-duckietown) and than the trained agents performance are also tested in the real environment on real Duckiebots.
+In order to conquer these challenges, autonomous driving agents are first trained in a simulator (gym-duckietown) and then the trained agents performance are also tested in the real environment on real Duckiebots.
 
 
 ## Authors
