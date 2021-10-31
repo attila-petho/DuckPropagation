@@ -11,9 +11,9 @@ start = timer()
 
 # Create directories for logs
 map_name = "straight_road"
-log_dir = f"logs/{map_name}/A2C_log/"
+log_dir = f"../logs/{map_name}/A2C_log/"
 os.makedirs(log_dir, exist_ok=True)
-tensorboard_log = f"tensorboard/{map_name}/"
+tensorboard_log = f"../tensorboard/{map_name}/"
 os.makedirs(tensorboard_log, exist_ok=True)
 
 # Create environment
@@ -40,27 +40,27 @@ env = StackFrame(env, 5)
 env.reset()
 
 # Create model
-LR = int(5e-5)                          # Learning Rate: 0.00005
+LR = 5e-5                               # Learning Rate: 0.00005
 
 model = A2C(
         "CnnPolicy",
         env,
-        learning_rate=LR,
+        learning_rate=int(LR),
         verbose=1,
         tensorboard_log=tensorboard_log
         )
 
 # Start training
-steps = int(5e5)                        # train for 500k steps
+steps = 1e6                             # train for 1M steps
 
 model.learn(
-        total_timesteps=steps,
+        total_timesteps=int(steps),
         log_interval=500,
-        tb_log_name=f"A2C_{steps}steps_lr{LR}"
+        tb_log_name=f"A2C_{str(steps)}steps_lr{str(LR)}_GrayS"
         )
 
 # Save trained model
-model.save(f"models/{map_name}/A2C_{steps}steps_lr{LR}")
+model.save(f"../models/{map_name}/A2C_{str(steps)}steps_lr{str(LR)}_GrayS")
 env.close()
 
 # Print training time
