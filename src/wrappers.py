@@ -4,7 +4,7 @@ from gym import spaces
 
 # Constants
 sensitivity_yellow = 100
-sensitivity_white = 50
+sensitivity_white = 70
 colorcode_yellow = [255,255,0]
 colorcode_white = [255,255,255]
 threshold_yellow = [colorcode_yellow[0] - sensitivity_yellow, colorcode_yellow[1] - sensitivity_yellow, colorcode_yellow[2] + sensitivity_yellow]
