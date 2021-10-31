@@ -2,6 +2,14 @@ import gym
 import numpy as np
 from gym import spaces
 
+# Constants
+sensitivity_yellow = 100
+sensitivity_white = 50
+colorcode_yellow = [255,255,0]
+colorcode_white = [255,255,255]
+threshold_yellow = [colorcode_yellow[0] - sensitivity_yellow, colorcode_yellow[1] - sensitivity_yellow, colorcode_yellow[2] + sensitivity_yellow]
+threshold_white = [colorcode_white[0] - sensitivity_white, colorcode_white[1] - sensitivity_white, colorcode_white[2] - sensitivity_white]
+
 
 class ResizeFrame(gym.ObservationWrapper):
     '''
@@ -60,9 +68,32 @@ class GrayScaleFrame(gym.ObservationWrapper):
 
 class ColorSegmentFrame(gym.ObservationWrapper):
     '''
-    Description TODO
+    Separates the yellow and white parts of the image to channels Red and Green
     '''
-    ...
+    def __init__(self, env):
+        super(ColorSegmentFrame, self).__init__(env)
+        obs_shape = self.observation_space.shape
+        self.observation_space = spaces.Box(low=0,
+                                            high=255,
+                                            shape=(obs_shape[0], obs_shape[1], 3),
+                                            dtype=np.uint8)
+
+    def observation(self, observation):
+        for x in observation:
+            for y in x:
+                if((y[0] - threshold_yellow[0] > 0) and (y[1] - threshold_yellow[1] > 0) and (y[2] - threshold_yellow[2] < 0)):  #Is yellow?
+                    y[0] = 255
+                    y[1] = 0
+                    y[2] = 0
+                elif((y[0] - threshold_white[0] > 0) and (y[1] - threshold_white[1] > 0) and (y[2] - threshold_white[2] > 0)): #Is white?
+                    y[0] = 0
+                    y[1] = 255
+                    y[2] = 0
+                else:
+                    y[0] = 0
+                    y[1] = 0
+                    y[2] = 0
+        return observation
 
 
 class NormalizeFrame(gym.ObservationWrapper):
