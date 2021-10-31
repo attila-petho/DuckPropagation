@@ -5,6 +5,8 @@ from datetime import datetime
 from gym_duckietown.simulator import Simulator
 from wrappers import ResizeFrame, CropFrame
 
+import math
+
 # Creating directories for images and logs
 img_dir = "images"
 test_name = "rsize_crop_obs"
