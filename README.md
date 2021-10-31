@@ -32,7 +32,7 @@ Requirements:
 ## Preprocessing
 The simulator produces 640x480 RBG images that look like this:
 
-IMAGE 20211023_191012_1.jpg
+<img src="src/images/raw_obs/20211023_191012_1.jpg" width="640px">
 
 The first step is to preprocess these images for the CNN. This step is necessary because feeding the original images makes the training process much slower and it would also be a waste of resources because the network can learn from much smaller images just as well. So for the optimal learning process we do the following steps:
 
