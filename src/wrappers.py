@@ -126,17 +126,23 @@ class StackFrame(gym.ObservationWrapper):
         shp = env.observation_space.shape
         self.observation_space = spaces.Box(low=0,
                                             high=255,
-                                            shape=((nframes,) + shp),
-                                            dtype=env.observation_space.dtype)
+                                            shape=((shp[0],shp[1],shp[2]*nframes)),
+                                            dtype=self.observation_space.dtype)
 
     def reset(self):
         obs = self.env.reset()
-        for _ in range(self.nframes):
+        self.frames.append(obs)
+        stackedobs = np.array(obs, dtype='f')
+        for n in range(self.nframes-1):
             self.frames.append(obs)
-        return np.array(self.frames)
+            stackedobs = np.dstack((stackedobs,obs))
+        return stackedobs
 
     def step(self, action):
         obs, reward, done, info = self.env.step(action)
         self.frames.append(obs)
-        return np.array(self.frames), reward, done, info
+        stackedobs = np.array(self.frames[0], dtype='f')
+        for n in range(self.nframes-1):
+            stackedobs = np.dstack((stackedobs,self.frames[n+1]))
+        return stackedobs, reward, done, info
 
