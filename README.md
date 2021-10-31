@@ -11,7 +11,9 @@ In order to conquer these challenges, autonomous driving agents are first traine
 
 ## Authors
 Attila Pethő
+
 Gyula Faragó
+
 Olivér Farkas
 
 
@@ -36,10 +38,14 @@ The simulator produces 640x480 RBG images that look like this:
 
 The first step is to preprocess these images for the CNN. This step is necessary because feeding the original images makes the training process much slower and it would also be a waste of resources because the network can learn from much smaller images just as well. So for the optimal learning process we do the following steps:
 
-**1. Resizing** 
+**1. Resizing**
+
 **2. Cropping**
+
 **3. Color segmentation or Grayscaling**
+
 **4. Normalization**
+
 **5. Frame stacking** 
 
 These preprocessing steps require the use of so-called wrappers, which basically wrap around the enviroment, take the observations and convert them according to their purpose. We created the following wrappers for these tasks:
