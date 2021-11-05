@@ -40,27 +40,27 @@ env = StackFrame(env, 5)
 env.reset()
 
 # Create model
-LR = 5e-5                               # Learning Rate: 0.00005
+LR = "5e-5"                             # Learning Rate: 0.00005
 
 model = A2C(
         "CnnPolicy",
         env,
-        learning_rate=int(LR),
+        learning_rate=float(LR),
         verbose=1,
         tensorboard_log=tensorboard_log
         )
 
 # Start training
-steps = 1e6                             # train for 1M steps
+steps = "1e6"                           # train for 1M steps
 
 model.learn(
-        total_timesteps=int(steps),
+        total_timesteps=int(float(steps)),
         log_interval=500,
-        tb_log_name=f"A2C_{str(steps)}steps_lr{str(LR)}_GrayS"
+        tb_log_name=f"A2C_{steps}steps_lr{LR}_GrayS"
         )
 
 # Save trained model
-model.save(f"../models/{map_name}/A2C_{str(steps)}steps_lr{str(LR)}_GrayS")
+model.save(f"../models/{map_name}/A2C_{steps}steps_lr{LR}_GrayS")
 env.close()
 
 # Print training time
