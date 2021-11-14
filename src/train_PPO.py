@@ -1,7 +1,7 @@
 import os
 import gym
 from gym_duckietown.simulator import Simulator
-from stable_baselines3 import A2C
+from stable_baselines3 import PPO
 from stable_baselines3.common.monitor import Monitor
 from wrappers import ResizeFrame, CropFrame, GrayScaleFrame, ColorSegmentFrame, StackFrame
 from timeit import default_timer as timer
@@ -16,7 +16,7 @@ color = None
 color = "ColS" if color_segment else color = "GrayS"
 
 # Create directories for logs
-log_dir = f"../logs/{map_name}/A2C_log/"
+log_dir = f"../logs/{map_name}/PPO_log/"
 os.makedirs(log_dir, exist_ok=True)
 tensorboard_log = f"../tensorboard/{map_name}/"
 os.makedirs(tensorboard_log, exist_ok=True)
@@ -25,7 +25,7 @@ os.makedirs(tensorboard_log, exist_ok=True)
 env = Simulator(
         seed=123,                       # random seed
         map_name=map_name,
-        max_steps=501,               # we don't want the gym to reset itself
+        max_steps=501,                  # we don't want the gym to reset itself
         domain_rand=0,
         camera_width=640,
         camera_height=480,
@@ -49,7 +49,7 @@ env.reset()
 # Create model
 start = timer()
 
-model = A2C(
+model = PPO(
         "CnnPolicy",
         env,
         learning_rate=float(LR),
@@ -61,11 +61,11 @@ model = A2C(
 model.learn(
         total_timesteps=int(float(steps)),
         log_interval=500,
-        tb_log_name=f"A2C_{steps}steps_lr{LR}_{color}"
+        tb_log_name=f"PPO_{steps}steps_lr{LR}_{color}"
         )
 
 # Save trained model
-model.save(f"../models/{map_name}/A2C_{steps}steps_lr{LR}_{color}")
+model.save(f"../models/{map_name}/PPO_{steps}steps_lr{LR}_{color}")
 env.close()
 
 # Print training time
