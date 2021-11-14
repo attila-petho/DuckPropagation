@@ -1,2 +1,4 @@
 .vscode
 test_agent.py
+A2C_ColS_lr5e-5_lr5e-4_1M_train.py
+PPO_lr5e-5_lrsch.py
