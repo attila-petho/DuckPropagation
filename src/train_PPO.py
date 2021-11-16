@@ -2,20 +2,27 @@ import os
 import gym
 from gym_duckietown.simulator import Simulator
 from stable_baselines3 import PPO
+from stable_baselines3.common.callbacks import CheckpointCallback
 from stable_baselines3.common.monitor import Monitor
 from wrappers import ResizeFrame, CropFrame, GrayScaleFrame, ColorSegmentFrame, StackFrame
 from timeit import default_timer as timer
 
 
 # Arguments
-map_name = "straight_road"              # map used for training
-LR = "5e-4"                             # Learning Rate: 0.0005
-steps = "1e6"                           # train for 1M steps
-color_segment = False                   # Use color segmentation or grayscale images
+map_name        = "straight_road"       # map used for training
+steps           = "1e6"                 # train for 1M steps
+LR              = "5e-4"                # Learning Rate: 0.0005
+FS              = 4                     # Frames to stack
+color_segment   = False                 # Use color segmentation or grayscale images
+
 color = None
-color = "ColS" if color_segment else color = "GrayS"
+if color_segment:
+        color = "ColS"
+else:
+        color = "GrayS"
 
 # Create directories for logs
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
 log_dir = f"../logs/{map_name}/PPO_log/"
 os.makedirs(log_dir, exist_ok=True)
 tensorboard_log = f"../tensorboard/{map_name}/"
@@ -42,7 +49,7 @@ if color_segment:                       # GrayScale and ColorSegment wrappers sh
         env = ColorSegmentFrame(env)
 else:
         env = GrayScaleFrame(env)
-env = StackFrame(env, 4)
+env = StackFrame(env, FS)
 
 env.reset()
 
@@ -57,15 +64,22 @@ model = PPO(
         tensorboard_log=tensorboard_log
         )
 
+# Create checkpoint callback
+checkpoint_callback = CheckpointCallback(
+        save_freq=100000,
+        save_path=f'../models/{map_name}/PPO/checkpoints/PPO_{steps}steps_lr{LR}_{color}_FS{FS}',
+        name_prefix='step_')
+
 # Start training
 model.learn(
         total_timesteps=int(float(steps)),
+        callback=checkpoint_callback,
         log_interval=500,
-        tb_log_name=f"PPO_{steps}steps_lr{LR}_{color}"
+        tb_log_name=f"PPO_{steps}steps_lr{LR}_{color}_FS{FS}"
         )
 
 # Save trained model
-model.save(f"../models/{map_name}/PPO_{steps}steps_lr{LR}_{color}")
+model.save(f"../models/{map_name}/PPO/PPO_{steps}steps_lr{LR}_{color}_FS{FS}")
 env.close()
 
 # Print training time
