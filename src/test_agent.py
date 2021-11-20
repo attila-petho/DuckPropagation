@@ -4,16 +4,17 @@ import time
 from gym_duckietown.simulator import Simulator
 from stable_baselines3 import A2C, PPO
 from stable_baselines3.common.monitor import Monitor
-from wrappers import ResizeFrame, CropFrame, GrayScaleFrame, ColorSegmentFrame, StackFrame
+from wrappers import *
 from stable_baselines3.common.vec_env import DummyVecEnv, VecTransposeImage
 
 
 algo            = "A2C"                 # name of RL algo
 map_name        = "straight_road"       # map used for training
-steps           = "1e6"                 # train for 1M steps
+steps           = "5e5"                 # train for 1M steps
 LR              = "5e-4"                # Learning Rate: 0.0005
-FS              = 4                     # Frames to stack
+FS              = 3                     # Frames to stack
 color_segment   = False                 # Use color segmentation or grayscale images
+action_wrapper  = "heading"             # Action Wrapper to use ("heading" or "leftrightbraking")
 maxsteps        = 200                   # number of steps to take in the test environment
 
 color = None
@@ -21,7 +22,7 @@ if color_segment:
         color = "ColS"
 else:
         color = "GrayS"
-model_name  = f"{algo}_{steps}steps_lr{LR}_{color}_FS{FS}"
+model_name  = f"{algo}_{steps}steps_lr{LR}_{color}_FS{FS}_{action_wrapper}"
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 save_dir    = f"../models/{map_name}/{algo}/"
 
@@ -47,6 +48,14 @@ if color_segment:                       # GrayScale and ColorSegment wrappers sh
 else:
         env = GrayScaleFrame(env)
 env = StackFrame(env, FS)
+if action_wrapper == "heading":         # Action wrappers ("heading" can be given a 'type' parameter)
+        env = Heading2WheelVelsWrapper(env)
+elif action_wrapper == "leftrightbraking":
+        env = LeftRightBraking2WheelVelsWrapper(env)
+else:
+        print("Invalid action wrapper. Using default actions.")
+env = DtRewardPosAngle(env)
+env = DtRewardVelocity(env)
 env = DummyVecEnv([lambda: env])
 env = VecTransposeImage(env)
 
