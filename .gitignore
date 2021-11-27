@@ -2,6 +2,7 @@
 src/A2C_ColS_lr5e-5_lr5e-4_1M_train.py
 src/PPO_lr5e-5_lrsch.py
 src/__pycache__
+src/train_TQC.py
 .dt_gym/
 gym-duckietown/
 models/small_loop/A2C/checkpoints/
