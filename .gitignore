@@ -2,6 +2,7 @@
 src/A2C_ColS_lr5e-5_lr5e-4_1M_train.py
 src/PPO_lr5e-5_lrsch.py
 src/__pycache__
+src/utils/__pycache__/
 src/train_TQC.py
 .dt_gym/
 gym-duckietown/
@@ -24,4 +25,5 @@ models/straight_road/PPO/PPO_5e3steps_lr5e-4_GrayS_FS3_heading.zip
 models/zigzag_dists/A2C/A2C_1e6steps_lr5e-4_GrayS_FS3_DR.zip
 models/zigzag_dists/PPO/PPO_1e6steps_lr5e-4_GrayS_FS3_DR.zip
 models/zigzag_dists/PPO/PPO_1e6steps_lr5e-4_GrayS_FS3_DR_leftrightbraking.zip
+models/zigzag_dists/A2C/A2C_1e6steps_lr5e-4_GrayS_FS3_DR1_leftrightbraking.zip
 logs/

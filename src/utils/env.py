@@ -1,7 +1,7 @@
 # imports
 from gym_duckietown.simulator import Simulator
 from stable_baselines3.common.monitor import Monitor
-from wrappers import *
+from utils.wrappers import *
 
 def make_env(map_name, log_dir, seed=123, domain_rand=1, color_segment=False, FS=3, action_wrapper="heading"):
     env = Simulator(
