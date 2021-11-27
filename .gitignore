@@ -1,4 +1,15 @@
-.vscode
+.vscode/
 src/A2C_ColS_lr5e-5_lr5e-4_1M_train.py
 src/PPO_lr5e-5_lrsch.py
 src/__pycache__
+.dt_gym/
+gym-duckietown/
+models/small_loop/A2C/checkpoints/
+models/small_loop/PPO/checkpoints/
+models/small_loop/TQC/checkpoints/
+models/straight_road/A2C/checkpoints/
+models/straight_road/PPO/checkpoints/
+models/straight_road/TQC/checkpoints/
+models/zigzag_dists/A2C/checkpoints/
+models/zigzag_dists/PPO/checkpoints/
+models/zigzag_dists/TQC/checkpoints/
