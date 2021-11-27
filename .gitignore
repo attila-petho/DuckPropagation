@@ -13,3 +13,14 @@ models/straight_road/TQC/checkpoints/
 models/zigzag_dists/A2C/checkpoints/
 models/zigzag_dists/PPO/checkpoints/
 models/zigzag_dists/TQC/checkpoints/
+models/small_loop/A2C/A2C_1e6steps_lr5e-4_GrayS_FS3_heading.zip
+models/small_loop/A2C/A2C_1e6steps_lr5e-4_GrayS_FS4_heading.zip
+models/small_loop/PPO/PPO_1e6steps_lr5e-4_GrayS_FS3_heading.zip
+models/small_loop/PPO/PPO_1e6steps_lr5e-4_GrayS_FS4_heading.zip
+models/straight_road/A2C/A2C_5e3steps_lr5e-4_GrayS_FS4_heading.zip
+models/straight_road/PPO/PPO_1e4steps_lr5e-4_GrayS_FS3_heading.zip
+models/straight_road/PPO/PPO_5e3steps_lr5e-4_GrayS_FS3_heading.zip
+models/zigzag_dists/A2C/A2C_1e6steps_lr5e-4_GrayS_FS3_DR.zip
+models/zigzag_dists/PPO/PPO_1e6steps_lr5e-4_GrayS_FS3_DR.zip
+models/zigzag_dists/PPO/PPO_1e6steps_lr5e-4_GrayS_FS3_DR_leftrightbraking.zip
+logs/
