@@ -21,6 +21,7 @@ Olivér Farkas
 Requirements:
 - Python 3.6+
 - OpenAI Gym
+- gym-duckiwtown
 - Numpy
 - Pyglet
 - PyYAML
@@ -30,6 +31,9 @@ Requirements:
 - opencv
 - pillow
 - Tensorboard
+
+## Usage
+TODO
 
 ## Preprocessing
 The simulator produces 640x480 RBG images that look like this:
@@ -68,19 +72,27 @@ To make the training of the CNN easier and faster this wrapper normalizes the pi
 #### StackFrame
 For better quality in training and more information we are concatenating the last **n frames** to form a time series, so the agent can percieve dynamic changes in its environment.
 
+## Actions
+TODO
+
+## Rewards
+TODO
 
 ## Training
+TODO: algos
 For the training we used the Stable Baselines 3 library, which contains several implementations of state-of-the-art RL algorithms. The wrappers are tested with an A2C agent with default settings and 0.00005 learning rate for 1 million steps on the 'straight_road' map. It took 139 minutes on a GTX1060 OC 6GB. The trained model and the tensorboard log of the first training can be found in the corresponding folders.
 
+## Evaluation
+TODO
 
 ## File Structure
 
-- `src/` - The source folder.
-- `src/images/` - Output samples of the wrappers are stored here.
-- `models/` - Save location for the trained models.
-- `logs/` - SB3 logs folder.
-- `tensorboard/` - Tensorboard logs folder.
-- `colorsegment.py` - The implementation of the color segmentation function.
-- `test1.py` - Test script used for checking the wrappers.
-- `train_A2C.py` - Training program for the A2C agent.
-- `wrappers.py` - Contains the wrappers.
+- `src/`             - The source folder.
+- `src/images/`      - Output samples of the wrappers are stored here.
+- `src/tensorboard/` - Tensorboard logs folder.
+- `src/test1.py`     - Test script used for checking the wrappers.
+- `src/train_A2C.py` - Training script for the A2C agent.
+- `src/train_PPO.py` - Training script for the PPO agent.
+- `src/wrappers.py`  - Contains the wrappers.
+- `models/`          - Save location for the trained models.
+- `logs/`            - SB3 logs folder.

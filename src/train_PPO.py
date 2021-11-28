@@ -5,7 +5,7 @@ from utils.env import make_env
 from timeit import default_timer as timer
 
 
-# Arguments
+# Arguments - TODO
 map_name        = "zigzag_dists"        # map used for training
 steps           = "1e6"                 # train for 1M steps
 LR              = "5e-4"                # Learning Rate: 0.0005
