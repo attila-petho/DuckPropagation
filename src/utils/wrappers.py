@@ -119,7 +119,10 @@ class NormalizeFrame(gym.ObservationWrapper):
                                             dtype=np.float32)
 
     def observation(self, obs):
-        return obs / 255
+        if self.obs_lo == 0.0 and self.obs_hi == 1.0:
+            return obs
+        else:
+            return (obs - self.obs_lo) / (self.obs_hi - self.obs_lo)
 
 
 class StackFrame(gym.ObservationWrapper):

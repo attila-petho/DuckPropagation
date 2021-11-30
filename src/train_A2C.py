@@ -4,9 +4,10 @@ from stable_baselines3.common.callbacks import CheckpointCallback
 from utils.env import make_env
 from timeit import default_timer as timer
 
+
 # Arguments - TODO
 map_name        = "zigzag_dists"        # map used for training
-steps           = "1e6"                 # train for 500k steps
+steps           = "1e4"                 # train for 500k steps
 LR              = "5e-4"                # Learning Rate: 0.0005
 FS              = 3                     # Frames to stack
 color_segment   = False                 # Use color segmentation or grayscale images
@@ -14,6 +15,7 @@ action_wrapper  = "heading"             # Action Wrapper to use ("heading" or "l
 checkpoint_freq = 100000                # Checkpoint save frequency
 seed            = 123                   # Seed for pseudo random generators
 domain_rand     = 1                     # Domain randomization (0 or 1)
+checkpoint_cb   = False                 # Use checkpoints
 
 color = None
 if color_segment:
@@ -45,20 +47,23 @@ model = A2C(
         )
 
 # Create checkpoint callback
-checkpoint_callback = CheckpointCallback(
-        save_freq = checkpoint_freq,
-        save_path = f'../models/{map_name}/A2C/checkpoints/A2C_{steps}steps_lr{LR}_{color}_FS{FS}_DR{domain_rand}_leftrightbraking/',
-        name_prefix = 'step_')
+if checkpoint_cb:
+        checkpoint_callback = CheckpointCallback(
+                save_freq = checkpoint_freq,
+                save_path = f'../models/{map_name}/PPO/checkpoints/PPO_{steps}steps_lr{LR}_{color}_FS{FS}_DR{domain_rand}_heading_norm',
+                name_prefix = 'step_')
+else:
+        checkpoint_callback = None
 
 # Start training
 model.learn(
         total_timesteps = int(float(steps)),
         callback = checkpoint_callback,
-        tb_log_name = f"A2C_{steps}steps_lr{LR}_{color}_FS{FS}_DR{domain_rand}_leftrightbraking"
+        tb_log_name = f"A2C_{steps}steps_lr{LR}_{color}_FS{FS}_DR{domain_rand}_heading_norm"
         )
 
 # Save trained model
-model.save(f"../models/{map_name}/A2C/A2C_{steps}steps_lr{LR}_{color}_FS{FS}_DR{domain_rand}_leftrightbraking")
+model.save(f"../models/{map_name}/A2C/A2C_{steps}steps_lr{LR}_{color}_FS{FS}_DR{domain_rand}_heading_norm")
 env.close()
 
 # Print training time

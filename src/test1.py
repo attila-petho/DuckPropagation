@@ -3,7 +3,7 @@ from PIL import Image
 import gym_duckietown
 from datetime import datetime
 from gym_duckietown.simulator import Simulator
-from wrappers import ResizeFrame, CropFrame
+from utils.wrappers import ResizeFrame, CropFrame
 
 import math
 

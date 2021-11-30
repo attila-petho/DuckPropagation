@@ -27,3 +27,5 @@ models/zigzag_dists/PPO/PPO_1e6steps_lr5e-4_GrayS_FS3_DR.zip
 models/zigzag_dists/PPO/PPO_1e6steps_lr5e-4_GrayS_FS3_DR_leftrightbraking.zip
 models/zigzag_dists/A2C/A2C_1e6steps_lr5e-4_GrayS_FS3_DR1_leftrightbraking.zip
 logs/
+images/
+models/zigzag_dists/PPO/PPO_1e4steps_lr5e-4_GrayS_FS3_DR1_heading_norm.zip
