@@ -33,7 +33,8 @@ Requirements:
 - Tensorboard
 
 ## Usage
-TODO
+**TODO**
+
 
 ## Preprocessing
 The simulator produces 640x480 RBG images that look like this:
@@ -73,17 +74,25 @@ To make the training of the CNN easier and faster this wrapper normalizes the pi
 For better quality in training and more information we are concatenating the last **n frames** to form a time series, so the agent can percieve dynamic changes in its environment.
 
 ## Actions
-TODO
+The Duckiebots are two-wheel dirrenetial-drive vehicles, and the default actions in the simulator are interpreted as a list of the left and the right wheel angular velocities, where 1 and -1 correspond to the maximum angular velocities forward and backward. This continuous action space has left and right velocity pairs that are not particularly useful (e.g. low velocities), so we experimented with two new action representations.
+
+**Wheel velocity - braking<sup>1</sup>:** Since negative velocities are not required for moving forward, these are clipped, and the predicted values are interpreted as the amount of braking from full speed at each wheel. This creates a bias for moving forward at full speed.
+
+**Steering<sup>1</sup>:**  Instead of predicting a vector containing the two wheel velocities, the agent predicts a scalar value between -1 and 1, where 0.0 represents going foward at full speed, and -1 and 1 correspond to turning left or right with one wheel completely stopped and the other spinning at maximum speed. Intermediate actions are continuously mapped to wheel velocities using linear interpolation.
 
 ## Rewards
-TODO
+**TODO**
+
+**Orientation based:** **TODO**
+
+**Velocity based:** **TODO**
 
 ## Training
-TODO: algos
+**TODO**: algos
 For the training we used the Stable Baselines 3 library, which contains several implementations of state-of-the-art RL algorithms. The wrappers are tested with an A2C agent with default settings and 0.00005 learning rate for 1 million steps on the 'straight_road' map. It took 139 minutes on a GTX1060 OC 6GB. The trained model and the tensorboard log of the first training can be found in the corresponding folders.
 
 ## Evaluation
-TODO
+**TODO**
 
 ## File Structure
 
@@ -96,3 +105,7 @@ TODO
 - `src/wrappers.py`  - Contains the wrappers.
 - `models/`          - Save location for the trained models.
 - `logs/`            - SB3 logs folder.
+
+## References
+1. András Kalapos, Csaba Gór, Róbert Moni and István Harmati. "Sim-to-real reinforcement learning applied to end-to-end vehicle control" arXiv:2012.07461
+(2020) (https://github.com/kaland313/Duckietown-RL)
