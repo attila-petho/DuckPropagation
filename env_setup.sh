@@ -1,7 +1,6 @@
 #! /bin/bash
 set -e
 
-conda remove --name dtaido5 --all -y
 echo ""
 echo "--------------------------------------------"
 echo "|      Creating virtual environment        |"
