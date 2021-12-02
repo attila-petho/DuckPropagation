@@ -18,23 +18,31 @@ Olivér Farkas
 
 
 ## Installation
-Requirements:
-- Python 3.6+
-- OpenAI Gym
-- gym-duckiwtown
-- Numpy
-- Pyglet
-- PyYAML
-- cloudpicke
-- Pytorch
-- Stable Baselines 3
-- opencv
-- pillow
-- Tensorboard
+**Requirements**: `git` installed on your computer
+
+Clone the repository:
+```bash
+git clone https://github.com/attila-petho/DuckPropagation.git
+cd DuckPropagation/
+```
+
+Run environment setup script:
+```bash
+bash env_setup.sh
+```
 
 ## Usage
-**TODO**
+Before running the scripts in this repo, make sure that the ```.dt_gym```` virtual envirnoment is activated using
+```bash
+cd DuckPropagation
+source .dt_gym/bin/activate
+```
 
+#### Training:
+To train an A2C or PPO agent, first open the ```train_A2C.py``` or ```train_PPO.py``` file and edit the _Arguments_ section at the top.
+
+#### Evaluation:
+The trained agent's performance can be evaluated using the ```test_agent.py``` file. Before running the scipt make sure that the _Arguments_ section loads the correct **zip file** of the saved model.
 
 ## Preprocessing
 The simulator produces 640x480 RBG images that look like this:
@@ -93,19 +101,22 @@ For the training we used the Stable Baselines 3 library, which contains several 
 | Actions       | steering  |
 
 ## Evaluation
-**TODO**
+To evaluate the agents' performance two metrics were used: _Survival time_ (measured in timesteps), and the _Reward_ received from the environment. _Survival time_ is the number of steps that the agent took in the environment until it left the road. A well-trained agent should be able to stay on the road for the whole evaluation period. _Reward_ is the default reward given by the environment, based on the robot's orientation and letaral position.
+
+The trained agents will also be submitted to the AIDO lane following challenge to compare their performance with other contestants.
 
 ## File Structure
 
-- `src/`             - The source folder.
-- `src/images/`      - Output samples of the wrappers are stored here.
-- `src/tensorboard/` - Tensorboard logs folder.
-- `src/test1.py`     - Test script used for checking the wrappers.
-- `src/train_A2C.py` - Training script for the A2C agent.
-- `src/train_PPO.py` - Training script for the PPO agent.
-- `src/wrappers.py`  - Contains the wrappers.
-- `models/`          - Save location for the trained models.
-- `logs/`            - SB3 logs folder.
+- `src/`              - The source folder.
+- `src/images/`       - Output samples of the wrappers are stored here.
+- `src/utils/`        - Contains the environment utilities (wrappers and env creator).
+- `src/tensorboard/`  - Tensorboard logs folder.
+- `src/test1.py`      - Test script used for checking the wrappers.
+- `src/train_A2C.py`  - Training script for the A2C agent.
+- `src/train_PPO.py`  - Training script for the PPO agent.
+- `src/test_agent.py` - Test script for evaluating the agent's performance.
+- `models/`           - Save location for the trained models.
+- `logs/`             - SB3 logs folder.
 
 ## References
 1. András Kalapos, Csaba Gór, Róbert Moni and István Harmati. "Sim-to-real reinforcement learning applied to end-to-end vehicle control" arXiv:2012.07461
