@@ -4,17 +4,18 @@ import time
 from gym_duckietown.simulator import Simulator
 from stable_baselines3 import A2C, PPO
 from stable_baselines3.common.monitor import Monitor
-from wrappers import *
+from utils.wrappers import *
 from stable_baselines3.common.vec_env import DummyVecEnv, VecTransposeImage
 
 
-algo            = "A2C"                 # name of RL algo
-map_name        = "straight_road"       # map used for training
-steps           = "5e5"                 # train for 1M steps
+algo            = "PPO"                 # name of RL algo
+map_name        = "zigzag_dists"       # map used for training
+steps           = "1e6"                 # train for 1M steps
 LR              = "5e-4"                # Learning Rate: 0.0005
 FS              = 3                     # Frames to stack
 color_segment   = False                 # Use color segmentation or grayscale images
-action_wrapper  = "heading"             # Action Wrapper to use ("heading" or "leftrightbraking")
+domain_rand     = 1                     # Domain randomization (0 or 1)
+action_wrapper  = "leftrightbraking"             # Action Wrapper to use ("heading" or "leftrightbraking")
 maxsteps        = 200                   # number of steps to take in the test environment
 
 color = None
@@ -22,7 +23,7 @@ if color_segment:
         color = "ColS"
 else:
         color = "GrayS"
-model_name  = f"{algo}_{steps}steps_lr{LR}_{color}_FS{FS}_{action_wrapper}"
+model_name  = f"{algo}_{steps}steps_lr{LR}_{color}_FS{FS}_DR_{action_wrapper}"
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 save_dir    = f"../models/{map_name}/{algo}/"
 
@@ -60,7 +61,12 @@ env = DummyVecEnv([lambda: env])
 env = VecTransposeImage(env)
 
 # Load trained model
-model = A2C.load(save_dir + model_name, print_system_info=True)
+if algo == "A2C":
+        model = A2C.load(save_dir + model_name, print_system_info=True)
+elif algo == "PPO":
+        model = PPO.load(save_dir + model_name, print_system_info=True)
+else:
+        print("Invalid algorithm.")
 
 # Test the agent
 obs = env.reset()

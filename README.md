@@ -81,15 +81,16 @@ The Duckiebots are two-wheel differential-drive vehicles, and the default action
 **Steering<sup>1</sup>:**  Instead of predicting a vector containing the two wheel velocities, the agent predicts a scalar value between -1 and 1, where 0.0 represents going forward at full speed, and -1 and 1 correspond to turning left or right with one wheel completely stopped and the other spinning at maximum speed. Intermediate actions are continuously mapped to wheel velocities using linear interpolation. In this case the speed is always maximal for a given steering value.
 
 ## Rewards
-Reward shaping is essential in RL, since this is the basis for the agent's learning. Without a good reward function the agent
-
-**Orientation based:** **TODO**
-
-**Velocity based:** **TODO**
+Reward shaping is essential in RL, since this is the basis for the agent's learning. Without a good reward function the agent will maximize its score, but won't learn the intended behaviour. The goal of the robot should be to move forward in the right lane as fast as possible. To encourage this behaviour we used a reward fuction<sup>1</sup> that considers both the orientation and the velocity of the Duckiebot. The orientation reward is based on the lateral position of the robot, so it should always face towards the center of the right lane, while the velocity reward is given based on the fastest moving wheel to encourage high velocity in both straight and curved sections.
 
 ## Training
-**TODO**: algos
-For the training we used the Stable Baselines 3 library, which contains several implementations of state-of-the-art RL algorithms. The wrappers are tested with an A2C agent with default settings and 0.00005 learning rate for 1 million steps on the 'straight_road' map. It took 139 minutes on a GTX1060 OC 6GB. The trained model and the tensorboard log of the first training can be found in the corresponding folders.
+For the training we used the Stable Baselines 3 library, which contains several implementations of state-of-the-art RL algorithms. We used **A2C** and **PPO** agents with mostly default settings and 0.0005 learning rate for 1 million steps on the _'straight_road'_ and _'zigzag_dists'_ maps. The algorithm hyperparameters that were used for the first trainings are shown in the table below. The trained models and the tensorboard logs of the first trainings can be found in the corresponding folders. The next step will be to optimize the agents' hyperparameters using a optimization library.
+
+|Hyperparameter | A2C, PPO  | 
+| ------------- |:---------:|
+| Learning Rate | 0.0005    |
+| Stacked Frames| 3         |
+| Actions       | steering  |
 
 ## Evaluation
 **TODO**
