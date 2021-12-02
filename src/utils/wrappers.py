@@ -187,6 +187,7 @@ class Heading2WheelVelsWrapper(gym.ActionWrapper):
             action = np.clip(np.array([1 + action, 1 - action]), 0., 1.)  # Full speed single value control
         return action
 
+
 class LeftRightBraking2WheelVelsWrapper(gym.ActionWrapper):
     def __init__(self, env):
         super(LeftRightBraking2WheelVelsWrapper, self).__init__(env)
@@ -264,65 +265,6 @@ class DtRewardPosAngle(gym.RewardWrapper):
         reward_wide = 0.5 + 0.5 * self.leaky_cosine(
             np.pi * (target_angle - lp_angle) / self.max_dev_from_target_angle_deg_wide)
         return reward_narrow, reward_wide
-
-    def plot_reward(self):
-        from matplotlib import rcParams
-        rcParams['font.family'] = 'serif'
-        rcParams['font.size'] = 12
-
-        x = np.linspace(-5, 5, 200)
-        fx = np.vectorize(self.leaky_cosine)(x)
-        plt.plot(x, 0.5 + 0.5 * fx)
-        plt.plot(x, self.gaussian(x))
-        plt.legend(["Leaky cosine", "Gaussian"])
-        plt.show()
-
-        xcount, ycount = (400, 400)
-        x = np.linspace(-0.3, 0.1, xcount)
-        y = np.linspace(-90, 90, ycount)
-        vpos, vang = np.meshgrid(x, y)
-        velocity_reward = 0.
-        angle_narrow_reward, angle_wide_reward = np.vectorize(self.calculate_pos_angle_reward)(vpos, vang)
-        reward = np.vectorize(self.scale_and_combine_rewards)(angle_narrow_reward, angle_wide_reward, velocity_reward)
-        plt.imshow(reward)
-        xtic_loc = np.floor(np.linspace(0, xcount - 1, 9)).astype(int)
-        ytic_loc = np.floor(np.linspace(0, ycount - 1, 9)).astype(int)
-        plt.xticks(xtic_loc, np.round(x[xtic_loc], 2))
-        plt.yticks(ytic_loc, (y[ytic_loc]).astype(int))
-        plt.colorbar()
-        plt.xlabel("Position [m]")
-        plt.ylabel("Robot position \n relative to the right lane center [m]")
-        plt.grid()
-        plt.tight_layout()
-        plt.show()
-
-        plt.plot(y, reward[:, 300])
-        plt.plot(y, reward[:, 200])
-        plt.plot(y, reward[:, 399])
-        plt.legend(["At lane center", "At road center and in left lane", "At right road side"])
-        plt.xlabel("Orientation")
-        plt.ylabel("Reward")
-        plt.tight_layout()
-        plt.show()
-
-        plt.figure()
-        plt.plot(x, np.argmax(reward, axis=0))
-        plt.xlabel("Position [m]")
-        plt.ylabel("Preferred (maximal reward) orientation")
-        plt.yticks(ytic_loc, (y[ytic_loc]).astype(int))
-        plt.gca().invert_yaxis()
-        seaborn.despine(ax=plt.gca(), offset=0)
-        plt.gca().spines['bottom'].set_position('center')
-        # plt.gca().spines['left'].set_position('zero')
-        plt.grid()
-        plt.tight_layout()
-        plt.show()
-
-        fig = plt.figure()
-        ax = fig.gca(projection='3d')
-        surf = ax.plot_surface(vpos, vang, reward, antialiased=False,)
-        fig.colorbar(surf, shrink=0.5, aspect=5)
-        plt.show()
 
 class DtRewardVelocity(gym.RewardWrapper):
     def __init__(self, env):
