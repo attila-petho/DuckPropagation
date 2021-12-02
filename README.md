@@ -1,10 +1,10 @@
 # DuckPropagation
 In this project we are training Deep Reinforcement Learning agents to drive small robots called Duckiebots in the Duckietown environment. There are four challenges in the environment:
 
-- LF - simple lane following
-- LFV - lane following with vehicles
-- LFI - lane following with intersections
-- LFVI - lane following with vehicles and intersections
+- **LF** - simple lane following
+- **LFV** - lane following with vehicles
+- **LFI** - lane following with intersections
+- **LFVI** - lane following with vehicles and intersections
 
 In order to conquer these challenges, autonomous driving agents are first trained in a simulator (gym-duckietown) and then the trained agents performance are also tested in the real environment on real Duckiebots.
 
@@ -32,9 +32,9 @@ bash env_setup.sh
 ```
 
 ## Usage
-Before running the scripts in this repo, make sure that the ```.dt_gym```` virtual envirnoment is activated using
+Before running the scripts in this repo, make sure that the ```.dt_gym``` virtual environment is activated using
 ```bash
-cd DuckPropagation
+cd DuckPropagation/
 source .dt_gym/bin/activate
 ```
 
@@ -92,7 +92,7 @@ The Duckiebots are two-wheel differential-drive vehicles, and the default action
 Reward shaping is essential in RL, since this is the basis for the agent's learning. Without a good reward function the agent will maximize its score, but won't learn the intended behaviour. The goal of the robot should be to move forward in the right lane as fast as possible. To encourage this behaviour we used a reward fuction<sup>1</sup> that considers both the orientation and the velocity of the Duckiebot. The orientation reward is based on the lateral position of the robot, so it should always face towards the center of the right lane, while the velocity reward is given based on the fastest moving wheel to encourage high velocity in both straight and curved sections.
 
 ## Training
-For the training we used the Stable Baselines 3 library, which contains several implementations of state-of-the-art RL algorithms. We used **A2C** and **PPO** agents with mostly default settings and 0.0005 learning rate for 1 million steps on the _'straight_road'_ and _'zigzag_dists'_ maps. The algorithm hyperparameters that were used for the first trainings are shown in the table below. The trained models and the tensorboard logs of the first trainings can be found in the corresponding folders. The next step will be to optimize the agents' hyperparameters using a optimization library.
+For the training we used the *Stable Baselines 3* library, which contains several implementations of state-of-the-art RL algorithms. We used **A2C** and **PPO** agents with mostly default settings and 0.0005 learning rate for 1 million steps on the _'straight_road'_ and _'zigzag_dists'_ maps. The algorithm hyperparameters that were used for the first trainings are shown in the table below. The trained models and the tensorboard logs of the first trainings can be found in the corresponding folders. The next step will be to optimize the agents' hyperparameters using an optimization library.
 
 |Hyperparameter | A2C, PPO  | 
 | ------------- |:---------:|
@@ -103,7 +103,7 @@ For the training we used the Stable Baselines 3 library, which contains several 
 ## Evaluation
 To evaluate the agents' performance two metrics were used: _Survival time_ (measured in timesteps), and the _Reward_ received from the environment. _Survival time_ is the number of steps that the agent took in the environment until it left the road. A well-trained agent should be able to stay on the road for the whole evaluation period. _Reward_ is the default reward given by the environment, based on the robot's orientation and letaral position.
 
-The trained agents will also be submitted to the AIDO lane following challenge to compare their performance with other contestants.
+The trained agents will also be submitted to the AIDO lane following challenge to compare their performance with other contestants. In addition the trained agents will be tested in a real environment using Duckiebots.
 
 ## File Structure
 
