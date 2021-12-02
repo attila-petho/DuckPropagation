@@ -74,14 +74,14 @@ To make the training of the CNN easier and faster this wrapper normalizes the pi
 For better quality in training and more information we are concatenating the last **n frames** to form a time series, so the agent can percieve dynamic changes in its environment.
 
 ## Actions
-The Duckiebots are two-wheel dirrenetial-drive vehicles, and the default actions in the simulator are interpreted as a list of the left and the right wheel angular velocities, where 1 and -1 correspond to the maximum angular velocities forward and backward. This continuous action space has left and right velocity pairs that are not particularly useful (e.g. low velocities), so we experimented with two new action representations.
+The Duckiebots are two-wheel differential-drive vehicles, and the default actions in the simulator are interpreted as a list of the left and the right wheel angular velocities, where 1 and -1 correspond to the maximum angular velocities forward and backward. This continuous action space has left and right velocity pairs that are not particularly useful (e.g. low velocities), so we experimented with two new action representations.
 
 **Wheel velocity - braking<sup>1</sup>:** Since negative velocities are not required for moving forward, these are clipped, and the predicted values are interpreted as the amount of braking from full speed at each wheel. This creates a bias for moving forward at full speed.
 
-**Steering<sup>1</sup>:**  Instead of predicting a vector containing the two wheel velocities, the agent predicts a scalar value between -1 and 1, where 0.0 represents going foward at full speed, and -1 and 1 correspond to turning left or right with one wheel completely stopped and the other spinning at maximum speed. Intermediate actions are continuously mapped to wheel velocities using linear interpolation.
+**Steering<sup>1</sup>:**  Instead of predicting a vector containing the two wheel velocities, the agent predicts a scalar value between -1 and 1, where 0.0 represents going forward at full speed, and -1 and 1 correspond to turning left or right with one wheel completely stopped and the other spinning at maximum speed. Intermediate actions are continuously mapped to wheel velocities using linear interpolation. In this case the speed is always maximal for a given steering value.
 
 ## Rewards
-**TODO**
+Reward shaping is essential in RL, since this is the basis for the agent's learning. Without a good reward function the agent
 
 **Orientation based:** **TODO**
 
