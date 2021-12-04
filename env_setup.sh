@@ -5,7 +5,7 @@ echo ""
 echo "--------------------------------------------"
 echo "|      Creating virtual environment        |"
 echo "--------------------------------------------"
-conda env create -f env_setup.yml
+conda env create -f env.yml
 
 echo "--------------------------------------------"
 echo "|         Cloning gym-duckietown           |"

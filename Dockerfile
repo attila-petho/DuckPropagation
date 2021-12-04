@@ -1,47 +1,38 @@
-FROM python:3.8-buster
+FROM ufoym/deepo:pytorch-py36-cu90
 
-RUN mkdir -p /home/duckietown
+RUN rm -rf /$HOME/DuckPropagation
 
-COPY src /home/duckietown/src
+WORKDIR /$HOME/DuckPropagation
 
-##RUN python3 -m pip install -U "pip>=21"
-WORKDIR "/home/duckietown"
-
-## first install the ones that do not change
-RUN apt-get update 
-RUN apt-get install ffmpeg libsm6 libxext6  -y
-RUN apt-get install freeglut3-dev -y
-RUN apt-get install xvfb -y
-RUN apt-get install git wget -y
-
-RUN pip3 install pyglet
-RUN apt-get install python-pyglet -y
+COPY src/* $HOME/DuckPropagation/src/
+COPY models/* $HOME/DuckPropagation/models/
+COPY tensorboard/* $HOME/DuckPropagation/src/
+COPY logs/* $HOME/DuckPropagation/logs/
+COPY env_setup.sh $HOME/DuckPropagation/
+COPY env.yml/* $HOME/DuckPropagation/
 
 
-RUN git clone https://github.com/duckietown/gym-duckietown.git
-WORKDIR "/home/duckietown/gym-duckietown"
-RUN pip3 install --upgrade pip
-RUN pip3 install -e .
+RUN python -m pip install --upgrade pip
 
+RUN pip install librosa && \
+	pip install unidecode &&\
+	pip install inflect && \
+	pip install tensorboardX &&\
+	pip install tensorflow-gpu &&\ 
+	pip install matplotlib==2.1.0 &&\
+	pip install torch==1.0.0 &&\
+	pip install inflect &&\
+	pip install scipy &&\
+	pip install pillow &&\
+	apt-get update && apt-get  install -y \
+	nano \
+	tmux \
+    htop \
+	mc  && \
+	rm -rf /var/lib/apt/lists/*
 
+RUN apt-get update && apt-get install -y --no-install-recommends screen
 
-RUN pip3 install seaborn numpy matplotlib
-RUN pip3 install stable-baselines3[extra]
+ENTRYPOINT ["/bin/sh", "-c"]
 
-## RUN python3 -m pip install -r requirements.txt
-## RUN python3 -m pip install pyglet==1.5.15
-##RUN pip install stable-baselines3
-
-##RUN python3 -m pip install stable-baselines3 
-##RUN apt-get install python-pyglet -y
-## RUN python3 -m pip install gym
-## RUN python3 -m pip install seaborn
-
-
-WORKDIR "/home/duckietown/src"
-
-RUN Xvfb :0 -screen 0 1024x768x24 -ac +extension GLX +render -noreset &> xvfb.log &
-RUN export DISPLAY=:0
-
-CMD ["python3", "/home/duckietown/src/train_A2C.py"]
-## CMD ["ls", "/home/duckietown"]
+CMD ["/bin/bash"] 
