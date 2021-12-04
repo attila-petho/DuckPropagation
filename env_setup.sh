@@ -5,8 +5,7 @@ echo ""
 echo "--------------------------------------------"
 echo "|      Creating virtual environment        |"
 echo "--------------------------------------------"
-python3 -m venv .dt_gym
-source .dt_gym/bin/activate
+conda env create -f env_setup.yml
 
 echo "--------------------------------------------"
 echo "|         Cloning gym-duckietown           |"
@@ -17,25 +16,18 @@ echo ""
 echo "--------------------------------------------"
 echo "|        Installing gym-duckietown         |"
 echo "--------------------------------------------"
-pip3 install --upgrade pip
-pip3 install -e gym-duckietown 
-
-echo "--------------------------------------------"
-echo "|         Installing dependencies          |"
-echo "--------------------------------------------"
-pip3 install stable-baselines3[extra]
-pip3 install seaborn
-# TODO
+conda run -vn dtgym pip3 install --upgrade pip
+conda run -vn dtgym pip3 install -e gym-duckietown 
 
 echo "--------------------------------------------"
 echo "
 | To activate this environment, use        |
 |                                          | 
-|     $ source .dt_gym/bin/activate        |
+|     $ conda activate dtgym               |
 |                                          |
 | To deactivate an active environment, use |
 |                                          |
-|     $ deactivate                         |
+|     $ conda deactivate                   |
 "
 echo "--------------------------------------------"
 echo "|            Setup successful              |"
