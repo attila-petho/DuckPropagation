@@ -5,6 +5,7 @@ src/__pycache__
 src/utils/__pycache__/
 src/train_TQC.py
 .dt_gym/
+.dtgym
 gym-duckietown/
 models/small_loop/A2C/checkpoints/
 models/small_loop/PPO/checkpoints/

@@ -1,16 +1,9 @@
 FROM ufoym/deepo:pytorch-py36-cu90
+# TODO: try a duckietown base
 
-RUN rm -rf /$HOME/DuckPropagation
+WORKDIR /DuckPropagation
 
-WORKDIR /$HOME/DuckPropagation
-
-COPY src/* $HOME/DuckPropagation/src/
-COPY models/* $HOME/DuckPropagation/models/
-COPY tensorboard/* $HOME/DuckPropagation/src/
-COPY logs/* $HOME/DuckPropagation/logs/
-COPY env_setup.sh $HOME/DuckPropagation/
-COPY env.yml/* $HOME/DuckPropagation/
-
+# Install deps and create env
 
 RUN python -m pip install --upgrade pip
 
@@ -32,6 +25,15 @@ RUN pip install librosa && \
 	rm -rf /var/lib/apt/lists/*
 
 RUN apt-get update && apt-get install -y --no-install-recommends screen
+
+COPY src/* ./src
+COPY models/* ./models
+COPY tensorboard/* ./tensorboard
+COPY logs/* ./logs
+COPY env_setup.sh ./
+COPY env.yml/* ./
+
+# Set up port for Tensorboard
 
 ENTRYPOINT ["/bin/sh", "-c"]
 
