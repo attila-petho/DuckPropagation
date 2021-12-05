@@ -2,4 +2,9 @@ Dockerfile
 
 .idea
 .vscode
-
+gym-duckietown
+.git
+.gitignore
+LICENSE
+README.md
+src/images
