@@ -2,6 +2,8 @@ import optuna
 from torch import nn as nn
 from typing import Any, Dict, Union, Callable
 
+# help: https://github.com/DLR-RM/rl-baselines3-zoo/blob/847052c6f33fc4ca576c36da1b77cd24ea304404/utils/hyperparams_opt.py
+
 def sample_ppo_params(trial: optuna.Trial) -> Dict[str, Any]:
     """
     Sampler for PPO hyperparams.

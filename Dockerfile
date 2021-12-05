@@ -17,6 +17,7 @@ RUN set -xe \
 	&& apt-get install -y libglfw3-dev libgles2-mesa-dev pkg-config libfontconfig1-dev
 
 # TODO: continue: https://github.com/duckietown/gym-duckietown/issues/160
+# + REDUNDANT PACKAGES!
 
 RUN apt apt install xvfb
 	
