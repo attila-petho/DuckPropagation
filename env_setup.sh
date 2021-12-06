@@ -17,7 +17,9 @@ echo "--------------------------------------------"
 echo "|        Installing gym-duckietown         |"
 echo "--------------------------------------------"
 conda run -vn dtgym pip3 install --upgrade pip
-conda run -vn dtgym pip3 install -e gym-duckietown 
+conda run -vn dtgym pip3 install -e gym-duckietown
+
+echo "logger.setLevel('WARNING')" >> ./gym-duckietown/src/gym_duckietown/__init__.py
 
 echo "--------------------------------------------"
 echo "

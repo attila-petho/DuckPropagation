@@ -55,8 +55,8 @@ def optimize_agent(trial):
 if __name__ == "__main__":      # TODO: add sampler, pruner, return the hyperparams
     os.chdir(os.path.dirname(os.path.abspath(__file__)))
     study_name = "PPO_optimize_hparams_study_1"
-    sampler = TPESampler(n_startup_trials=self.n_startup_trials, seed=self.seed)
-    pruner = MedianPruner(n_startup_trials=self.n_startup_trials, n_warmup_steps=self.n_evaluations // 3)
+    sampler = TPESampler(n_startup_trials=self.n_startup_trials, seed=self.seed)                                # TODO: THESE ARE DEFINITELY NOT GOOD!
+    pruner = MedianPruner(n_startup_trials=self.n_startup_trials, n_warmup_steps=self.n_evaluations // 3)       # TODO: THESE ARE DEFINITELY NOT GOOD!
     print(f"Sampler: {sampler} - Pruner: {pruner}")
     study = optuna.create_study(sampler=sampler, pruner=pruner, direction='maximize')
     try:
