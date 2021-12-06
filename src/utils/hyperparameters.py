@@ -1,10 +1,12 @@
 import optuna
 from torch import nn as nn
-from typing import Any, Dict, Union, Callable
+from typing import Any, Dict, Union, Callable, Optional
+from stable_baselines3.common.callbacks import EvalCallback
+from stable_baselines3.common.vec_env import VecEnv
 
 # help: https://github.com/DLR-RM/rl-baselines3-zoo/blob/847052c6f33fc4ca576c36da1b77cd24ea304404/utils/hyperparams_opt.py
 
-def optimize_ppo(trial: optuna.Trial):
+def sample_ppo(trial: optuna.Trial):
     """
     Learning hyperparamters we want to optimize
     """
@@ -165,3 +167,47 @@ def linear_schedule(initial_value: Union[float, str]) -> Callable[[float], float
         return progress_remaining * initial_value
 
     return func
+
+
+class TrialEvalCallback(EvalCallback):
+    """
+    Callback used for evaluating and reporting a trial.
+    """
+
+    def __init__(
+        self,
+        eval_env: VecEnv,
+        trial: optuna.Trial,
+        n_eval_episodes: int = 3,
+        eval_freq: int = 10000,
+        deterministic: bool = True,
+        verbose: int = 0,
+        best_model_save_path: Optional[str] = None,
+        log_path: Optional[str] = None,
+    ):
+
+        super(TrialEvalCallback, self).__init__(
+            eval_env=eval_env,
+            n_eval_episodes=n_eval_episodes,
+            eval_freq=eval_freq,
+            deterministic=deterministic,
+            verbose=verbose,
+            best_model_save_path=best_model_save_path,
+            log_path=log_path,
+        )
+        self.trial = trial
+        self.eval_idx = 0
+        self.is_pruned = False
+
+    def _on_step(self) -> bool:
+        if self.eval_freq > 0 and self.n_calls % self.eval_freq == 0:
+            super(TrialEvalCallback, self)._on_step()
+            self.eval_idx += 1
+            # report best or report current ?
+            # report num_timesteps or elasped time ?
+            self.trial.report(self.last_mean_reward, self.eval_idx)
+            # Prune trial if need
+            if self.trial.should_prune():
+                self.is_pruned = True
+                return False
+        return True
