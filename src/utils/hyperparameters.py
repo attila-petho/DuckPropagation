@@ -4,6 +4,18 @@ from typing import Any, Dict, Union, Callable
 
 # help: https://github.com/DLR-RM/rl-baselines3-zoo/blob/847052c6f33fc4ca576c36da1b77cd24ea304404/utils/hyperparams_opt.py
 
+def optimize_ppo(trial: optuna.Trial):
+    """
+    Learning hyperparamters we want to optimize
+    """
+    return {
+        'batch_size' : trial.suggest_categorical("batch_size", [8, 16, 32, 64, 128, 256, 512]),
+        'n_steps': int(trial.suggest_loguniform('n_steps', 16, 2048)),
+        'learning_rate': trial.suggest_loguniform('learning_rate', 1e-5, 1.),
+        'ent_coef': trial.suggest_loguniform('ent_coef', 1e-8, 1e-1),
+        'clip_range': trial.suggest_uniform('cliprange', 0.1, 0.4)
+    }
+
 def sample_ppo_params(trial: optuna.Trial) -> Dict[str, Any]:
     """
     Sampler for PPO hyperparams.
