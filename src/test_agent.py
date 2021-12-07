@@ -102,3 +102,5 @@ print("\nAverage episode length over %d steps: %.2f" % (maxsteps, (sum(episode_l
 #print(f"episode_rewards: {episode_lengths}")
 
 env.close()
+
+del model, env

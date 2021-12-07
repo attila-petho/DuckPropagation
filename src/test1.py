@@ -43,6 +43,8 @@ for step in range(5):
 
 env.close()
 
+del env
+
 timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
 for img in range(len(images)):
     ftype = ".jpg"    

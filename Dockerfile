@@ -19,15 +19,13 @@ RUN set -xe \
 # TODO: continue: https://github.com/duckietown/gym-duckietown/issues/160
 # + REDUNDANT PACKAGES!
 
-RUN apt apt install xvfb
+RUN apt install -y xvfb
 	
 RUN pip3 install --upgrade pip
 
 RUN pip3 install librosa && \
 	pip3 install unidecode &&\
 	pip3 install inflect && \
-	pip3 install tensorboardX &&\
-	pip3 install tensorflow-gpu &&\ 
 	pip3 install matplotlib==3.5.0 &&\
 	pip3 install torch==1.10.0 &&\
 	pip3 install inflect &&\
@@ -39,6 +37,8 @@ RUN pip3 install librosa && \
     htop \
 	mc  && \
 	rm -rf /var/lib/apt/lists/*
+	#pip3 install tensorboardX &&\
+	#pip3 install tensorflow-gpu &&\ 
 
 RUN apt-get update && apt-get install -y --no-install-recommends screen
 

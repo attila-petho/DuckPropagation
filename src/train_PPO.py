@@ -63,9 +63,13 @@ model.learn(
         )
 
 # Save trained model
-model.save(f"../models/{map_name}/PPO/PPO_{steps}steps_lr{LR}_{color}_FS{FS}_DR{domain_rand}_heading")
+save_path = f"../models/{map_name}/A2C/A2C_{steps}steps_lr{LR}_{color}_FS{FS}_DR{domain_rand}_heading_norm"
+model.save(save_path)
 env.close()
 
 # Print training time
 end = timer()
 print(f"\nThe trained model is ready.\n\nElapsed Time: {int((end-start)/60)} mins\n")
+print(f"Saved model to:\t{save_path}.zip\nEnjoy!")
+
+del model, env

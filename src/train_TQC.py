@@ -4,7 +4,7 @@ from gym_duckietown.simulator import Simulator
 from sb3_contrib import TQC
 from stable_baselines3.common.callbacks import CheckpointCallback
 from stable_baselines3.common.monitor import Monitor
-from wrappers import *
+from utils.env import make_env
 from timeit import default_timer as timer
 
 
@@ -90,9 +90,13 @@ model.learn(
         )
 
 # Save trained model
-model.save(f"../models/{map_name}/TQC/TQC_{steps}steps_lr{LR}_{color}_FS{FS}_DR")
+save_path = f"../models/{map_name}/A2C/A2C_{steps}steps_lr{LR}_{color}_FS{FS}_DR{domain_rand}_heading_norm"
+model.save(save_path)
 env.close()
 
 # Print training time
 end = timer()
 print(f"\nThe trained model is ready.\n\nElapsed Time: {int((end-start)/60)} mins\n")
+print(f"Saved model to:\t{save_path}.zip\nEnjoy!")
+
+del model, env
