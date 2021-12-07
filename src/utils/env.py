@@ -3,6 +3,7 @@ from gym_duckietown.simulator import Simulator
 from stable_baselines3.common.monitor import Monitor
 from utils.wrappers import *
 from stable_baselines3.common.env_checker import check_env
+from stable_baselines3.common.vec_env import DummyVecEnv, VecTransposeImage
 
 def make_env(map_name, log_dir, seed=123, domain_rand=1, color_segment=False, FS=3, action_wrapper="heading"):
     env = Simulator(
@@ -35,6 +36,8 @@ def make_env(map_name, log_dir, seed=123, domain_rand=1, color_segment=False, FS
             print("Invalid action wrapper. Using default actions.")
     env = DtRewardPosAngle(env)
     env = DtRewardVelocity(env)
+#    env = DummyVecEnv([lambda: env])
+#    env = VecTransposeImage(env)
     return env
 
 if __name__ == '__main__':

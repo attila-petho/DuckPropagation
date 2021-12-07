@@ -24,7 +24,7 @@ def sample_ppo_params(trial: optuna.Trial) -> Dict[str, Any]:
     """
     lr_schedule = trial.suggest_categorical("lr_schedule", ["linear", "constant"])
     learning_rate = trial.suggest_loguniform("learning_rate", 1e-5, 1)
-    batch_size = trial.suggest_categorical("batch_size", [8, 16, 32, 64, 128, 256])
+    batch_size = trial.suggest_categorical("batch_size", [8, 16, 32, 64, 128])
     n_steps = trial.suggest_categorical("n_steps", [8, 16, 32, 64, 128, 256, 512, 1024, 2048])
     ent_coef = trial.suggest_loguniform("ent_coef", 0.00000001, 0.1)
     clip_range = trial.suggest_categorical("clip_range", [0.1, 0.2, 0.3, 0.4])
@@ -183,6 +183,7 @@ class TrialEvalCallback(EvalCallback):
     def _on_step(self) -> bool:
         if self.eval_freq > 0 and self.n_calls % self.eval_freq == 0:
             super(TrialEvalCallback, self)._on_step()
+            print("TrialEvalCallback...")
             self.eval_idx += 1
             # report best or report current ?
             # report num_timesteps or elasped time ?

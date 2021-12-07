@@ -1,4 +1,6 @@
 import os
+import torch
+import datetime
 from logging import log
 import optuna
 from optuna.trial import TrialState
@@ -9,17 +11,18 @@ from stable_baselines3 import PPO
 from stable_baselines3.common.evaluation import evaluate_policy
 from stable_baselines3.common.cmd_util import make_vec_env
 
-from utils.hyperparameters import sample_ppo, TrialEvalCallback
+from utils.hyperparameters import sample_ppo, sample_ppo_params, TrialEvalCallback
 from utils.env import make_env
+from stable_baselines3.common.vec_env import DummyVecEnv
 
 
 def optimize_agent(trial):
     """ 
     Train the model and optimize
     """
-    model_hparams = sample_ppo(trial)
+    model_hparams = sample_ppo_params(trial)
     env = make_vec_env(lambda: make_env(map_name="zigzag_dists", log_dir="../logs/zigzag_dists/PPO_log/"), n_envs=8, seed=0)
-    eval_env = make_vec_env(lambda: make_env(map_name="zigzag_dists", log_dir="../logs/zigzag_dists/PPO_log/eval"), n_envs=8)
+    eval_env = make_vec_env([lambda: make_env(map_name="zigzag_dists", log_dir="../logs/zigzag_dists/PPO_log/eval", n_envs=1, seed=1234)])     # make it wrapped the same as "env" BUT WITH n_envs=1 !!!
     model = PPO('CnnPolicy', env, verbose=1, **model_hparams)
     
     eval_callback = TrialEvalCallback(
@@ -34,7 +37,8 @@ def optimize_agent(trial):
     
     try:
         model.learn(50000, callback=eval_callback)                                    # TODO: should be 50k
-        mean_reward, _ = evaluate_policy(model, eval_env, n_eval_episodes=3)
+        with torch.no_grad():                                                         #Context-manager that disables gradient calculation
+            mean_reward, _ = evaluate_policy(model, eval_env, n_eval_episodes=5)
         env.close()
         eval_env.close()
     except (AssertionError, ValueError) as e:
@@ -53,6 +57,8 @@ def optimize_agent(trial):
     
     del model.env, eval_env
     del model
+    #torch.cuda.empty_cache()       # only try this if nothing else works (very expensive)
+    torch.cuda.synchronize()
 
     if is_pruned:
         raise optuna.exceptions.TrialPruned()
@@ -61,12 +67,13 @@ def optimize_agent(trial):
 
 if __name__ == "__main__":
     os.chdir(os.path.dirname(os.path.abspath(__file__)))
-    study_name = "PPO_optimize_hparams_study_1"
+    time_now  = datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S') 
+    study_name = f"PPO_optimize_hparams_study_1_{time_now}"
     sampler = TPESampler(n_startup_trials=0, seed=123)
-    pruner = MedianPruner(n_startup_trials=0, n_warmup_steps=0)
+    pruner = MedianPruner(n_startup_trials=2, n_warmup_steps=0)
     print("\nOptimizing agents...\n")
     print(f"Sampler: {sampler} - Pruner: {pruner}")
-    study = optuna.create_study(sampler=sampler, pruner=pruner, direction='maximize')
+    study = optuna.create_study(study_name=study_name, sampler=sampler, pruner=pruner, direction='maximize')
     try:
         study.optimize(optimize_agent, n_trials=100)     # if memory usage is too high use: gc_after_trial=True
 
@@ -93,8 +100,8 @@ if __name__ == "__main__":
         print("    {}: {}".format(key, value))
     
     # save hyperparams
-    with open('PPO_optimization-log.csv', 'w') as csv_file:
+    with open('../hyperparameters/PPO_optimization-log.csv', 'w') as csv_file:
         for key, value in besttrial.params.items():
             csv_file.write('Optimized PPO hyperparameters' + ';')
-            csv_file.write(key + ';' + value)
+            csv_file.write(key + ';' + str(value))
     print("\nLogfile saved.")
