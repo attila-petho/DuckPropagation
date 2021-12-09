@@ -32,7 +32,7 @@ def optimize_agent(trial):
             best_model_save_path=None,
             log_path="../logs/zigzag_dists/A2C_log/eval",
             n_eval_episodes=3,
-            eval_freq=1000/4,      # have to divide with number of parallel envs
+            eval_freq=10000/4,      # have to divide with number of parallel envs
             deterministic=True
         )
     
