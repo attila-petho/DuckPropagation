@@ -124,8 +124,7 @@ if __name__ == "__main__":
     with open('../hyperparameters/PPO_optimization-log.csv', 'a') as csv_file:
         csv_file.write('\n')
         csv_file.write('Optimized PPO hyperparameters' + ';\n')
-        csv_file.write('Trial number' + str(besttrial.number) + ';\n')
+        csv_file.write('Trial number;' + str(besttrial.number) + '\n')
         for key, value in besttrial.params.items():
             csv_file.write(key + ';' + str(value) + '\n')
     print("\nLogfile saved.")
-    
