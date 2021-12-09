@@ -124,7 +124,8 @@ if __name__ == "__main__":
     with open('../hyperparameters/A2C_optimization-log.csv', 'a') as csv_file:
         csv_file.write('\n')
         csv_file.write('Optimized A2C hyperparameters' + ';\n')
-        csv_file.write('Trial number' + besttrial.number + ';\n')
+        csv_file.write('Trial number' + str(besttrial.number) + ';\n')
         for key, value in besttrial.params.items():
             csv_file.write(key + ';' + str(value) + '\n')
     print("\nLogfile saved.")
+    

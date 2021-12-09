@@ -90,6 +90,10 @@ if __name__ == "__main__":
     pruner = MedianPruner(n_startup_trials=2, n_warmup_steps=0)
     print("\nOptimizing agents...\n")
     print(f"Sampler: {sampler} - Pruner: {pruner}")
+
+    with open('../hyperparameters/PPO_optimization-log.csv', 'w') as csv_file:
+        csv_file.write('Study:;' + study_name + ';\n')
+
     study = optuna.create_study(study_name=study_name, sampler=sampler, pruner=pruner, direction='maximize')
     try:
         study.optimize(optimize_agent, n_trials=100, gc_after_trial=True)     # if memory usage is too high use: gc_after_trial=True
@@ -120,7 +124,8 @@ if __name__ == "__main__":
     with open('../hyperparameters/PPO_optimization-log.csv', 'a') as csv_file:
         csv_file.write('\n')
         csv_file.write('Optimized PPO hyperparameters' + ';\n')
-        csv_file.write('Trial number' + besttrial.number + ';\n')
+        csv_file.write('Trial number' + str(besttrial.number) + ';\n')
         for key, value in besttrial.params.items():
             csv_file.write(key + ';' + str(value) + '\n')
     print("\nLogfile saved.")
+    
