@@ -7,7 +7,7 @@ from timeit import default_timer as timer
 
 # Arguments
 map_name        = "zigzag_dists"        # map used for training
-steps           = "1e6"                 # train for 1M steps
+steps           = "1e4"                 # train for 1M steps
 LR              = "5e-4"                # Learning Rate: 0.0005
 FS              = 3                     # Frames to stack
 color_segment   = False                 # Use color segmentation or grayscale images

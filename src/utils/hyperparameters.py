@@ -24,7 +24,7 @@ def sample_ppo_params(trial: optuna.Trial) -> Dict[str, Any]:
     """
     lr_schedule = trial.suggest_categorical("lr_schedule", ["linear", "constant"])
     learning_rate = trial.suggest_loguniform("learning_rate", 1e-5, 1)
-    batch_size = trial.suggest_categorical("batch_size", [8, 16, 32, 64, 128])
+    batch_size = trial.suggest_categorical("batch_size", [8, 16, 32, 64, 128, 256])
     n_steps = trial.suggest_categorical("n_steps", [8, 16, 32, 64, 128, 256, 512, 1024, 2048])
     ent_coef = trial.suggest_loguniform("ent_coef", 0.00000001, 0.1)
     clip_range = trial.suggest_categorical("clip_range", [0.1, 0.2, 0.3, 0.4])
@@ -32,7 +32,8 @@ def sample_ppo_params(trial: optuna.Trial) -> Dict[str, Any]:
     gae_lambda = trial.suggest_categorical("gae_lambda", [0.8, 0.9, 0.92, 0.95, 0.98, 0.99, 1.0])
     max_grad_norm = trial.suggest_categorical("max_grad_norm", [0.3, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 2, 5])
     vf_coef = trial.suggest_uniform("vf_coef", 0, 1)
-    net_arch = trial.suggest_categorical("net_arch", ["small", "medium"])
+    # Uncomment for network architecture setting
+    #net_arch = trial.suggest_categorical("net_arch", ["small", "medium"])
     # Uncomment for gSDE (continuous actions)
     #log_std_init = trial.suggest_uniform("log_std_init", -4, 1)
     # Uncomment for gSDE (continuous action)
@@ -52,10 +53,10 @@ def sample_ppo_params(trial: optuna.Trial) -> Dict[str, Any]:
 
     # Independent networks usually work best
     # when not working with images
-    net_arch = {
-        "small": [dict(pi=[64, 64], vf=[64, 64])],
-        "medium": [dict(pi=[256, 256], vf=[256, 256])],
-    }[net_arch]
+    # net_arch = {
+    #     "small": [dict(pi=[64, 64], vf=[64, 64])],
+    #     "medium": [dict(pi=[256, 256], vf=[256, 256])],
+    # }[net_arch]
 
     activation_fn = {"tanh": nn.Tanh, "relu": nn.ReLU, "elu": nn.ELU, "leaky_relu": nn.LeakyReLU}[activation_fn]
 
@@ -72,8 +73,8 @@ def sample_ppo_params(trial: optuna.Trial) -> Dict[str, Any]:
         # "sde_sample_freq": sde_sample_freq,
         "policy_kwargs": dict(
             #log_std_init=log_std_init,
-            net_arch=net_arch,
-            activation_fn=activation_fn,
+            #net_arch=net_arch,
+            activation_fn=activation_fn
             #ortho_init=ortho_init,
         ),
     }
@@ -95,8 +96,9 @@ def sample_a2c_params(trial: optuna.Trial) -> Dict[str, Any]:
     use_rms_prop = trial.suggest_categorical("use_rms_prop", [False, True])
     # Uncomment for gSDE (continuous actions)
     #log_std_init = trial.suggest_uniform("log_std_init", -4, 1)
-    ortho_init = trial.suggest_categorical("ortho_init", [False, True])
-    net_arch = trial.suggest_categorical("net_arch", ["small", "medium"])
+    #ortho_init = trial.suggest_categorical("ortho_init", [False, True])
+    # Uncomment for network architecture setting
+    #net_arch = trial.suggest_categorical("net_arch", ["small", "medium"])
     # sde_net_arch = trial.suggest_categorical("sde_net_arch", [None, "tiny", "small"])
     # full_std = trial.suggest_categorical("full_std", [False, True])
     # activation_fn = trial.suggest_categorical('activation_fn', ['tanh', 'relu', 'elu', 'leaky_relu'])
@@ -105,10 +107,10 @@ def sample_a2c_params(trial: optuna.Trial) -> Dict[str, Any]:
     if lr_schedule == "linear":
         learning_rate = linear_schedule(learning_rate)
 
-    net_arch = {
-        "small": [dict(pi=[64, 64], vf=[64, 64])],
-        "medium": [dict(pi=[256, 256], vf=[256, 256])],
-    }[net_arch]
+    # net_arch = {
+    #     "small": [dict(pi=[64, 64], vf=[64, 64])],
+    #     "medium": [dict(pi=[256, 256], vf=[256, 256])],
+    # }[net_arch]
 
     activation_fn = {"tanh": nn.Tanh, "relu": nn.ReLU, "elu": nn.ELU, "leaky_relu": nn.LeakyReLU}[activation_fn]
 
@@ -123,8 +125,8 @@ def sample_a2c_params(trial: optuna.Trial) -> Dict[str, Any]:
         "normalize_advantage": normalize_advantage,
         "policy_kwargs": dict(
             #log_std_init=log_std_init,
-            net_arch=net_arch,
-            activation_fn=activation_fn,
+            #net_arch=net_arch,
+            activation_fn=activation_fn
             #ortho_init=ortho_init,
         ),
     }

@@ -31,3 +31,4 @@ logs/
 images/
 models/zigzag_dists/PPO/PPO_1e4steps_lr5e-4_GrayS_FS3_DR1_heading_norm.zip
 dtgym/
+tensorboard/zigzag_dists/PPO_1e4steps_lr5e-4_GrayS_FS3_DR1_heading_1

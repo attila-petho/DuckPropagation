@@ -8,11 +8,11 @@ from optuna.trial import TrialState
 from optuna.pruners import MedianPruner
 from optuna.samplers import TPESampler
 
-from stable_baselines3 import PPO
+from stable_baselines3 import A2C
 from stable_baselines3.common.evaluation import evaluate_policy
 from stable_baselines3.common.cmd_util import make_vec_env
 
-from utils.hyperparameters import sample_ppo, sample_ppo_params, TrialEvalCallback
+from utils.hyperparameters import sample_a2c_params, TrialEvalCallback
 from utils.env import make_env
 from stable_baselines3.common.vec_env import DummyVecEnv
 
@@ -21,18 +21,18 @@ def optimize_agent(trial):
     """ 
     Train the model and optimize
     """
-    model_hparams = sample_ppo_params(trial)
-    env = make_vec_env(lambda: make_env(map_name="zigzag_dists", log_dir="../logs/zigzag_dists/PPO_log/"), n_envs=4, seed=0)
-    eval_env = make_vec_env(lambda: make_env(map_name="zigzag_dists", log_dir="../logs/zigzag_dists/PPO_log/eval"), n_envs=1, seed=1234)     # make it wrapped the same as "env" BUT WITH n_envs=1 !!!
-    model = PPO('CnnPolicy', env, verbose=1, **model_hparams)
+    model_hparams = sample_a2c_params(trial)
+    env = make_vec_env(lambda: make_env(map_name="zigzag_dists", log_dir="../logs/zigzag_dists/A2C_log/"), n_envs=4, seed=0)
+    eval_env = make_vec_env(lambda: make_env(map_name="zigzag_dists", log_dir="../logs/zigzag_dists/A2C_log/eval"), n_envs=1, seed=1234)     # make it wrapped the same as "env" BUT WITH n_envs=1 !!!
+    model = A2C('CnnPolicy', env, verbose=1, **model_hparams)
     
     eval_callback = TrialEvalCallback(
             eval_env,
             trial,
             best_model_save_path=None,
-            log_path="../logs/zigzag_dists/PPO_log/eval",
+            log_path="../logs/zigzag_dists/A2C_log/eval",
             n_eval_episodes=3,
-            eval_freq=10000/4,      # have to divide with number of parallel envs
+            eval_freq=1000/4,      # have to divide with number of parallel envs
             deterministic=True
         )
     
@@ -66,7 +66,7 @@ def optimize_agent(trial):
         raise optuna.exceptions.TrialPruned()
     
     # Write trial logs to csv
-    with open('../hyperparameters/PPO_optimization-log.csv', 'a') as csv_file:
+    with open('../hyperparameters/A2C_optimization-log.csv', 'a') as csv_file:
         csv_file.write('Trial Number ' + str(trial.number) + ' hyperparameters' + ';\n')
         for key, value in trial.params.items():
             csv_file.write(key + ';' + str(value) + '\n')
@@ -85,11 +85,15 @@ def optimize_agent(trial):
 if __name__ == "__main__":
     os.chdir(os.path.dirname(os.path.abspath(__file__)))
     time_now  = datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S') 
-    study_name = f"PPO_optimize_hparams_study_1_{time_now}"
+    study_name = f"A2C_optimize_hparams_study_1_{time_now}"
     sampler = TPESampler(n_startup_trials=0, seed=123)
     pruner = MedianPruner(n_startup_trials=2, n_warmup_steps=0)
     print("\nOptimizing agents...\n")
     print(f"Sampler: {sampler} - Pruner: {pruner}")
+
+    with open('../hyperparameters/A2C_optimization-log.csv', 'w') as csv_file:
+        csv_file.write('Study:;' + study_name + ';\n')
+
     study = optuna.create_study(study_name=study_name, sampler=sampler, pruner=pruner, direction='maximize')
     try:
         study.optimize(optimize_agent, n_trials=100, gc_after_trial=True)     # if memory usage is too high use: gc_after_trial=True
@@ -117,9 +121,9 @@ if __name__ == "__main__":
         print("    {}: {}".format(key, value))
     
     # save best hyperparams
-    with open('../hyperparameters/PPO_optimization-log.csv', 'a') as csv_file:
+    with open('../hyperparameters/A2C_optimization-log.csv', 'a') as csv_file:
         csv_file.write('\n')
-        csv_file.write('Optimized PPO hyperparameters' + ';\n')
+        csv_file.write('Optimized A2C hyperparameters' + ';\n')
         csv_file.write('Trial number' + besttrial.number + ';\n')
         for key, value in besttrial.params.items():
             csv_file.write(key + ';' + str(value) + '\n')

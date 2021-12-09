@@ -9,7 +9,7 @@ def make_env(map_name, log_dir, seed=123, domain_rand=1, color_segment=False, FS
     env = Simulator(
             seed=seed,                      # random seed
             map_name=map_name,
-            max_steps=501,                  # we don't want the gym to reset itself
+            max_steps=500,                  # we don't want the gym to reset itself
             domain_rand=domain_rand,
             camera_width=640,
             camera_height=480,
