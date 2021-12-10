@@ -79,11 +79,11 @@ In order to conquer these challenges, autonomous driving agents are first traine
 
 \section{\large{Introduction}}
 
-Self driving vehicles are clearly the future of transportation. If you look at waymo's  (https://waymo.com/safety/) safety report you can see two things. First its obvious that it's more safe than a human driven vehicle. The other thing which makes development hard is the amount of data needed for the training of the AI.
+Self driving vehicles are clearly the future of transportation. If you look at waymo's \cite{waymo}  safety report you can see two things. First it is obvious that AI driven vehicles are more safe than a human driven ones. The other thing which makes development hard is the amount of data needed for the training of the AI. 
+The report mentions that the AI used in the cars have learned from over 20 million driven miles. It is quite big number and an astounding achievement given the fact that the car fleet only had 8 bigger accident during this time. The report shows that all accident had a similar cause, human error. In three times the car was stationary and someone ran into it. I think it shows the potential of self driving vehicles.
 
-\bigbreak
-
-Duckietown has started in a class at MIT in 2016. Duckietown has grown so much since then, it's now a worldwide initiative to learn AI and robotics.
+For us 20 million miles driven seems a lot, but to train well an AI its not that much. This is the reason waymo chosen to train its AI in simulation as well. The driven mile is the simulation were 20 billion. That means in order to archive better results using a simulator is a good idea. Duckietown provides an excellent learning ground for those who want to understand the theory of reinforced learning, and apply the theory in real environment. 
+It has started in a class at MIT in 2016. Duckietown has grown so much since then, it's now a worldwide initiative to learn AI and robotics. Our goal was to deep dive into the world of reinforced learning and develop efficient learning strategies for our duckiebots. 
 
 \section{\large{Installation}}
 
@@ -107,10 +107,14 @@ After that you need to run the script that sets up the environment:
 
 \subsection{\normalsize{RL}}
 
+Reinforced learning differs from other machine learning techniques. It can't be put in supervised or unsupervised learning instead it creates its own separate category in machine learning. The reinforced learning model consist of two important element, the environment and the agent (Figure \ref{fig:statemachin}). The goal is simple, the agent have a predefined task in the environment and must complete it through actions. To archive its goal the agent have to do a three-step process: the agent interacts with the environment, the agent evaluates its behavior, and the agent improves its responses \cite{dlr_book}.
+
+
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.8\linewidth]{rl.jpg}
 	\caption{Illustration of Reinforcement Learning}
+	\label{fig:statemachin}
 \end{figure}
 
 \subsection{\normalsize{A2C, PPO algorithms}}
@@ -134,7 +138,7 @@ We have to preprocess this image, because feeding the original images to the CNN
 \subsubsection{\normalsize{Observations}}
 In this section we will present our environment wrappers which return the observations.
 \textbullet  \textbf{ResizeFrame}\\
-With this wrapper we are downscaling the images from their original size (480x640x3) to (84x84x3). The smaller dimension makes the training of the neural network faster, and it still carries enough information for efficient training.\\
+With this wrapper we are downscaling the images from their original size (480x640x3) \cite{kalap} to (84x84x3). The smaller dimension makes the training of the neural network faster, and it still carries enough information for efficient training.\\
 \textbullet  \textbf{CropFrame}\\
 In this wrapper we are cropping the useless information from the image, in our case it's the part above the horizon.\\
 \begin{figure}[h!]
@@ -172,12 +176,10 @@ For better quality in training and more information we are concatenating the las
 
 \section{\large{Conclusion}}
 
-\section*{References}
 
-\small
-
-[1] András Kalapos, Csaba Gór, Róbert Moni and István Harmati. "Sim-to-real reinforcement learning applied to end-to-end vehicle control" arXiv:2012.07461
-(2020) (\url{https://github.com/kaland313/Duckietown-RL})
+\bibliography{bib}
+%\addcontentsline{toc}{chapter}{Irodalomjegyzék}
+\bibliographystyle{plain}
 
 
 \end{document}
