@@ -1,7 +1,8 @@
 \documentclass{article}
 
 % if you need to pass options to natbib, use, e.g.:
-% \PassOptionsToPackage{numbers, compress}{natbib}
+%Enélkül rossz a referencia szamozas!!!!!
+\PassOptionsToPackage{square,sort,comma,numbers}{natbib}
 % before loading nips_2016
 %
 % to avoid loading the natbib package, add option nonatbib:
@@ -22,6 +23,7 @@
 \usepackage{nicefrac}       % compact symbols for 1/2, etc.
 \usepackage{microtype}      % microtypography
 \usepackage{graphicx}	%inserting images
+
 
 \title{Self-driving vehicle in Duckietown environment\\
 	\large Duckpropagation }
@@ -107,7 +109,7 @@ After that you need to run the script that sets up the environment:
 
 \subsection{\normalsize{RL}}
 
-Reinforced learning differs from other machine learning techniques. It can't be put in supervised or unsupervised learning instead it creates its own separate category in machine learning. The reinforced learning model consist of two important element, the environment and the agent (Figure \ref{fig:statemachin}). The goal is simple, the agent have a predefined task in the environment and must complete it through actions. To archive its goal the agent have to do a three-step process: the agent interacts with the environment, the agent evaluates its behavior, and the agent improves its responses \cite{dlr_book}.
+Reinforced learning differs from other machine learning techniques. It can't be put in supervised or unsupervised learning instead it creates its own separate category in machine learning. The reinforced learning model consist of two important element, the environment and the agent (Figure \ref{fig:statemachin}). The environment can be defined as everything that is not the agent and have no total control over it. The environment can be represented mathematically by a set of variables that define each state of the system. The set of all states called state spaces. The agent don't have full access to the state space, it can see only a part of it which is called observation. The agent can modify the current state through actions. The environment reacts to the action with potential state change and a reward.
 
 
 \begin{figure}[h!]
@@ -117,7 +119,11 @@ Reinforced learning differs from other machine learning techniques. It can't be 
 	\label{fig:statemachin}
 \end{figure}
 
+The goal is simple, the agent have a predefined task in the environment and must complete it through actions. To archive its goal the agent have to do a three-step process: the agent interacts with the environment, the agent evaluates its behavior, and the agent improves its responses \cite{dlr_book}. The evaluation is based on the previous rewards and the observations. The hardest part is the underlying algorithm in the agent which maps the observation and the rewards to a goal archiving action.
+
 \subsection{\normalsize{A2C, PPO algorithms}}
+
+We tried two promising algorithm for the task: A2C and PPO.The implementation of these algorithms were done by the stable baselines library  \cite{stablebase} so we only had to focus on reward and observation shaping.
 
 \subsection{\normalsize{Environment}}
 
@@ -179,7 +185,9 @@ For better quality in training and more information we are concatenating the las
 
 \bibliography{bib}
 %\addcontentsline{toc}{chapter}{Irodalomjegyzék}
-\bibliographystyle{plain}
+%\bibliographystyle{plain}
+\bibliographystyle{ieeetr}
+%\bibliographystyle{unsrt}
 
 
 \end{document}
