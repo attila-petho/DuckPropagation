@@ -8,7 +8,7 @@ from stable_baselines3.common.vec_env import DummyVecEnv, VecTransposeImage
 from stable_baselines3.common.evaluation import evaluate_policy
 from stable_baselines3.common.cmd_util import make_vec_env
 
-algo            = "A2C"                 # name of RL algo
+algo            = "PPO"                 # name of RL algo
 map_name        = "zigzag_dists"        # map used for training
 steps           = "1e6"                 # train for 1M steps
 LR              = "5e-4"                # Learning Rate: 0.0005
@@ -17,7 +17,7 @@ color_segment   = False                 # Use color segmentation or grayscale im
 domain_rand     = 1                     # Domain randomization (0 or 1)
 action_wrapper  = "heading"             # Action Wrapper to use ("heading" or "leftrightbraking")
 n_eval_episodes = 10                    # Number of evaluation episodes
-info            = "optimized"           # Model information (e.g. "optimized", "base", etc.)
+info            = "base"                # Model information (e.g. "optimized", "base", "id_num", etc.)
 
 color = None
 if color_segment:
@@ -26,8 +26,8 @@ else:
         color = "GrayS"
 
 #Load trained model
-#model_name = f"{algo}_{steps}steps_lr{LR}_{color}_FS{FS}_DR{domain_rand}_{action_wrapper}"
-model_name = f"{algo}_2e6steps_GrayS_FS3_DR1_heading_optimized"
+model_name = f"{algo}_{steps}steps_lr{LR}_{color}_FS{FS}_DR{domain_rand}_{action_wrapper}"
+#model_name = f"{algo}_2e6steps_GrayS_FS3_DR1_heading_optimized"
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 save_dir    = f"../models/{map_name}/{algo}/"
 
