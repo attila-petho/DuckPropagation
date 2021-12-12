@@ -38,7 +38,7 @@ def optimize_agent(trial):
     
     try:
         model.learn(50000, callback=eval_callback)                                    # TODO: should be 50k
-        with torch.no_grad():                                                         #Context-manager that disables gradient calculation
+        with torch.no_grad():                                                         # Context-manager that disables gradient calculation
             ep_rewards, ep_lengths = evaluate_policy(model, eval_env, n_eval_episodes=5, return_episode_rewards=True)
         env.close()
         eval_env.close()

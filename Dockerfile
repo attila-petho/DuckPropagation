@@ -59,7 +59,7 @@ RUN conda env create -f /DuckPropagation/env.yml
 SHELL ["/DuckPropagation/miniconda3/bin/conda", "run", "-n", "dtgym", "/bin/bash", "-c"]
 RUN git clone https://github.com/duckietown/gym-duckietown.git
 RUN pip3 install -e gym-duckietown
-RUN echo "logger.setLevel('WARNING')" >> ./gym-duckietown/src/gym_duckietown/__init__.py
+RUN echo "logger.setLevel(""'""WARNING""'"")" >> ./gym-duckietown/src/gym_duckietown/__init__.py
 
 COPY . .
 

@@ -1,8 +1,5 @@
 import os
-import time
-#import pyglet
 import numpy as np
-from statistics import mean
 from gym_duckietown.simulator import Simulator
 from stable_baselines3 import A2C, PPO
 from stable_baselines3.common.monitor import Monitor
@@ -11,54 +8,29 @@ from stable_baselines3.common.vec_env import DummyVecEnv, VecTransposeImage
 from stable_baselines3.common.evaluation import evaluate_policy
 from stable_baselines3.common.cmd_util import make_vec_env
 
-
-
-algo            = "PPO"                 # name of RL algo
-map_name        = "zigzag_dists"       # map used for training
+algo            = "A2C"                 # name of RL algo
+map_name        = "zigzag_dists"        # map used for training
 steps           = "1e6"                 # train for 1M steps
 LR              = "5e-4"                # Learning Rate: 0.0005
 FS              = 3                     # Frames to stack
 color_segment   = False                 # Use color segmentation or grayscale images
 domain_rand     = 1                     # Domain randomization (0 or 1)
-action_wrapper  = "heading"    # Action Wrapper to use ("heading" or "leftrightbraking")
-maxsteps        = 0                   # number of steps to take in the test environment
+action_wrapper  = "heading"             # Action Wrapper to use ("heading" or "leftrightbraking")
+n_eval_episodes = 10                    # Number of evaluation episodes
+info            = "optimized"           # Model information (e.g. "optimized", "base", etc.)
 
 color = None
 if color_segment:
         color = "ColS"
 else:
         color = "GrayS"
-model_name  = f"{algo}_{steps}steps_lr{LR}_{color}_FS{FS}_DR{domain_rand}_{action_wrapper}"
+
+#Load trained model
+#model_name = f"{algo}_{steps}steps_lr{LR}_{color}_FS{FS}_DR{domain_rand}_{action_wrapper}"
+model_name = f"{algo}_2e6steps_GrayS_FS3_DR1_heading_optimized"
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 save_dir    = f"../models/{map_name}/{algo}/"
 
-# Create env
-
-# Wrap environment
-# env = Monitor(env)
-# env = ResizeFrame(env, 84)
-# env = CropFrame(env, 24)
-# if color_segment:                       # GrayScale and ColorSegment wrappers should not be used at the same time!
-#         env = ColorSegmentFrame(env)
-# else:
-#         env = GrayScaleFrame(env)
-# env = StackFrame(env, FS)
-# if action_wrapper == "heading":         # Action wrappers ("heading" can be given a 'type' parameter)
-#         env = Heading2WheelVelsWrapper(env)
-# elif action_wrapper == "leftrightbraking":
-#         env = LeftRightBraking2WheelVelsWrapper(env)
-# else:
-#         print("Invalid action wrapper. Using default actions.")
-# env = DtRewardPosAngle(env)
-# env = DtRewardVelocity(env)
-# env = DummyVecEnv([lambda: env])
-# env = VecTransposeImage(env)
-
-eval_env = make_env(map_name="zigzag_dists", log_dir="../logs/zigzag_dists/PPO_log/eval")     # make it wrapped the same as "env" BUT WITH n_envs=1 !!!
-eval_env = DummyVecEnv([lambda: eval_env])
-eval_env = VecTransposeImage(eval_env)
-
-# Load trained model
 if algo == "A2C":
         model = A2C.load(save_dir + model_name, print_system_info=True)
 elif algo == "PPO":
@@ -66,48 +38,62 @@ elif algo == "PPO":
 else:
         print("Invalid algorithm.")
 
-# Test the agent
-obs = eval_env.reset()
-episode_rewards = []
-episode_lengths = []
-rewards = 0.0
-lengths = 0
+# Print model hyperparameters           -------- NOT WORKING NOW: NEED YAML CONFIG FOR HPARAMS!!
+# model_hparams = model.get_parameters()
+# print("\033[92m" + "Model hyperparameters:\n" + "\033[0m")
+# for key, value in model_hparams.items():
+#     print("\033[92m" + key + ' : ' + str(value) + "\033[0m")
 
-for step in range(maxsteps):
-    action, _ = model.predict(obs, deterministic=True)
-    print("ACTION: ", action)
-    observation, reward, done, misc = eval_env.step(action)
-    print("Reward: ", reward)
-    rewards += reward
-    lengths+=1
-    eval_env.render()
-    time.sleep(0.034)
-    if done:
-        episode_rewards.append(rewards.item())
-        episode_lengths.append(lengths)
-        rewards = 0.0
-        lengths = 0
-        eval_env.render()
-        eval_env.reset()
-        print("Done.")
+with open(f'../results/{algo}_evaluation-log.csv', 'a') as csv_file:
+        csv_file.write(f'Evaluation results for {algo} id: {info};\n\n')
 
+eval_maps = ['zigzag_dists', 'small_loop', 'udem1']
 
-rewards, episode_lengths = evaluate_policy(model, eval_env, n_eval_episodes=5, return_episode_rewards=True)
+print("\nEvaluating model...\n")
 
-print("====================================================================")
-print('Rewards: ', rewards, '\tLengths: ', episode_lengths)
-print('Min reward: ', min(rewards), '\tMin ep length: ', min(episode_lengths))
-print('Max reward: ', max(rewards), '\tMax ep length: ', max(episode_lengths))
-print('Mean reward: ', np.mean(rewards), '\tMean ep length: ', np.mean(episode_lengths))
-print("====================================================================")
+for map in eval_maps:
+        # Create and wrap evaluation environment
+        eval_env = make_env(map_name=map, log_dir=f"../logs/zigzag_dists/{algo}_log/eval")     # make it wrapped the same as "env" but with n_envs=1
+        eval_env = make_vec_env(lambda: eval_env, n_envs=1, seed=12345)
 
-#episode_rewards.append(rewards.item())
-#print("\nAverage reward over %d steps: %.2f" % (maxsteps, (sum(episode_rewards)/len(episode_rewards))))
-#print(f"episode_rewards: {episode_rewards}")
-#episode_lengths.append(lengths)
-#print("\nAverage episode length over %d steps: %.2f" % (maxsteps, (sum(episode_lengths)/len(episode_lengths))))
-#print(f"episode_rewards: {episode_lengths}")
+        # Test the agent
+        obs = eval_env.reset()
+        rewards = []
+        lengths = []
 
-eval_env.close()
+        rewards, lengths = evaluate_policy(model, eval_env, n_eval_episodes=n_eval_episodes, return_episode_rewards=True)
+        eval_env.close()
+        del eval_env
 
-del model, eval_env
+        # Write logs
+        with open(f'../results/{algo}_evaluation-log.csv', 'a') as csv_file:
+                csv_file.write('Map;' + map + '\n')
+                csv_file.write('Rewards;' + str(rewards) + '\n')
+                csv_file.write('Min;' + str(min(rewards)) + '\n')
+                csv_file.write('Max;' + str(max(rewards)) + '\n')
+                csv_file.write('Mean;' + str(np.mean(rewards)) + '\n')
+                csv_file.write('Stdev;' + str(np.mean(rewards)) + '\n')
+                csv_file.write('Lengths;' + str(lengths) + '\n')
+                csv_file.write('Min;' + str(min(lengths)) + '\n')
+                csv_file.write('Max;' + str(max(lengths)) + '\n')
+                csv_file.write('Mean;'+ str(np.mean(lengths)) + '\n')
+                csv_file.write('Stdev;' + str(np.mean(lengths)) + '\n')
+                csv_file.write('\n')
+
+        # Print infos
+        print("==============================================================================")
+        print(f"Evaluation results for: {map}\n")
+        print('Rewards:    ', rewards)
+        print('Min reward: ', min(rewards))
+        print('Max reward: ', max(rewards))
+        print('Mean reward:', np.mean(rewards))
+        print('Std reward: ', np.std(rewards))
+        print('\nEpisode lengths:', lengths)
+        print('Min ep length:  ', min(lengths))
+        print('Max ep length:  ', max(lengths))
+        print('Mean ep length: ', np.mean(lengths))
+        print('Std ep length:  ', np.std(lengths))
+
+del model
+print("==============================================================================")
+print("\nEvaluation ready. Logfile saved.\n")

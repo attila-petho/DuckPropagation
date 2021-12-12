@@ -38,7 +38,7 @@ def optimize_agent(trial):
     
     try:
         model.learn(50000, callback=eval_callback)                                    # TODO: should be 50k
-        with torch.no_grad():                                                         #Context-manager that disables gradient calculation
+        with torch.no_grad():                                                         # Context-manager that disables gradient calculation
             ep_rewards, ep_lengths = evaluate_policy(model, eval_env, n_eval_episodes=5, return_episode_rewards=True)
         env.close()
         eval_env.close()
@@ -92,7 +92,7 @@ if __name__ == "__main__":
     print(f"Sampler: {sampler} - Pruner: {pruner}")
 
     with open('../hyperparameters/PPO_optimization-log.csv', 'w') as csv_file:
-        csv_file.write('Study:;' + study_name + ';\n')
+        csv_file.write('Study;' + study_name + ';\n')
 
     study = optuna.create_study(study_name=study_name, sampler=sampler, pruner=pruner, direction='maximize')
     try:
