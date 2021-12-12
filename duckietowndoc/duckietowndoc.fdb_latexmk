@@ -1,13 +1,13 @@
 # Fdb version 3
-["bibtex duckietowndoc"] 1639335980 "duckietowndoc.aux" "duckietowndoc.bbl" "duckietowndoc" 1639335980
+["bibtex duckietowndoc"] 1639351728 "duckietowndoc.aux" "duckietowndoc.bbl" "duckietowndoc" 1639351729
   "/usr/local/texlive/2021/texmf-dist/bibtex/bst/base/ieeetr.bst" 1292289607 18361 1a00e58565e7f19bf2b3e1bfb82254ae ""
   "bib.bib" 0 -1 0 ""
-  "duckietowndoc.aux" 1639335980 5347 b880a12d56684f7277526fd0b6bb7fa9 "pdflatex"
+  "duckietowndoc.aux" 1639351729 6859 c6df7679990ba97b2962fe3cfd7320de "pdflatex"
   (generated)
   "duckietowndoc.bbl"
   "duckietowndoc.blg"
-["pdflatex"] 1639335980 "/home/attila/duckietown/DuckPropagation/duckietowndoc/duckietowndoc.tex" "duckietowndoc.pdf" "duckietowndoc" 1639335980
-  "/home/attila/duckietown/DuckPropagation/duckietowndoc/duckietowndoc.tex" 1639335979 9428 c9719cacca57f30c897bf533428574c7 ""
+["pdflatex"] 1639351728 "/home/attila/duckietown/DuckPropagation/duckietowndoc/duckietowndoc.tex" "duckietowndoc.pdf" "duckietowndoc" 1639351729
+  "/home/attila/duckietown/DuckPropagation/duckietowndoc/duckietowndoc.tex" 1639351726 13818 4b016a0f428dfc9f2d62f53654fadbd6 ""
   "/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/texlive/2021/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2021/texmf-dist/fonts/tfm/adobe/times/ptmb8r.tfm" 1136768653 4524 6bce29db5bc272ba5f332261583fee9c ""
@@ -58,8 +58,12 @@
   "/usr/local/texlive/2021/texmf-dist/tex/latex/base/inputenc.sty" 1622581934 5049 969aec05d5f39c43f8005910498fcf90 ""
   "/usr/local/texlive/2021/texmf-dist/tex/latex/base/size10.clo" 1636758526 8448 96f18c76bf608a36ee6fbf021ac1dd32 ""
   "/usr/local/texlive/2021/texmf-dist/tex/latex/booktabs/booktabs.sty" 1579038678 6078 f1cb470c9199e7110a27851508ed7a5c ""
+  "/usr/local/texlive/2021/texmf-dist/tex/latex/caption/caption.sty" 1603745920 51746 e89c4da670ba533e6ab38e045ce6d1d9 ""
+  "/usr/local/texlive/2021/texmf-dist/tex/latex/caption/caption3.sty" 1603745920 67929 d50ae850e1d9604065e8337a75a41029 ""
+  "/usr/local/texlive/2021/texmf-dist/tex/latex/caption/subcaption.sty" 1603745920 6133 46bea384e36e9b74bd53a238fc2d0654 ""
   "/usr/local/texlive/2021/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty" 1579991033 13886 d1306dcf79a944f6988e688c1785f9ce ""
   "/usr/local/texlive/2021/texmf-dist/tex/latex/etoolbox/etoolbox.sty" 1601931149 46845 3b58f70c6e861a13d927bff09d35ecbc ""
+  "/usr/local/texlive/2021/texmf-dist/tex/latex/float/float.sty" 1137110151 6749 16d2656a1984957e674b149555f1ea1d ""
   "/usr/local/texlive/2021/texmf-dist/tex/latex/geometry/geometry.sty" 1578002852 41601 9cf6c5257b1bc7af01a58859749dd37a ""
   "/usr/local/texlive/2021/texmf-dist/tex/latex/graphics-cfg/graphics.cfg" 1465944070 1224 978390e9c2234eab29404bc21b268d1e ""
   "/usr/local/texlive/2021/texmf-dist/tex/latex/graphics-def/pdftex.def" 1601931164 19103 48d29b6e2a64cb717117ef65f107b404 ""
@@ -96,10 +100,10 @@
   "/usr/local/texlive/2021/texmf-var/web2c/pdftex/pdflatex.fmt" 1639325187 2820138 74d664a6558dcc9dd4923976ae066fd5 ""
   "/usr/local/texlive/2021/texmf.cnf" 1639325128 455 5b996dcaa0eb4ef14a83b026bc0a008c ""
   "colorseg.jpg" 1639216096 12139 bc71a12841764b47f1a7052725d0a26d ""
-  "duckietowndoc.aux" 1639335980 5347 b880a12d56684f7277526fd0b6bb7fa9 "pdflatex"
+  "duckietowndoc.aux" 1639351729 6859 c6df7679990ba97b2962fe3cfd7320de "pdflatex"
   "duckietowndoc.bbl" 0 -1 0 "bibtex duckietowndoc"
-  "duckietowndoc.out" 1639335980 1428 ce4a27afae6dbc1ff068c3eea13e0b2d "pdflatex"
-  "duckietowndoc.tex" 1639335979 9428 c9719cacca57f30c897bf533428574c7 ""
+  "duckietowndoc.out" 1639351729 1428 ce4a27afae6dbc1ff068c3eea13e0b2d "pdflatex"
+  "duckietowndoc.tex" 1639351726 13818 4b016a0f428dfc9f2d62f53654fadbd6 ""
   "grayscale.jpg" 1639216096 16747 f91da94fed4eaddd4505d4348b308bda ""
   "nips_2016.sty" 1639229838 10683 73ae344bee48cba9642c2f6e5097de37 ""
   "rawobs.jpg" 1639216096 29270 3ac61639ba166f37542866d8d69a294d ""

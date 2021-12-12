@@ -23,6 +23,9 @@
 \usepackage{nicefrac}       % compact symbols for 1/2, etc.
 \usepackage{microtype}      % microtypography
 \usepackage{graphicx}	%inserting images
+\usepackage{hyperref}
+\usepackage{float}
+\usepackage{subcaption}
 
 %magyar kivonathoz
 \usepackage[magyar, english]{babel}
@@ -149,11 +152,11 @@ Preprocessing actions are applied to the observations. These can be resizing the
 \end{figure}
 
 \subsubsection{\normalsize{Actions}}
-
+\label{sec:actions}
 Since the vehicle doesn't have turn-able wheels, the turning must be archived by modifying the speed of the individual wheels. In the real life this speed is expressed as the PWM (Pulse Width Modulated) value of the applied voltage on the motor. For simplicity this value is normalized to 1 both int the simulation and the real life. For easier calculation the PWM value is not calculated dynamically it is statically coded at fix values which equates to three individual state. These states are forward, right turn, left turn.
 
 \subsubsection{\normalsize{Rewards}}
-
+\label{sec:rewards}
 Just like any other engineering problem choosing optimal rewards are tricky and require lot of testing and empirical estimation. A poorly chosen reward function can be exploited by the agent. In our first test runs the agent got reward for staying on the path. The reward was increasing and we got long episodes which looked promising. After examining the data we discovered that the agent was rotating around in one place. It realized that the easiest way to maximize reward was not what we initially intended as a goal. To correct this we had to take in account the angle ,position from the middle and speed of the agent.
 
 \subsection{\normalsize{Evaluation}}
@@ -164,9 +167,111 @@ Reinforcement learning models are extremely sensitive to hyperparameter settings
 
 For our project we used the Optuna library, which offers several tools to dynamically explore the hyperparameter-space in a define-by-run style. The library features state-of-the-art alorithms for sampling and pruning, easy parallelization of experiments and visualization tools. In order to optimize our models, we used the Tree-structured Parzen Estimator (TPE) for sampling and the Median pruner for early termination of less promising trials. The studies were conducted with a budget of 100 trials and a maximum of 50000 steps, and evaluations at every 10000 steps. For optimizating the PPO model, we used an RTX 6000 workstation with 24GB VRAM and 46GB RAM, but for the A2C study, we had to use a GTX1060OC with 6GB of VRAM and 16GB RAM which was not enough to finish the study, so in that case the results are based on 47 finished trials. Table [TODO] shows the optimized hyperparameters for the two models.
 
-[TODO: TÁBLÁZAT]
+\begin{table}[H]
+	\label{t:optimParam}
+	\caption{Optimized model hyperparameters}
+	\begin{subtable}{.4\linewidth}
+	\centering
+	\caption{PPO}
+	\begin{tabular}{c c}
+	Learning rate schedule& linear \\
+	\hline
+	Learning rate & 0.8764 \\
+	\hline
+	Batch size & 256 \\
+	\hline
+	n\_steps & 32 \\
+	\hline
+	Entropy coef. & 6.5699 \\
+	\hline
+	Clip range & 0.2 \\
+	\hline
+	Epochs & 5 \\
+	\hline
+	Gae. lambda & 0.92 \\
+	\hline
+	Max grad. norm. & 0.8 \\
+	\hline
+	vf coef. & 0.2425 \\
+	\hline
+	Activation & relu \\
+	\hline
+	\end{tabular}
+	\end{subtable}%
+
+	\begin{subtable}{.4\linewidth}
+	\centering
+	\caption{A2C}
+	\begin{tabular}{c c}
+	Learning rate schedule& constant \\
+	\hline
+	Learning rate & 0.1324 \\
+	\hline
+	Norm. advantage & False \\
+	\hline
+	n\_steps & 64 \\
+	\hline
+	Entropy coef. & 0.0015 \\
+	\hline
+	Use RMS prop. & False \\
+	\hline
+	Gae. lambda & 0.98 \\
+	\hline
+	Max grad. norm. & 0.7 \\
+	\hline
+	vf coef. & 0.7373 \\
+	\hline
+	Activation & tanh \\
+	\hline
+	\end{tabular}
+	\end{subtable}
+	
+\end{table}
 
 \section{\large{Results}}
+The PPO and the A2C agents were trained in the gym-duckietown simulator, with concatenating the last 3, grayscaled observations, and using the 'steering' actions and the orientation rewards described in \autoref{sec:actions} and \autoref{sec:rewards}. The agents were trained on the 'zigzag\_dists' map for one million steps, using only 1 environment. Each episode lasted a maximum of 500 steps, because this proved to be enough to take at least a full round on the map for a reasonable agent. In order to examine the effects of the hyperparameter optimization, first we trained the models with mostly the default SB3 parameters, the only exception was the learning rate, which was set to a constant 0.0005 value. This was ment to be a baseline training to compare it with the optimized models. The main difference - besides the optimized parameters - was the use of 4 parallel environments and the 2 million steps long training. \autoref{t:zigzagdists}, \autoref{t:smalloop} and \autoref{t:udem1} shows the evaluation results on the different maps.
+
+
+\begin{table}[H]
+	\caption{Evaluation results on the 'zigzag\_dists' map}
+	\begin{center}
+	\begin{tabular}{c c c c c}
+	  & PPO (default) & A2C (default) & PPO (optimized) & A2C (optimized) \\
+	\hline
+	Mean episode reward & 11.51 & 74.24 & 128.19 & 74.24 \\
+	\hline
+	Mean episode length & 71.5 & 308.0 & 452.9& 308.0 \\
+	\hline
+	\end{tabular}
+	\end{center}
+	\label{t:zigzagdists}
+
+	\caption{Evaluation results on the 'small\_loop' map}
+	\begin{center}
+	\begin{tabular}{c c c c c}
+	  & PPO (default) & A2C (default) & PPO (optimized) & A2C (optimized) \\
+	\hline
+	Mean episode reward & 14.83 & 61.21 & 93.78 & 61.21 \\
+	\hline
+	Mean episode length & 69.8 & 219.5 & 311.6 & 219.5 \\
+	\hline
+	\end{tabular}
+	\end{center}
+	\label{t:smalloop}
+
+	\caption{Evaluation results on the 'udem1' map}
+	\begin{center}
+	\begin{tabular}{c c c c c}
+	  & PPO (default) & A2C (default) & PPO (optimized) & A2C (optimized) \\
+	\hline
+	Mean episode reward & 6.01 & 98.27 & 70.79 & 98.27 \\
+	\hline
+	Mean episode length & 38.2 & 359.6 & 262.7 & 359.6 \\
+	\hline
+	\end{tabular}
+	\end{center}
+	\label{t:udem1}
+\end{table}
 
 \section{\large{Conclusion}}
 
