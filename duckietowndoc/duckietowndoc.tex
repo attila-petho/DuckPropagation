@@ -150,7 +150,11 @@ Preprocessing actions are applied to the observations. These can be resizing the
 
 \subsubsection{\normalsize{Actions}}
 
+Since the vehicle doesn't have turn-able wheels, the turning must be archived by modifying the speed of the individual wheels. In the real life this speed is expressed as the PWM (Pulse Width Modulated) value of the applied voltage on the motor. For simplicity this value is normalized to 1 both int the simulation and the real life. For easier calculation the PWM value is not calculated dynamically it is statically coded at fix values which equates to three individual state. These states are forward, right turn, left turn.
+
 \subsubsection{\normalsize{Rewards}}
+
+Just like any other engineering problem choosing optimal rewards are tricky and require lot of testing and empirical estimation. A poorly chosen reward function can be exploited by the agent. In our first test runs the agent got reward for staying on the path. The reward was increasing and we got long episodes which looked promising. After examining the data we discovered that the agent was rotating around in one place. It realized that the easiest way to maximize reward was not what we initially intended as a goal. To correct this we had to take in account the angle ,position from the middle and speed of the agent.
 
 \subsection{\normalsize{Evaluation}}
 There are many ways to measure the performance of the trained agents, and for the sake of simplicity we chose two metrics for this purpose: survival time (in timesteps) and rewards received from the environment. Survival time tells us how many steps the agent took before either it went out of the road or the episode finished. A well-trained agent should stay on the road for the whole evaluation episode. Altough this provides valuable information, this metric does not tell much performance on its own. Hence the rewards are also stored and evaluated to gain richer knowledge about the agents perfomance. The models were trained on the 'zigzag\_dists' map, because it offers a good balance between left and right turns and straight sections. In order to test how well the models learned to generalize, evaluation was done on three different maps: 'zigzag\_dists', 'loop\_empty', and 'udem1'.
