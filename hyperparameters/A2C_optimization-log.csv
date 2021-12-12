@@ -1,0 +1,421 @@
+Study:;A2C_optimize_hparams_study_1_2021_12_10_20_54_02;
+Trial Number 0 hyperparameters;
+lr_schedule;constant
+learning_rate;0.012948704164792288
+n_steps;128
+gae_lambda;0.99
+ent_coef;1.370750724178093e-06
+vf_coef;0.37904501149654235
+normalize_advantage;False
+max_grad_norm;0.9
+use_rms_prop;False
+activation_fn;tanh
+Rewards;[135.646057, 75.644146, 0.790239, 137.322171, 1.059622]
+Min;0.790239
+Max;137.322171
+Mean;70.092447
+Lengths;[500, 500, 20, 500, 21]
+Min;20
+Max;500
+Mean;308.2
+
+Trial Number 1 hyperparameters;
+lr_schedule;constant
+learning_rate;0.01065721726654688
+n_steps;128
+gae_lambda;0.99
+ent_coef;6.872789841160859e-07
+vf_coef;0.38965422375072034
+normalize_advantage;False
+max_grad_norm;0.9
+use_rms_prop;False
+activation_fn;tanh
+Rewards;[135.646057, 75.644146, 0.790239, 137.322171, 1.059622]
+Min;0.790239
+Max;137.322171
+Mean;70.092447
+Lengths;[500, 500, 20, 500, 21]
+Min;20
+Max;500
+Mean;308.2
+
+Trial Number 2 hyperparameters;
+lr_schedule;constant
+learning_rate;0.4199632327937619
+n_steps;8
+gae_lambda;0.95
+ent_coef;5.387850100477205e-05
+vf_coef;0.005089614827355926
+normalize_advantage;True
+max_grad_norm;0.8
+use_rms_prop;False
+activation_fn;tanh
+Rewards;[135.646057, 75.644146, 0.790239, 137.322171, 1.059622]
+Min;0.790239
+Max;137.322171
+Mean;70.092447
+Lengths;[500, 500, 20, 500, 21]
+Min;20
+Max;500
+Mean;308.2
+
+Trial Number 4 hyperparameters;
+lr_schedule;constant
+learning_rate;0.004277176101820835
+n_steps;16
+gae_lambda;0.9
+ent_coef;1.931757622593516e-07
+vf_coef;0.4570649506126303
+normalize_advantage;False
+max_grad_norm;0.6
+use_rms_prop;False
+activation_fn;tanh
+Rewards;[135.646057, 75.644146, 0.790239, 137.322171, 1.059622]
+Min;0.790239
+Max;137.322171
+Mean;70.092447
+Lengths;[500, 500, 20, 500, 21]
+Min;20
+Max;500
+Mean;308.2
+
+Trial Number 5 hyperparameters;
+lr_schedule;linear
+learning_rate;0.33771413199087885
+n_steps;32
+gae_lambda;0.98
+ent_coef;2.4734756960432646e-05
+vf_coef;0.1282136843423312
+normalize_advantage;True
+max_grad_norm;0.9
+use_rms_prop;True
+activation_fn;relu
+Rewards;[135.646057, 75.644146, 0.790239, 137.322171, 1.059622]
+Min;0.790239
+Max;137.322171
+Mean;70.092447
+Lengths;[500, 500, 20, 500, 21]
+Min;20
+Max;500
+Mean;308.2
+
+Trial Number 8 hyperparameters;
+lr_schedule;linear
+learning_rate;0.00044939200460797476
+n_steps;128
+gae_lambda;0.92
+ent_coef;0.0004863920016657891
+vf_coef;0.2556001223488684
+normalize_advantage;True
+max_grad_norm;0.5
+use_rms_prop;True
+activation_fn;relu
+Rewards;[135.646057, 75.644146, 0.790239, 137.322171, 1.059622]
+Min;0.790239
+Max;137.322171
+Mean;70.092447
+Lengths;[500, 500, 20, 500, 21]
+Min;20
+Max;500
+Mean;308.2
+
+Trial Number 9 hyperparameters;
+lr_schedule;constant
+learning_rate;0.07367933364765038
+n_steps;64
+gae_lambda;0.99
+ent_coef;0.0015985292149041464
+vf_coef;0.6599598305632202
+normalize_advantage;False
+max_grad_norm;0.7
+use_rms_prop;False
+activation_fn;tanh
+Rewards;[135.646057, 75.644146, 0.790239, 137.322171, 1.059622]
+Min;0.790239
+Max;137.322171
+Mean;70.092447
+Lengths;[500, 500, 20, 500, 21]
+Min;20
+Max;500
+Mean;308.2
+
+Trial Number 15 hyperparameters;
+lr_schedule;linear
+learning_rate;0.0079495439255282
+n_steps;8
+gae_lambda;0.9
+ent_coef;5.05947767345516e-07
+vf_coef;0.5528561297635892
+normalize_advantage;False
+max_grad_norm;0.5
+use_rms_prop;False
+activation_fn;relu
+Rewards;[135.646057, 75.644146, 0.790239, 137.322171, 1.059622]
+Min;0.790239
+Max;137.322171
+Mean;70.092447
+Lengths;[500, 500, 20, 500, 21]
+Min;20
+Max;500
+Mean;308.2
+
+Trial Number 16 hyperparameters;
+lr_schedule;constant
+learning_rate;0.0002558708694321806
+n_steps;32
+gae_lambda;0.92
+ent_coef;0.00020206506593580743
+vf_coef;0.705460372503625
+normalize_advantage;False
+max_grad_norm;0.3
+use_rms_prop;False
+activation_fn;tanh
+Rewards;[135.646057, 75.644146, 0.790239, 137.322171, 1.059622]
+Min;0.790239
+Max;137.322171
+Mean;70.092447
+Lengths;[500, 500, 20, 500, 21]
+Min;20
+Max;500
+Mean;308.2
+
+Trial Number 17 hyperparameters;
+lr_schedule;constant
+learning_rate;0.13240603365433498
+n_steps;64
+gae_lambda;0.98
+ent_coef;0.0015349396562347613
+vf_coef;0.737354020590313
+normalize_advantage;False
+max_grad_norm;0.7
+use_rms_prop;False
+activation_fn;tanh
+Rewards;[122.674629, 62.563154, 136.015901, -0.581487, 137.871004]
+Min;-0.581487
+Max;137.871004
+Mean;91.70864020000002
+Lengths;[500, 500, 500, 27, 500]
+Min;27
+Max;500
+Mean;405.4
+
+Trial Number 18 hyperparameters;
+lr_schedule;linear
+learning_rate;0.13428701292227394
+n_steps;8
+gae_lambda;0.9
+ent_coef;0.003772449530978927
+vf_coef;0.8162997129130061
+normalize_advantage;True
+max_grad_norm;0.7
+use_rms_prop;True
+activation_fn;relu
+Rewards;[135.646057, 75.644146, 0.790239, 137.322171, 1.059622]
+Min;0.790239
+Max;137.322171
+Mean;70.092447
+Lengths;[500, 500, 20, 500, 21]
+Min;20
+Max;500
+Mean;308.2
+
+Trial Number 24 hyperparameters;
+lr_schedule;constant
+learning_rate;0.004976236148038082
+n_steps;128
+gae_lambda;0.99
+ent_coef;3.319947930319813e-07
+vf_coef;0.4925178049444129
+normalize_advantage;False
+max_grad_norm;1
+use_rms_prop;False
+activation_fn;tanh
+Rewards;[135.646057, 75.644146, 0.790239, 137.322171, 1.059622]
+Min;0.790239
+Max;137.322171
+Mean;70.092447
+Lengths;[500, 500, 20, 500, 21]
+Min;20
+Max;500
+Mean;308.2
+
+Trial Number 25 hyperparameters;
+lr_schedule;linear
+learning_rate;0.11443287350125177
+n_steps;8
+gae_lambda;0.9
+ent_coef;0.004292303751648717
+vf_coef;0.855812000250358
+normalize_advantage;True
+max_grad_norm;0.7
+use_rms_prop;True
+activation_fn;relu
+Rewards;[135.646057, 75.644146, 0.790239, 137.322171, 1.059622]
+Min;0.790239
+Max;137.322171
+Mean;70.092447
+Lengths;[500, 500, 20, 500, 21]
+Min;20
+Max;500
+Mean;308.2
+
+Trial Number 29 hyperparameters;
+lr_schedule;constant
+learning_rate;0.046778564816062955
+n_steps;4
+gae_lambda;0.95
+ent_coef;1.7083770665453168e-05
+vf_coef;0.4126438957651114
+normalize_advantage;False
+max_grad_norm;0.8
+use_rms_prop;False
+activation_fn;tanh
+Rewards;[135.646057, 75.644146, 0.790239, 137.322171, 1.059622]
+Min;0.790239
+Max;137.322171
+Mean;70.092447
+Lengths;[500, 500, 20, 500, 21]
+Min;20
+Max;500
+Mean;308.2
+
+Trial Number 30 hyperparameters;
+lr_schedule;linear
+learning_rate;0.7039103240412494
+n_steps;8
+gae_lambda;0.9
+ent_coef;0.08963733964416709
+vf_coef;0.895815099981256
+normalize_advantage;True
+max_grad_norm;0.7
+use_rms_prop;True
+activation_fn;relu
+Rewards;[135.646057, 75.644146, 0.790239, 137.322171, 1.059622]
+Min;0.790239
+Max;137.322171
+Mean;70.092447
+Lengths;[500, 500, 20, 500, 21]
+Min;20
+Max;500
+Mean;308.2
+
+Trial Number 32 hyperparameters;
+lr_schedule;linear
+learning_rate;0.058038661725279224
+n_steps;4
+gae_lambda;0.95
+ent_coef;2.940956331190081e-05
+vf_coef;0.3101699522559362
+normalize_advantage;True
+max_grad_norm;0.8
+use_rms_prop;True
+activation_fn;relu
+Rewards;[135.646057, 75.644146, 0.790239, 137.322171, 1.059622]
+Min;0.790239
+Max;137.322171
+Mean;70.092447
+Lengths;[500, 500, 20, 500, 21]
+Min;20
+Max;500
+Mean;308.2
+
+Trial Number 33 hyperparameters;
+lr_schedule;linear
+learning_rate;0.8487722885223191
+n_steps;4
+gae_lambda;0.95
+ent_coef;0.05320891017906169
+vf_coef;0.06637628555814368
+normalize_advantage;True
+max_grad_norm;0.8
+use_rms_prop;True
+activation_fn;relu
+Rewards;[135.646057, 75.644146, 0.790239, 137.322171, 1.059622]
+Min;0.790239
+Max;137.322171
+Mean;70.092447
+Lengths;[500, 500, 20, 500, 21]
+Min;20
+Max;500
+Mean;308.2
+
+Trial Number 37 hyperparameters;
+lr_schedule;linear
+learning_rate;0.395416633643968
+n_steps;4
+gae_lambda;0.95
+ent_coef;0.028341989079988226
+vf_coef;0.06522256431789333
+normalize_advantage;True
+max_grad_norm;0.8
+use_rms_prop;True
+activation_fn;relu
+Rewards;[135.646057, 75.644146, 0.790239, 137.322171, 1.059622]
+Min;0.790239
+Max;137.322171
+Mean;70.092447
+Lengths;[500, 500, 20, 500, 21]
+Min;20
+Max;500
+Mean;308.2
+
+Trial Number 38 hyperparameters;
+lr_schedule;linear
+learning_rate;0.1805934847637395
+n_steps;4
+gae_lambda;0.95
+ent_coef;8.10266811654272e-05
+vf_coef;0.1080166661872855
+normalize_advantage;True
+max_grad_norm;0.6
+use_rms_prop;True
+activation_fn;relu
+Rewards;[135.646057, 75.644146, 0.790239, 137.322171, 1.059622]
+Min;0.790239
+Max;137.322171
+Mean;70.092447
+Lengths;[500, 500, 20, 500, 21]
+Min;20
+Max;500
+Mean;308.2
+
+Trial Number 42 hyperparameters;
+lr_schedule;linear
+learning_rate;0.16727774855160935
+n_steps;8
+gae_lambda;0.9
+ent_coef;0.008606590821468267
+vf_coef;0.866012759931142
+normalize_advantage;False
+max_grad_norm;0.7
+use_rms_prop;True
+activation_fn;relu
+Rewards;[135.646057, 75.644146, 0.790239, 137.322171, 1.059622]
+Min;0.790239
+Max;137.322171
+Mean;70.092447
+Lengths;[500, 500, 20, 500, 21]
+Min;20
+Max;500
+Mean;308.2
+
+Trial Number 46 hyperparameters;
+lr_schedule;linear
+learning_rate;0.04237656764916313
+n_steps;32
+gae_lambda;1.0
+ent_coef;4.1615865413252874e-05
+vf_coef;0.2729976786774634
+normalize_advantage;True
+max_grad_norm;0.9
+use_rms_prop;True
+activation_fn;relu
+Rewards;[135.646057, 75.644146, 0.790239, 137.322171, 1.059622]
+Min;0.790239
+Max;137.322171
+Mean;70.092447
+Lengths;[500, 500, 20, 500, 21]
+Min;20
+Max;500
+Mean;308.2
+

@@ -1,0 +1,603 @@
+Study:;PPO_optimize_hparams_study_1_2021_12_09_17_59_45;
+Trial Number 0 hyperparameters;
+lr_schedule;constant
+learning_rate;0.012948704164792288
+batch_size;256
+n_steps;512
+ent_coef;2.1205648807533537e-07
+clip_range;0.2
+n_epochs;5
+gae_lambda;0.95
+max_grad_norm;0.7
+vf_coef;0.014262838401889466
+activation_fn;relu
+Rewards;[9.206024, 7.636547, 1.615565, 95.766061, 1.855359]
+Min;1.615565
+Max;95.766061
+Mean;23.2159112
+Lengths;[33, 41, 18, 500, 22]
+Min;18
+Max;500
+Mean;122.8
+
+Trial Number 1 hyperparameters;
+lr_schedule;constant
+learning_rate;0.012756617614103075
+batch_size;256
+n_steps;512
+ent_coef;1.2222437182139196e-07
+clip_range;0.2
+n_epochs;5
+gae_lambda;0.95
+max_grad_norm;0.7
+vf_coef;0.004528753533969809
+activation_fn;relu
+Rewards;[9.57684, 7.781424, 1.865199, 15.172977, 2.428671]
+Min;1.865199
+Max;15.172977
+Mean;7.3650222
+Lengths;[33, 40, 18, 43, 24]
+Min;18
+Max;43
+Mean;31.6
+
+Trial Number 2 hyperparameters;
+lr_schedule;linear
+learning_rate;0.8764017708061861
+batch_size;256
+n_steps;32
+ent_coef;6.569939601034458e-05
+clip_range;0.2
+n_epochs;5
+gae_lambda;0.92
+max_grad_norm;0.8
+vf_coef;0.24250834235539484
+activation_fn;relu
+Rewards;[122.674629, 62.563154, 136.015901, -0.581487, 137.871004]
+Min;-0.581487
+Max;137.871004
+Mean;91.70864020000002
+Lengths;[500, 500, 500, 27, 500]
+Min;27
+Max;500
+Mean;405.4
+
+Trial Number 3 hyperparameters;
+lr_schedule;linear
+learning_rate;0.8209980970132584
+batch_size;64
+n_steps;32
+ent_coef;0.012567513030738865
+clip_range;0.4
+n_epochs;10
+gae_lambda;0.92
+max_grad_norm;0.8
+vf_coef;0.6769088878842793
+activation_fn;tanh
+Rewards;[135.646057, 75.644146, 0.790239, 137.322171, 1.059622]
+Min;0.790239
+Max;137.322171
+Mean;70.092447
+Lengths;[500, 500, 20, 500, 21]
+Min;20
+Max;500
+Mean;308.2
+
+Trial Number 4 hyperparameters;
+lr_schedule;linear
+learning_rate;1.358632324414028e-05
+batch_size;8
+n_steps;8
+ent_coef;0.00025071729609086495
+clip_range;0.3
+n_epochs;20
+gae_lambda;0.92
+max_grad_norm;2
+vf_coef;0.3679875037229896
+activation_fn;relu
+Rewards;[135.646057, 75.644146, 0.790239, 137.322171, 1.059622]
+Min;0.790239
+Max;137.322171
+Mean;70.092447
+Lengths;[500, 500, 20, 500, 21]
+Min;20
+Max;500
+Mean;308.2
+
+Trial Number 5 hyperparameters;
+lr_schedule;linear
+learning_rate;0.7079355870936613
+batch_size;16
+n_steps;32
+ent_coef;3.630110834986458e-05
+clip_range;0.1
+n_epochs;30
+gae_lambda;1.0
+max_grad_norm;0.8
+vf_coef;0.9917798528612394
+activation_fn;tanh
+Rewards;[135.646057, 75.644146, 0.790239, 137.322171, 1.059622]
+Min;0.790239
+Max;137.322171
+Mean;70.092447
+Lengths;[500, 500, 20, 500, 21]
+Min;20
+Max;500
+Mean;308.2
+
+Trial Number 14 hyperparameters;
+lr_schedule;linear
+learning_rate;0.01777475028516337
+batch_size;16
+n_steps;32
+ent_coef;6.245309286104968e-05
+clip_range;0.2
+n_epochs;10
+gae_lambda;1.0
+max_grad_norm;0.8
+vf_coef;0.5498586148677657
+activation_fn;tanh
+Rewards;[134.142961, 88.27179, 0.790239, 137.507525, 1.059622]
+Min;0.790239
+Max;137.507525
+Mean;72.3544274
+Lengths;[500, 500, 20, 500, 21]
+Min;20
+Max;500
+Mean;308.2
+
+Trial Number 21 hyperparameters;
+lr_schedule;linear
+learning_rate;0.24816679695837002
+batch_size;64
+n_steps;32
+ent_coef;0.008782622639015263
+clip_range;0.4
+n_epochs;10
+gae_lambda;1.0
+max_grad_norm;0.8
+vf_coef;0.7060700949956317
+activation_fn;tanh
+Rewards;[135.646057, 75.644146, 0.790239, 137.322171, 1.059622]
+Min;0.790239
+Max;137.322171
+Mean;70.092447
+Lengths;[500, 500, 20, 500, 21]
+Min;20
+Max;500
+Mean;308.2
+
+Trial Number 23 hyperparameters;
+lr_schedule;linear
+learning_rate;0.03363362449107126
+batch_size;64
+n_steps;32
+ent_coef;0.009832825775078602
+clip_range;0.2
+n_epochs;10
+gae_lambda;0.92
+max_grad_norm;0.8
+vf_coef;0.9296256527528295
+activation_fn;tanh
+Rewards;[135.646057, 75.644146, 0.790239, 137.322171, 1.059622]
+Min;0.790239
+Max;137.322171
+Mean;70.092447
+Lengths;[500, 500, 20, 500, 21]
+Min;20
+Max;500
+Mean;308.2
+
+Trial Number 26 hyperparameters;
+lr_schedule;constant
+learning_rate;0.16411260741723405
+batch_size;8
+n_steps;32
+ent_coef;0.0159331237372653
+clip_range;0.1
+n_epochs;10
+gae_lambda;0.8
+max_grad_norm;0.8
+vf_coef;0.7286137678267884
+activation_fn;tanh
+Rewards;[135.646057, 75.644146, 0.790239, 137.322171, 1.059622]
+Min;0.790239
+Max;137.322171
+Mean;70.092447
+Lengths;[500, 500, 20, 500, 21]
+Min;20
+Max;500
+Mean;308.2
+
+Trial Number 30 hyperparameters;
+lr_schedule;constant
+learning_rate;0.19500766455964957
+batch_size;8
+n_steps;32
+ent_coef;0.032257693776809586
+clip_range;0.1
+n_epochs;20
+gae_lambda;0.8
+max_grad_norm;0.8
+vf_coef;0.8624769389387396
+activation_fn;tanh
+Rewards;[135.646057, 75.644146, 0.790239, 137.322171, 1.059622]
+Min;0.790239
+Max;137.322171
+Mean;70.092447
+Lengths;[500, 500, 20, 500, 21]
+Min;20
+Max;500
+Mean;308.2
+
+Trial Number 31 hyperparameters;
+lr_schedule;constant
+learning_rate;0.2149864743927058
+batch_size;8
+n_steps;32
+ent_coef;0.016139056220256
+clip_range;0.1
+n_epochs;20
+gae_lambda;0.8
+max_grad_norm;0.8
+vf_coef;0.8992553557708247
+activation_fn;tanh
+Rewards;[135.646057, 75.644146, 0.790239, 137.322171, 1.059622]
+Min;0.790239
+Max;137.322171
+Mean;70.092447
+Lengths;[500, 500, 20, 500, 21]
+Min;20
+Max;500
+Mean;308.2
+
+Trial Number 36 hyperparameters;
+lr_schedule;linear
+learning_rate;0.00013279505726611105
+batch_size;256
+n_steps;8
+ent_coef;0.00013606880753059915
+clip_range;0.3
+n_epochs;1
+gae_lambda;0.92
+max_grad_norm;2
+vf_coef;0.22567966446396348
+activation_fn;relu
+Rewards;[135.646057, 75.644146, 0.790239, 137.322171, 1.059622]
+Min;0.790239
+Max;137.322171
+Mean;70.092447
+Lengths;[500, 500, 20, 500, 21]
+Min;20
+Max;500
+Mean;308.2
+
+Trial Number 38 hyperparameters;
+lr_schedule;constant
+learning_rate;0.021973025273511634
+batch_size;64
+n_steps;32
+ent_coef;0.00307181912275606
+clip_range;0.2
+n_epochs;10
+gae_lambda;0.99
+max_grad_norm;0.8
+vf_coef;0.9246838048514234
+activation_fn;tanh
+Rewards;[135.646057, 75.644146, 0.790239, 137.322171, 1.059622]
+Min;0.790239
+Max;137.322171
+Mean;70.092447
+Lengths;[500, 500, 20, 500, 21]
+Min;20
+Max;500
+Mean;308.2
+
+Trial Number 39 hyperparameters;
+lr_schedule;linear
+learning_rate;0.00048010582137448756
+batch_size;256
+n_steps;8
+ent_coef;0.0005211383460106807
+clip_range;0.2
+n_epochs;1
+gae_lambda;0.99
+max_grad_norm;2
+vf_coef;0.04913638545181004
+activation_fn;relu
+Rewards;[135.646057, 75.644146, 0.790239, 137.322171, 1.059622]
+Min;0.790239
+Max;137.322171
+Mean;70.092447
+Lengths;[500, 500, 20, 500, 21]
+Min;20
+Max;500
+Mean;308.2
+
+Trial Number 44 hyperparameters;
+lr_schedule;linear
+learning_rate;0.63246550261781
+batch_size;128
+n_steps;1024
+ent_coef;2.5949681764465786e-05
+clip_range;0.4
+n_epochs;10
+gae_lambda;0.98
+max_grad_norm;0.5
+vf_coef;0.005600235294303507
+activation_fn;relu
+Rewards;[135.646057, 75.644146, 0.790239, 137.322171, 1.059622]
+Min;0.790239
+Max;137.322171
+Mean;70.092447
+Lengths;[500, 500, 20, 500, 21]
+Min;20
+Max;500
+Mean;308.2
+
+Trial Number 53 hyperparameters;
+lr_schedule;linear
+learning_rate;0.5445835724669253
+batch_size;128
+n_steps;64
+ent_coef;7.923644482719373e-08
+clip_range;0.4
+n_epochs;10
+gae_lambda;0.9
+max_grad_norm;0.9
+vf_coef;0.3643271373363978
+activation_fn;relu
+Rewards;[135.646057, 75.644146, 0.790239, 137.322171, 1.059622]
+Min;0.790239
+Max;137.322171
+Mean;70.092447
+Lengths;[500, 500, 20, 500, 21]
+Min;20
+Max;500
+Mean;308.2
+
+Trial Number 56 hyperparameters;
+lr_schedule;constant
+learning_rate;0.21949061934611955
+batch_size;8
+n_steps;32
+ent_coef;0.023262357814827092
+clip_range;0.1
+n_epochs;20
+gae_lambda;0.8
+max_grad_norm;0.8
+vf_coef;0.8674723261679155
+activation_fn;tanh
+Rewards;[122.674629, 62.563154, 136.015901, -0.581487, 137.871004]
+Min;-0.581487
+Max;137.871004
+Mean;91.70864020000002
+Lengths;[500, 500, 500, 27, 500]
+Min;27
+Max;500
+Mean;405.4
+
+Trial Number 58 hyperparameters;
+lr_schedule;linear
+learning_rate;0.7205460040404863
+batch_size;256
+n_steps;16
+ent_coef;3.534374030504408e-05
+clip_range;0.2
+n_epochs;5
+gae_lambda;0.98
+max_grad_norm;5
+vf_coef;0.012510976755992753
+activation_fn;relu
+Rewards;[135.646057, 75.644146, 0.790239, 137.322171, 1.059622]
+Min;0.790239
+Max;137.322171
+Mean;70.092447
+Lengths;[500, 500, 20, 500, 21]
+Min;20
+Max;500
+Mean;308.2
+
+Trial Number 70 hyperparameters;
+lr_schedule;linear
+learning_rate;0.3577305853486753
+batch_size;256
+n_steps;128
+ent_coef;8.706507862571101e-05
+clip_range;0.2
+n_epochs;10
+gae_lambda;0.98
+max_grad_norm;1
+vf_coef;0.9941959763945247
+activation_fn;tanh
+Rewards;[135.646057, 75.644146, 0.790239, 137.322171, 1.059622]
+Min;0.790239
+Max;137.322171
+Mean;70.092447
+Lengths;[500, 500, 20, 500, 21]
+Min;20
+Max;500
+Mean;308.2
+
+Trial Number 75 hyperparameters;
+lr_schedule;constant
+learning_rate;0.9495145047133506
+batch_size;256
+n_steps;16
+ent_coef;0.0013823400178402828
+clip_range;0.2
+n_epochs;5
+gae_lambda;0.99
+max_grad_norm;5
+vf_coef;0.8121445601372803
+activation_fn;tanh
+Rewards;[135.646057, 75.644146, 0.790239, 137.322171, 1.059622]
+Min;0.790239
+Max;137.322171
+Mean;70.092447
+Lengths;[500, 500, 20, 500, 21]
+Min;20
+Max;500
+Mean;308.2
+
+Trial Number 76 hyperparameters;
+lr_schedule;constant
+learning_rate;0.9984755974508763
+batch_size;8
+n_steps;16
+ent_coef;0.0001836257584182782
+clip_range;0.3
+n_epochs;5
+gae_lambda;0.92
+max_grad_norm;5
+vf_coef;0.7495891881319166
+activation_fn;tanh
+Rewards;[135.646057, 75.644146, 0.790239, 137.322171, 1.059622]
+Min;0.790239
+Max;137.322171
+Mean;70.092447
+Lengths;[500, 500, 20, 500, 21]
+Min;20
+Max;500
+Mean;308.2
+
+Trial Number 77 hyperparameters;
+lr_schedule;linear
+learning_rate;0.6594618687036333
+batch_size;128
+n_steps;128
+ent_coef;1.1200891383204328e-07
+clip_range;0.4
+n_epochs;10
+gae_lambda;0.98
+max_grad_norm;1
+vf_coef;0.9865952248820735
+activation_fn;relu
+Rewards;[135.646057, 75.644146, 0.790239, 137.322171, 1.059622]
+Min;0.790239
+Max;137.322171
+Mean;70.092447
+Lengths;[500, 500, 20, 500, 21]
+Min;20
+Max;500
+Mean;308.2
+
+Trial Number 78 hyperparameters;
+lr_schedule;constant
+learning_rate;0.07610473052565939
+batch_size;16
+n_steps;32
+ent_coef;0.03600830781032295
+clip_range;0.1
+n_epochs;20
+gae_lambda;0.8
+max_grad_norm;0.6
+vf_coef;0.9161255543085498
+activation_fn;tanh
+Rewards;[122.674629, 62.563154, 136.015901, -0.581487, 137.871004]
+Min;-0.581487
+Max;137.871004
+Mean;91.70864020000002
+Lengths;[500, 500, 500, 27, 500]
+Min;27
+Max;500
+Mean;405.4
+
+Trial Number 80 hyperparameters;
+lr_schedule;constant
+learning_rate;0.2648691473306582
+batch_size;16
+n_steps;32
+ent_coef;0.03159279460500146
+clip_range;0.1
+n_epochs;20
+gae_lambda;0.8
+max_grad_norm;0.6
+vf_coef;0.7632925189113434
+activation_fn;tanh
+Rewards;[135.646057, 75.644146, 0.790239, 137.322171, 1.059622]
+Min;0.790239
+Max;137.322171
+Mean;70.092447
+Lengths;[500, 500, 20, 500, 21]
+Min;20
+Max;500
+Mean;308.2
+
+Trial Number 87 hyperparameters;
+lr_schedule;constant
+learning_rate;0.7267781935404243
+batch_size;16
+n_steps;16
+ent_coef;1.775861276196254e-05
+clip_range;0.1
+n_epochs;5
+gae_lambda;0.98
+max_grad_norm;5
+vf_coef;0.768949701672538
+activation_fn;tanh
+Rewards;[135.646057, 75.644146, 0.790239, 137.322171, 1.059622]
+Min;0.790239
+Max;137.322171
+Mean;70.092447
+Lengths;[500, 500, 20, 500, 21]
+Min;20
+Max;500
+Mean;308.2
+
+Trial Number 88 hyperparameters;
+lr_schedule;constant
+learning_rate;0.26975796533165153
+batch_size;16
+n_steps;32
+ent_coef;1.6171077330518807e-05
+clip_range;0.1
+n_epochs;5
+gae_lambda;1.0
+max_grad_norm;0.6
+vf_coef;0.7051187247974594
+activation_fn;tanh
+Rewards;[135.646057, 75.644146, 0.790239, 137.322171, 1.059622]
+Min;0.790239
+Max;137.322171
+Mean;70.092447
+Lengths;[500, 500, 20, 500, 21]
+Min;20
+Max;500
+Mean;308.2
+
+Trial Number 96 hyperparameters;
+lr_schedule;constant
+learning_rate;0.016412112190365757
+batch_size;256
+n_steps;32
+ent_coef;0.0016995973171793069
+clip_range;0.1
+n_epochs;5
+gae_lambda;1.0
+max_grad_norm;0.8
+vf_coef;0.8144797443292907
+activation_fn;tanh
+Rewards;[135.646057, 75.644146, 0.790239, 137.322171, 1.059622]
+Min;0.790239
+Max;137.322171
+Mean;70.092447
+Lengths;[500, 500, 20, 500, 21]
+Min;20
+Max;500
+Mean;308.2
+
+
+Optimized PPO hyperparameters;
+Trial number;2
+lr_schedule;linear
+learning_rate;0.8764017708061861
+batch_size;256
+n_steps;32
+ent_coef;6.569939601034458e-05
+clip_range;0.2
+n_epochs;5
+gae_lambda;0.92
+max_grad_norm;0.8
+vf_coef;0.24250834235539484
+activation_fn;relu
