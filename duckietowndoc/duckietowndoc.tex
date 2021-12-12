@@ -24,6 +24,8 @@
 \usepackage{microtype}      % microtypography
 \usepackage{graphicx}	%inserting images
 
+%magyar kivonathoz
+\usepackage[magyar, english]{babel}
 
 \title{Self-driving vehicle in Duckietown environment\\
 	\large Duckpropagation }
@@ -69,14 +71,14 @@
 
 \maketitle
 
-\begin{abstract}
-  In this project we are training Deep Reinforcement Learning agents to drive small robots called Duckiebots in the Duckietown environment. There are four challenges in the environment:
+%\selectlanguage{magyar}
+%\begin{abstract}
+%Kivonat magyarul
+%\end{abstract}
 
-\textbullet  \textbf{LF} - simple lane following\\
-\textbullet \textbf{LFV} - lane following with vehicles\\
-\textbullet \textbf{LFI} - lane following with intersections\\
-\textbullet \textbf{LFVI} - lane following with vehicles and intersections\\
-In order to conquer these challenges, autonomous driving agents are first trained in a simulator (gym-duckietown) and then the trained agents performance are also tested in the real environment on real Duckiebots.
+%\selectlanguage{english}
+\begin{abstract}
+English abstract
 \end{abstract}
 
 \section{\large{Introduction}}
@@ -127,48 +129,32 @@ We tried two promising algorithm for the task: A2C and PPO.The implementation of
 
 \subsection{\normalsize{Environment}}
 
-The environment gives us an 640x480 RGB image which looks like the following:
-\begin{figure}[h!]
-	\centering
-	\includegraphics[width=0.5\linewidth]{rawobs.jpg}
-	\caption{Observation of the environment without preprocessing}
-\end{figure}
-We have to preprocess this image, because feeding the original images to the CNN would be a waste of resources because it makes training process much slower, and the network can learn from smaller images just as well. We did the following preprocessing steps:
-\begin{enumerate}
-	\item Resizing
-	\item Cropping
-	\item Color segmentation or Grayscaling
-	\item Normalization
-	\item Frame stacking
-\end{enumerate}
+The environment gives us an 640x480 RGB image.
+We have to preprocess this image, because feeding the original images to the CNN would be a waste of resources because it makes training process much slower, and the network can learn from smaller images just as well.
+
 \subsubsection{\normalsize{Observations}}
-In this section we will present our environment wrappers which return the observations.
-\textbullet  \textbf{ResizeFrame}\\
-With this wrapper we are downscaling the images from their original size (480x640x3) \cite{kalap} to (84x84x3). The smaller dimension makes the training of the neural network faster, and it still carries enough information for efficient training.\\
-\textbullet  \textbf{CropFrame}\\
-In this wrapper we are cropping the useless information from the image, in our case it's the part above the horizon.\\
+
+Preprocessing actions are applied to the observations. These can be resizing the image, cropping the image, grayscale the image, segment the colors in it or stack the last n number of the frames.
+
 \begin{figure}[h!]
 	\centering
-	\begin{minipage}{.5\textwidth}
+	\begin{minipage}{.3\textwidth}
+	\centering
+	\includegraphics[width=0.8\linewidth]{rawobs.jpg}
+	\caption{(a)}
+	\end{minipage}%
+	\begin{minipage}{.3\textwidth}
 	\centering
 	\includegraphics[width=0.8\linewidth]{grayscale.jpg}
-	\caption{Observation from the environment with grayscaling}
+	\caption{(b)}
 	\end{minipage}%
-\begin{minipage}{.5\textwidth}
+\begin{minipage}{.3\textwidth}
 	\centering
 	\includegraphics[width=0.8\linewidth]{colorseg.jpg}
-	\caption{Observation from the environment with color segmentation}
+	\caption{(c)}
 \end{minipage}
+\caption{Observations from the environment. (a) shows a raw observation, (b) shows a grayscaled image, (c) shows a color segmentated image}
 \end{figure}
-\textbullet  \textbf{GrayScaleFrame}\\
-Training time can be reduced by using grayscale images instead of RGB, while keeping the important information of the images. This wrapper should not be used in conjunction with the ColorSegmentFrame wrapper.\\
-
-\textbullet  \textbf{ColorSegmentFrame}\\
-Here we are segmenting the different parts of the image so we can feed the neural network more useful information. The segmentation is done using intervals, we assigned the red channel for the white line, and the green channel for the yellow line. For lane following only these two information are useful for the neural network, so we assign black for everything else.\\
-\textbullet  \textbf{NormalizeFrame}\\
-To make the training of the CNN easier and faster this wrapper normalizes the pixel values in the interval of [0,1]. Altough we implemented this wrapper, it is not used, because stable baselines does the input normalization automatically.\\
-\textbullet  \textbf{StackFrame}
-For better quality in training and more information we are concatenating the last n frames to form a time series, so the agent can percieve dynamic changes in its environment.\\
 
 \subsubsection{\normalsize{Actions}}
 
