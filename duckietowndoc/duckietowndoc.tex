@@ -26,7 +26,10 @@
 \usepackage{hyperref}
 \usepackage{float}
 \usepackage{subcaption}
+\usepackage{amsmath}
 \usepackage{hyperref}
+\usepackage{listings}
+
 
 \DeclareCaptionSubType * [alph]{table}
 \captionsetup[subtable]{labelformat=simple, labelsep=space}
@@ -171,69 +174,77 @@ There are many ways to measure the performance of the trained agents, and for th
 \subsection{\normalsize{Hyperparameter Optimization}}
 Reinforcement learning models are extremely sensitive to hyperparameter settings. A poor choice of hyperparameters can cause unstable performance or it could prevent convergence completely. Findig the right parameters for training can be a difficult job, and it is usually not a good idea to start tuning the parameters manually. Instead you can use an optimization library, that sets up sophisticated experiments to find the right hyperparameters for your usecase.
 
-For our project we used the Optuna library, which offers several tools to dynamically explore the hyperparameter-space in a define-by-run style. The library features state-of-the-art alorithms for sampling and pruning, easy parallelization of experiments and visualization tools. In order to optimize our models, we used the Tree-structured Parzen Estimator (TPE) for sampling and the Median pruner for early termination of less promising trials. The studies were conducted with a budget of 100 trials and a maximum of 50000 steps, and evaluations at every 10000 steps. For optimizating the PPO model, we used an RTX 6000 workstation with 24GB VRAM and 46GB RAM, but for the A2C study, we had to use a GTX1060OC with 6GB of VRAM and 16GB RAM which was not enough to finish the study, so in that case the results are based on 47 finished trials. \ref{t:optimPPO} and \ref{optimA2C} shows the optimized hyperparameters for the models.
+For our project we used the Optuna library, which offers several tools to dynamically explore the hyperparameter-space in a define-by-run style. The library features state-of-the-art alorithms for sampling and pruning, easy parallelization of experiments and visualization tools. In order to optimize our models, we used the Tree-structured Parzen Estimator (TPE) for sampling and the Median pruner for early termination of less promising trials. The studies were conducted with a budget of 100 trials and a maximum of 50000 steps, and evaluations at every 10000 steps. For optimizating the PPO model, we used an RTX 6000 workstation with 24GB VRAM and 46GB RAM, but for the A2C study, we had to use a GTX1060OC with 6GB of VRAM and 16GB RAM which was not enough to finish the study, so in that case the results are based on 47 finished trials. \ref{tab:ppo} and \ref{tab:a2c} shows the optimized hyperparameters for the models.
 
-\begin{table}[H]
+
+
+
+\begin{table}[h]
+	\begin{subtable}[h]{0.45\textwidth}
+		\centering
+		\begin{tabular}{|l | l|}
+		\hline
+		Learning rate schedule & constant  \\
+		\hline
+		Learning rate & 0.1324  \\
+		\hline
+		Norm. advantage & False  \\
+		\hline
+		n\_steps & 64  \\
+		\hline
+		Entropy coef. & 0.0015 \\
+		\hline
+		Use RMS prop. & False  \\
+		\hline
+		Gae. lambda & 0.98 \\
+		\hline
+		Max grad. norm. & 0.7  \\
+		\hline
+		vf coef. & 0.7373  \\
+		\hline
+		Activation  & tanh  \\
+		\hline
+		\end{tabular}
+		\caption{A2C}
+		\label{tab:a2c}
+	\end{subtable}
+	\hfill
+	\begin{subtable}[h]{0.45\textwidth}
+		\centering
+		\begin{tabular}{|l | l |}
+		\hline
+		Learning rate schedule & linear \\
+		\hline 
+		Learning rate & 0.8764  \\
+		\hline
+		Batch size & 256  \\
+		\hline
+		n\_steps & 32  \\
+		\hline
+		Entropy coef. & 6.5699 \\
+		\hline
+		Clip range & 0.2  \\
+		\hline
+		Epochs & 5 \\
+		\hline
+		Gae. lambda & 0.92 \\
+		\hline
+		Max grad. norm. &  0.8 \\
+		\hline
+		vf coef. & 0.2425  \\
+		\hline
+		Activation & relu \\
+		\hline
+		\end{tabular}
+		\caption{PPO}
+		\label{tab:ppo}
+	\end{subtable}
 	\caption{Optimized model hyperparameters}
-	\begin{subtable}[b]{.4\textwidth}
-	\centering
-	\caption{PPO}
-	\label{t:optimPPO}
-	\begin{tabular}{c c}
-	Learning rate schedule& linear \\
-	\hline
-	Learning rate & 0.8764 \\
-	\hline
-	Batch size & 256 \\
-	\hline
-	n\_steps & 32 \\
-	\hline
-	Entropy coef. & 6.5699 \\
-	\hline
-	Clip range & 0.2 \\
-	\hline
-	Epochs & 5 \\
-	\hline
-	Gae. lambda & 0.92 \\
-	\hline
-	Max grad. norm. & 0.8 \\
-	\hline
-	vf coef. & 0.2425 \\
-	\hline
-	Activation & relu \\
-	\hline
-	\end{tabular}
-	\end{subtable}
-
-	\begin{subtable}[b]{.4\textwidth}
-	\centering
-	\caption{A2C}
-	\label{t:optimA2C}
-	\begin{tabular}{c c}
-	Learning rate schedule& constant \\
-	\hline
-	Learning rate & 0.1324 \\
-	\hline
-	Norm. advantage & False \\
-	\hline
-	n\_steps & 64 \\
-	\hline
-	Entropy coef. & 0.0015 \\
-	\hline
-	Use RMS prop. & False \\
-	\hline
-	Gae. lambda & 0.98 \\
-	\hline
-	Max grad. norm. & 0.7 \\
-	\hline
-	vf coef. & 0.7373 \\
-	\hline
-	Activation & tanh \\
-	\hline
-	\end{tabular}
-	\end{subtable}
-	
+	\label{tab:hyp}
 \end{table}
+
+
+
 
 \section{\large{Results}}
 The PPO and the A2C agents were trained in the gym-duckietown simulator, with concatenating the last 3, grayscaled observations, and using the 'steering' actions and the orientation rewards described in \autoref{sec:actions} and \autoref{sec:rewards}. The agents were trained on the 'zigzag\_dists' map for one million steps, using only 1 environment. Each episode lasted a maximum of 500 steps, because this proved to be enough to take at least a full round on the map for a reasonable agent. In order to examine the effects of the hyperparameter optimization, first we trained the models with mostly the default SB3 parameters, the only exception was the learning rate, which was set to a constant 0.0005 value. This was ment to be a baseline training to compare it with the optimized models. The main difference - besides the optimized parameters - was the use of 4 parallel environments and the 2 million steps long training. \autoref{t:zigzagdists}, \autoref{t:smalloop} and \autoref{t:udem1} shows the evaluation results on the different maps.
@@ -242,7 +253,8 @@ The PPO and the A2C agents were trained in the gym-duckietown simulator, with co
 \begin{table}[H]
 	\caption{Evaluation results on the 'zigzag\_dists' map}
 	\begin{center}
-	\begin{tabular}{c c c c c}
+	\begin{tabular}{|c| c| c| c| c|}
+		\hline
 	  & PPO (default) & A2C (default) & PPO (optimized) & A2C (optimized) \\
 	\hline
 	Mean episode reward & 11.51 & 74.24 & 128.19 & 74.24 \\
@@ -255,7 +267,8 @@ The PPO and the A2C agents were trained in the gym-duckietown simulator, with co
 
 	\caption{Evaluation results on the 'small\_loop' map}
 	\begin{center}
-	\begin{tabular}{c c c c c}
+	\begin{tabular}{|c| c | c| c | c|}
+		\hline
 	  & PPO (default) & A2C (default) & PPO (optimized) & A2C (optimized) \\
 	\hline
 	Mean episode reward & 14.83 & 61.21 & 93.78 & 61.21 \\
@@ -268,7 +281,8 @@ The PPO and the A2C agents were trained in the gym-duckietown simulator, with co
 
 	\caption{Evaluation results on the 'udem1' map}
 	\begin{center}
-	\begin{tabular}{c c c c c}
+	\begin{tabular}{|c| c| c| c| c|}
+		\hline
 	  & PPO (default) & A2C (default) & PPO (optimized) & A2C (optimized) \\
 	\hline
 	Mean episode reward & 6.01 & 98.27 & 70.79 & 98.27 \\
