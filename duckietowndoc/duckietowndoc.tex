@@ -26,6 +26,12 @@
 \usepackage{hyperref}
 \usepackage{float}
 \usepackage{subcaption}
+\usepackage{hyperref}
+
+\DeclareCaptionSubType * [alph]{table}
+\captionsetup[subtable]{labelformat=simple, labelsep=space}
+
+\renewcommand\thesubtable{\thetable(\alph{subtable})}
 
 %magyar kivonathoz
 \usepackage[magyar, english]{babel}
@@ -85,14 +91,14 @@
 	\large
 	\textbf{Abstract}\\
 \end{center}
-In this project we tried to bring a solution to driving a small robot with vision-based reinforcement learning in a simulated environment. The robot relies on images of its front-facing camera. Our models generate continous actions that control a differential-drive robot vehicle. To train the policy we have selected two state-of-the-art algorithms (A2C, and PPO). A2C is an Actor Critic model, while PPO uses Proximal Policy Optimization. In order to train these models we have to feed in the images, which we preprocess first. To train the model better for real-world conditions we used domain randomization. Further analysis of our work is discussed in the document.
+In this project we tried to bring a solution to driving a small robot with vision-based reinforcement learning in a simulated environment. The robot relies on images of its front-facing camera. Our models generate continous actions that control a differential-drive robot vehicle. To train the policy we have selected two state-of-the-art algorithms (A2C and PPO). A2C is an Actor Critic model, while PPO uses Proximal Policy Optimization. In order to train these models we have to feed in the images, which we preprocess first. To train the model better for real-world conditions we used domain randomization. Further analysis of our work is discussed in the document.
 
 \begin{center}
 	\large
 	\textbf{Kivonat}\\
 \end{center}
 
-Ebben a projektben megpróbáltunk megoldást találni egy kis robot vezetésére látásalapú megerősített tanulással egy szimulált környezetben. A robot az elől elhelyezkedő kamerájának képeire támaszkodik. Modelljeink folyamatos cselekvéseket generálnak, amelyek egy differenciálhajtású robotjárművet irányítanak. A politika betanításához két state-of-the-art algoritmust választottunk (A2C, és PPO). Az A2C egy Actor Critic modell, míg a PPO a Proximal Policy Optimizationt használja. Ahhoz, hogy ezeket a modelleket betanítsuk, a képeket be kell táplálnunk, amelyeket először előfeldolgozunk. A modell valós körülményekhez való jobb képzése érdekében domain randomizálást használtunk. Munkánk további elemzését a dokumentumban tárgyaljuk.
+Ebben a projektben megpróbáltunk megoldást találni egy kis robot vezetésére látásalapú megerősített tanulással egy szimulált környezetben. A robot az elöl elhelyezkedő kamerájának képeire támaszkodik. Modelljeink folyamatos cselekvéseket generálnak, amelyek egy differenciálhajtású robotjárművet irányítanak. A stratégia betanításához két modern algoritmust választottunk (A2C és PPO). Az A2C egy Actor Critic modell, míg a PPO a Proximal Policy Optimizationt használja. Ahhoz, hogy ezeket a modelleket betanítsuk, a képeket be kell táplálnunk, amelyeket először előfeldolgozunk. Ahhoz, hogy a modell valós környezetbe átültetését elősegítsük domain randomizálást használtunk. Munkánk további elemzését a dokumentumban tárgyaljuk.
 
 \section{\large{Introduction}}
 
@@ -165,14 +171,14 @@ There are many ways to measure the performance of the trained agents, and for th
 \subsection{\normalsize{Hyperparameter Optimization}}
 Reinforcement learning models are extremely sensitive to hyperparameter settings. A poor choice of hyperparameters can cause unstable performance or it could prevent convergence completely. Findig the right parameters for training can be a difficult job, and it is usually not a good idea to start tuning the parameters manually. Instead you can use an optimization library, that sets up sophisticated experiments to find the right hyperparameters for your usecase.
 
-For our project we used the Optuna library, which offers several tools to dynamically explore the hyperparameter-space in a define-by-run style. The library features state-of-the-art alorithms for sampling and pruning, easy parallelization of experiments and visualization tools. In order to optimize our models, we used the Tree-structured Parzen Estimator (TPE) for sampling and the Median pruner for early termination of less promising trials. The studies were conducted with a budget of 100 trials and a maximum of 50000 steps, and evaluations at every 10000 steps. For optimizating the PPO model, we used an RTX 6000 workstation with 24GB VRAM and 46GB RAM, but for the A2C study, we had to use a GTX1060OC with 6GB of VRAM and 16GB RAM which was not enough to finish the study, so in that case the results are based on 47 finished trials. Table [TODO] shows the optimized hyperparameters for the two models.
+For our project we used the Optuna library, which offers several tools to dynamically explore the hyperparameter-space in a define-by-run style. The library features state-of-the-art alorithms for sampling and pruning, easy parallelization of experiments and visualization tools. In order to optimize our models, we used the Tree-structured Parzen Estimator (TPE) for sampling and the Median pruner for early termination of less promising trials. The studies were conducted with a budget of 100 trials and a maximum of 50000 steps, and evaluations at every 10000 steps. For optimizating the PPO model, we used an RTX 6000 workstation with 24GB VRAM and 46GB RAM, but for the A2C study, we had to use a GTX1060OC with 6GB of VRAM and 16GB RAM which was not enough to finish the study, so in that case the results are based on 47 finished trials. \ref{t:optimPPO} and \ref{optimA2C} shows the optimized hyperparameters for the models.
 
 \begin{table}[H]
-	\label{t:optimParam}
 	\caption{Optimized model hyperparameters}
-	\begin{subtable}{.4\linewidth}
+	\begin{subtable}[b]{.4\textwidth}
 	\centering
 	\caption{PPO}
+	\label{t:optimPPO}
 	\begin{tabular}{c c}
 	Learning rate schedule& linear \\
 	\hline
@@ -197,11 +203,12 @@ For our project we used the Optuna library, which offers several tools to dynami
 	Activation & relu \\
 	\hline
 	\end{tabular}
-	\end{subtable}%
+	\end{subtable}
 
-	\begin{subtable}{.4\linewidth}
+	\begin{subtable}[b]{.4\textwidth}
 	\centering
 	\caption{A2C}
+	\label{t:optimA2C}
 	\begin{tabular}{c c}
 	Learning rate schedule& constant \\
 	\hline
@@ -274,7 +281,9 @@ The PPO and the A2C agents were trained in the gym-duckietown simulator, with co
 \end{table}
 
 \section{\large{Conclusion}}
+In this work two reinforcement learning algorithms were trained to drive a two-wheel robot in a simulated environment. The models were compared with each other and their optimized versions using basic metrics from the simulation. It was found that optimization did help regarding the PPO model, but the A2C agent performed the same way. In order to understand the reasons behind this phenomena more in-depth experiments are needed.
 
+(Disclaimer: This is not the final version of the documentation. Please see a more recent commit.)
 
 \bibliography{bib}
 %\addcontentsline{toc}{chapter}{Irodalomjegyzék}
