@@ -57,12 +57,12 @@
   %\texttt{attilapetho13@gmail.com} \\
   %% examples of more authors
    \And  
-   Farkas Olivér István \\
+   Olivér István Farkas\\
   %% Affiliation \\
   %% Address \\
   %% \texttt{email} \\
    \And
-    Faragó Gyula\\
+    Gyula Faragó\\
   %% Affiliation \\
   %% Address \\
   %% \texttt{email} \\
@@ -94,29 +94,33 @@
 	\large
 	\textbf{Abstract}\\
 \end{center}
-In this project we tried to bring a solution to driving a small robot with vision-based reinforcement learning in a simulated environment. The robot relies on images of its front-facing camera. Our models generate continous actions that control a differential-drive robot vehicle. To train the policy we have selected two state-of-the-art algorithms (A2C and PPO). A2C is an Actor Critic model, while PPO uses Proximal Policy Optimization. In order to train these models we have to feed in the images, which we preprocess first. To train the model better for real-world conditions we used domain randomization. Further analysis of our work is discussed in the document.
+In this project we tried to bring a solution to driving a small robot with vision-based reinforcement learning in a simulated environment. The robot relies on images from its front-facing camera. Our models generate continous actions that control a differential-drive robot vehicle. To train the policy we have selected two state-of-the-art algorithms (A2C and PPO). A2C is an Actor Critic model, while PPO uses Proximal Policy Optimization. 
+In order to train these models we have to feed in the images, which we preprocess first. To train the model better for real-world conditions we used domain randomization. Further analysis of our work is discussed in the document.
 
 \begin{center}
 	\large
 	\textbf{Kivonat}\\
 \end{center}
 
-Ebben a projektben megpróbáltunk megoldást találni egy kis robot vezetésére látásalapú megerősített tanulással egy szimulált környezetben. A robot az elöl elhelyezkedő kamerájának képeire támaszkodik. Modelljeink folyamatos cselekvéseket generálnak, amelyek egy differenciálhajtású robotjárművet irányítanak. A stratégia betanításához két modern algoritmust választottunk (A2C és PPO). Az A2C egy Actor Critic modell, míg a PPO a Proximal Policy Optimizationt használja. Ahhoz, hogy ezeket a modelleket betanítsuk, a képeket be kell táplálnunk, amelyeket először előfeldolgozunk. Ahhoz, hogy a modell valós környezetbe átültetését elősegítsük domain randomizálást használtunk. Munkánk további elemzését a dokumentumban tárgyaljuk.
+Ebben a projektben megpróbáltunk megoldást találni egy kis robot vezetésére látásalapú megerősített tanulással egy szimulált környezetben. A robot az elöl elhelyezkedő kamerájának képeire támaszkodik. Modelljeink folyamatos cselekvéseket generálnak, amelyek egy differenciálhajtású robotjárművet irányítanak. A stratégia betanításához két modern algoritmust választottunk (A2C és PPO). 
+Az A2C egy Actor Critic modell, míg a PPO a Proximal Policy Optimizationt használja. A modellek a környezettől kapott képkockák alapján tanulnak, amelyeket először előfeldolgozunk. Ahhoz, hogy a modell valós környezetbe átültetését elősegítsük, domain randomizálást használtunk. Munkánk további elemzését a dokumentumban tárgyaljuk.
 
 \section{\large{Introduction}}
 
-Self driving vehicles are clearly the future of transportation. If you look at waymo's \cite{waymo}  safety report you can see two things. First it is obvious that AI driven vehicles are more safe than a human driven ones. The other thing which makes development hard is the amount of data needed for the training of the AI. 
-The report mentions that the AI used in the cars have learned from over 20 million driven miles. It is quite big number and an astounding achievement given the fact that the car fleet only had 8 bigger accident during this time. The report shows that all accident had a similar cause, human error. In three times the car was stationary and someone ran into it. I think it shows the potential of self driving vehicles.
+Self driving vehicles are clearly the future of transportation. If you look at Waymo's \cite{waymo}  safety report you can see two things. First it is obvious that AI driven vehicles are more safe than human driven ones. The other thing which - makes development hard - is the amount of data needed for the training of the AI. 
+The report mentions that the AI used in the cars have learned from over 20 million driven miles. It is quite a big number and an astounding achievement given the fact that the car fleet only had 8 bigger accident during this time. The report shows that all accident had a similar cause, human error. In three times the car was stationary and someone ran into it. This clearly shows the potential of self driving vehicles.
 
-For us 20 million miles driven seems a lot, but to train well an AI its not that much. This is the reason waymo chosen to train its AI in simulation as well. The driven mile is the simulation were 20 billion. That means in order to archive better results using a simulator is a good idea. Duckietown provides an excellent learning ground for those who want to understand the theory of reinforced learning, and apply the theory in real environment. 
-It has started in a class at MIT in 2016. Duckietown has grown so much since then, it's now a worldwide initiative to learn AI and robotics. Our goal was to deep dive into the world of reinforced learning and develop efficient learning strategies for our duckiebots.
+For us, 20 million miles driven seems a lot, but to train well an AI it is not that much. This is the reason Waymo chosen to train its AI in simulation as well. The driven miles in the simulation were 20 billion. That means in order to archive better results, using a simulator is a good idea. Duckietown provides an excellent learning ground for those who want to understand the theory of reinforcment learning, and apply the theory in a real environment. 
+It has started in a class at MIT in 2016. Duckietown has grown so much since then, it is now a worldwide initiative to learn AI and robotics. Our goal was to deep dive into the world of reinforcement learning and develop efficient learning strategies for our duckiebots.
 
 \section{\large{Methods}}
 
 \subsection{\normalsize{Reinforcement Learning}}
 
-Reinforced learning differs from other machine learning techniques. It can't be put in supervised or unsupervised learning instead it creates its own separate category in machine learning. The reinforced learning model consist of two important element, the environment and the agent (Figure \ref{fig:statemachin}). The environment can be defined as everything that is not the agent and have no total control over it. The environment can be represented mathematically by a set of variables that define each state of the system. The set of all states called state spaces. The agent don't have full access to the state space, it can see only a part of it which is called observation. The agent can modify the current state through actions. The environment reacts to the action with potential state change and a reward.
-
+In a reinforcement learning setting, an agent interacts with its environment by choosing actions (a\textsubscript{t}) at every timestep, based on information called state (s\textsubscript{t}), and receives back the next state (s\textsubscript{t+1}) and the reward for the current action (r\textsubscript{t+1}), which will be used to select the next action (a\textsubscript{t+1}). \autoref{fig:statemachin} summarizes this process. 
+The agent tries to gradually improve its policy by exploring new ways to behave in the environment and observing the rewards received for its actions. The goal of the agent is to maximize the expected future rewards over a finite amount of steps. 
+There are many ways of achieving this goal, which is reflected in the number of different reinforcement learning algorithms. A fairly simple one is Deep Q-Networks (DQN) which chooses actions based on an estimate of the action-value function that is calculated from previous steps in the environment. 
+Despite its beginner friendly nature, DQN would not be the best choice for this type of problem, because it can only utilize discrete actions, which could potentially cause wobbling and unstable behaviour [TODO 14]. For this reason, we chose two algorithms, Proximal Policy Optimization (PPO) and a synchronous, deterministic variant of Asynchronous Advantage Actor Critic (A2C), which both support continuous actions.
 
 \begin{figure}[h!]
 	\centering
@@ -125,11 +129,8 @@ Reinforced learning differs from other machine learning techniques. It can't be 
 	\label{fig:statemachin}
 \end{figure}
 
-The goal is simple, the agent have a predefined task in the environment and must complete it through actions. To archive its goal the agent have to do a three-step process: the agent interacts with the environment, the agent evaluates its behavior, and the agent improves its responses \cite{dlr_book}. The evaluation is based on the previous rewards and the observations. The hardest part is the underlying algorithm in the agent which maps the observation and the rewards to a goal archiving action.
-
-\subsection{\normalsize{A2C, PPO algorithms}}
-
-We tried two promising algorithm for the task: A2C and PPO.The implementation of these algorithms were done by the stable baselines library  \cite{stablebase} so we only had to focus on reward and observation shaping.
+Implementing the above mentioned algorithms would be very time consuming, so we decided to use the Stable Baselines 3 library [TODO], which is a simlified version of OpenAI baselines. The SB3 library contains several implementations of state-of-the-art RL algorithms and useful tools to train, retrain and evaluate the models.
+[TODO: about the policy network]
 
 \subsection{\normalsize{Environment}}
 
@@ -140,7 +141,7 @@ We have to preprocess this image, because feeding the original images to the CNN
 
 Preprocessing actions are applied to the observations. These can be resizing the image, cropping the image, grayscale the image, segment the colors in it or stack the last n number of the frames.
 
-\begin{figure}[h!]
+\begin{figure}[H]
 	\centering
 	\begin{minipage}{.3\textwidth}
 	\centering
@@ -162,24 +163,28 @@ Preprocessing actions are applied to the observations. These can be resizing the
 
 \subsubsection{\normalsize{Actions}}
 \label{sec:actions}
-Since the vehicle doesn't have turn-able wheels, the turning must be archived by modifying the speed of the individual wheels. In the real life this speed is expressed as the PWM (Pulse Width Modulated) value of the applied voltage on the motor. For simplicity this value is normalized to 1 both int the simulation and the real life. For easier calculation the PWM value is not calculated dynamically it is statically coded at fix values which equates to three individual state. These states are forward, right turn, left turn.
+Since the vehicle doesn't have turnable wheels, the turning must be achived by modifying the speed of the individual wheels. In the real life this speed is expressed as the PWM (Pulse Width Modulation) value of the applied voltage on the motor. For simplicity this value is normalized to 1 both in the simulation and the real life. For easier calculation the PWM value is not calculated dynamically it is statically coded at fix values which equates to three individual states. 
+These states are forward, right turn, left turn.
 
 \subsubsection{\normalsize{Rewards}}
 \label{sec:rewards}
-Just like any other engineering problem choosing optimal rewards are tricky and require lot of testing and empirical estimation. A poorly chosen reward function can be exploited by the agent. In our first test runs the agent got reward for staying on the path. The reward was increasing and we got long episodes which looked promising. After examining the data we discovered that the agent was rotating around in one place. It realized that the easiest way to maximize reward was not what we initially intended as a goal. To correct this we had to take in account the angle ,position from the middle and speed of the agent.
+Just like any other engineering problem choosing optimal rewards are tricky and require lot of testing and empirical estimation. A poorly chosen reward function can be exploited by the agent. In our first test runs the agent got reward for staying on the path. The reward was increasing and we got long episodes which looked promising. After examining the data we discovered that the agent was rotating around in one place. 
+It realized that the easiest way to maximize reward was not what we initially intended as a goal. To correct this we had to take in account the angle, position from the middle and speed of the agent.
 
 \subsection{\normalsize{Evaluation}}
-There are many ways to measure the performance of the trained agents, and for the sake of simplicity we chose two metrics for this purpose: survival time (in timesteps) and rewards received from the environment. Survival time tells us how many steps the agent took before either it went out of the road or the episode finished. A well-trained agent should stay on the road for the whole evaluation episode. Altough this provides valuable information, this metric does not tell much performance on its own. Hence the rewards are also stored and evaluated to gain richer knowledge about the agents perfomance. The models were trained on the 'zigzag\_dists' map, because it offers a good balance between left and right turns and straight sections. In order to test how well the models learned to generalize, evaluation was done on three different maps: 'zigzag\_dists', 'loop\_empty', and 'udem1'.
+There are many ways to measure the performance of the trained agents, and for the sake of simplicity we chose two metrics for this purpose: survival time (in timesteps) and rewards received from the environment. Survival time tells us how many steps the agent took before either it went out of the road or the episode finished. A well-trained agent should stay on the road for the whole evaluation episode. 
+Altough this provides valuable information, this metric does not tell much about performance on its own. Hence the rewards are also stored and evaluated to gain richer knowledge about the agents perfomance. The models were trained on the 'zigzag\_dists' map, because it offers a good balance between left and right turns and straight sections. In order to test how well the models learned to generalize, evaluation was done on three different maps: 'zigzag\_dists', 'loop\_empty', and 'udem1'.
 
 \subsection{\normalsize{Hyperparameter Optimization}}
 Reinforcement learning models are extremely sensitive to hyperparameter settings. A poor choice of hyperparameters can cause unstable performance or it could prevent convergence completely. Findig the right parameters for training can be a difficult job, and it is usually not a good idea to start tuning the parameters manually. Instead you can use an optimization library, that sets up sophisticated experiments to find the right hyperparameters for your usecase.
 
-For our project we used the Optuna library, which offers several tools to dynamically explore the hyperparameter-space in a define-by-run style. The library features state-of-the-art alorithms for sampling and pruning, easy parallelization of experiments and visualization tools. In order to optimize our models, we used the Tree-structured Parzen Estimator (TPE) for sampling and the Median pruner for early termination of less promising trials. The studies were conducted with a budget of 100 trials and a maximum of 50000 steps, and evaluations at every 10000 steps. For optimizating the PPO model, we used an RTX 6000 workstation with 24GB VRAM and 46GB RAM, but for the A2C study, we had to use a GTX1060OC with 6GB of VRAM and 16GB RAM which was not enough to finish the study, so in that case the results are based on 47 finished trials. \ref{tab:ppo} and \ref{tab:a2c} shows the optimized hyperparameters for the models.
+For our project we used the Optuna library, which offers several tools to dynamically explore the hyperparameter-space in a define-by-run style. The library features state-of-the-art alorithms for sampling and pruning, easy parallelization of experiments and visualization tools. In order to optimize our models, we used the Tree-structured Parzen Estimator (TPE) for sampling and the Median pruner for early termination of less promising trials. 
+The studies were conducted with a budget of 100 trials and a maximum of 50000 steps, and evaluations at every 10000 steps. For optimizating the PPO model, we used an RTX 6000 workstation with 24GB VRAM and 46GB RAM, but for the A2C study, we had to use a GTX1060OC with 6GB of VRAM and 16GB RAM which was not enough to finish the study, so in that case the results are based on 47 finished trials. Tables \ref{tab:ppo} and \ref{tab:a2c} shows the optimized hyperparameters for the models.
 
 
 
 
-\begin{table}[h]
+\begin{table}[H]
 	\begin{subtable}[h]{0.45\textwidth}
 		\centering
 		\begin{tabular}{|l | l|}
@@ -247,11 +252,13 @@ For our project we used the Optuna library, which offers several tools to dynami
 
 
 \section{\large{Results}}
-The PPO and the A2C agents were trained in the gym-duckietown simulator, with concatenating the last 3, grayscaled observations, and using the 'steering' actions and the orientation rewards described in \autoref{sec:actions} and \autoref{sec:rewards}. The agents were trained on the 'zigzag\_dists' map for one million steps, using only 1 environment. Each episode lasted a maximum of 500 steps, because this proved to be enough to take at least a full round on the map for a reasonable agent. In order to examine the effects of the hyperparameter optimization, first we trained the models with mostly the default SB3 parameters, the only exception was the learning rate, which was set to a constant 0.0005 value. This was ment to be a baseline training to compare it with the optimized models. The main difference - besides the optimized parameters - was the use of 4 parallel environments and the 2 million steps long training. \autoref{t:zigzagdists}, \autoref{t:smalloop} and \autoref{t:udem1} shows the evaluation results on the different maps.
+The PPO and the A2C agents were trained in the gym-duckietown simulator, with concatenating the last 3, grayscaled observations, and using the 'steering' actions and the orientation rewards described in \autoref{sec:actions} and \autoref{sec:rewards}. The agents were trained on the 'zigzag\_dists' map for one million steps, using only 1 environment. Each episode lasted a maximum of 500 steps, because this proved to be enough to take at least a full round on the map for a reasonable agent. 
+In order to examine the effects of the hyperparameter optimization, first we trained the models with mostly the default SB3 parameters, the only exception was the learning rate, which was set to a constant 0.0005 value. This was ment to be a baseline training to compare it with the optimized models. The main difference - besides the optimized parameters - was the use of 4 parallel environments and the 2 million steps long training. 
+\autoref{t:zigzagdists}, \autoref{t:smalloop} and \autoref{t:udem1} shows the evaluation results on the different maps.
 
 
 \begin{table}[H]
-	\caption{Evaluation results on the 'zigzag\_dists' map}
+	\caption{Evaluation results on the 'zigzag\_dists' (seen) map}
 	\begin{center}
 	\begin{tabular}{|c| c| c| c| c|}
 		\hline
@@ -265,7 +272,7 @@ The PPO and the A2C agents were trained in the gym-duckietown simulator, with co
 	\end{center}
 	\label{t:zigzagdists}
 
-	\caption{Evaluation results on the 'small\_loop' map}
+	\caption{Evaluation results on the 'small\_loop' (unseen) map}
 	\begin{center}
 	\begin{tabular}{|c| c | c| c | c|}
 		\hline
@@ -279,7 +286,7 @@ The PPO and the A2C agents were trained in the gym-duckietown simulator, with co
 	\end{center}
 	\label{t:smalloop}
 
-	\caption{Evaluation results on the 'udem1' map}
+	\caption{Evaluation results on the 'udem1' (unseen) map}
 	\begin{center}
 	\begin{tabular}{|c| c| c| c| c|}
 		\hline
@@ -294,10 +301,20 @@ The PPO and the A2C agents were trained in the gym-duckietown simulator, with co
 	\label{t:udem1}
 \end{table}
 
-\section{\large{Conclusion}}
-In this work two reinforcement learning algorithms were trained to drive a two-wheel robot in a simulated environment. The models were compared with each other and their optimized versions using basic metrics from the simulation. It was found that optimization did help regarding the PPO model, but the A2C agent performed the same way. In order to understand the reasons behind this phenomena more in-depth experiments are needed.
+The evaluation results show us, that in the case of the PPO model, hyperparameter optimization significantly helped achieving higher rewards and longer runs, both in previously seen and unseen environments. 
+But regarding the A2C model, the optimization seemingly did not help at all. It is unclear why this has occured, which means further examination of the training and evaluation conditions are needed for the A2C agent.
+An other interesting result to consider, is the fact that the A2C model performed better on a map that it has never seen, which is also a more complex version of the 'small\_loop' map, with intersections and previously unseen objects like houses and ducks in the background.
+Furthermore, the A2C model achieved much better results with its "default" hyperparameters than the PPO, which could mean it needs less optimization trials. 
 
-(Disclaimer: This is not the final version of the documentation. Please see a more recent commit.)
+
+\section{\large{Conclusion}}
+In this work two reinforcement learning algorithms were trained to drive a two-wheel robot in a simulated environment. 
+The models were compared with each other and their optimized versions using basic metrics from the simulation. 
+It was found that optimization did help regarding the PPO model, but the A2C agent performed the same way. In order to understand the reasons behind this phenomena more in-depth experiments are needed. 
+To further improve the results, longer optimization trials are necessary, with at least 100000 steps, and a variety of maps to train on, which can improve generalization and help avoid overfitting to a single map.
+More evaluation methods could be used to elaborate further on the models performance, like transversal and angular deviations from the right lane centerline, or distance travelled in the ego lane.\\
+
+(Disclaimer: This is not the final version of the document. Please see a more recent commit.)
 
 \bibliography{bib}
 %\addcontentsline{toc}{chapter}{Irodalomjegyzék}

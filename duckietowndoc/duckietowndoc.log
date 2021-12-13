@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021) (preloaded format=pdflatex 2021.12.12)  13 DEC 2021 01:20
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021) (preloaded format=pdflatex 2021.12.12)  13 DEC 2021 22:34
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -269,19 +269,95 @@ Package caption Info: hyperref package is loaded.
 )
 \c@subfigure=\count281
 \c@subtable=\count282
-) (/usr/local/texlive/2021/texmf-dist/tex/generic/babel/babel.sty
+) (/usr/local/texlive/2021/texmf-dist/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2021/10/15 v2.17l AMS math features
+\@mathmargin=\skip58
+
+For additional information on amsmath, use the `?' option.
+(/usr/local/texlive/2021/texmf-dist/tex/latex/amsmath/amstext.sty
+Package: amstext 2021/08/26 v2.01 AMS text
+ (/usr/local/texlive/2021/texmf-dist/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks24
+\ex@=\dimen174
+)) (/usr/local/texlive/2021/texmf-dist/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen175
+) (/usr/local/texlive/2021/texmf-dist/tex/latex/amsmath/amsopn.sty
+Package: amsopn 2021/08/26 v2.02 operator names
+)
+\inf@bad=\count283
+LaTeX Info: Redefining \frac on input line 234.
+\uproot@=\count284
+\leftroot@=\count285
+LaTeX Info: Redefining \overline on input line 399.
+\classnum@=\count286
+\DOTSCASE@=\count287
+LaTeX Info: Redefining \ldots on input line 496.
+LaTeX Info: Redefining \dots on input line 499.
+LaTeX Info: Redefining \cdots on input line 620.
+\Mathstrutbox@=\box53
+\strutbox@=\box54
+\big@size=\dimen176
+LaTeX Font Info:    Redeclaring font encoding OML on input line 743.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 744.
+\macc@depth=\count288
+\c@MaxMatrixCols=\count289
+\dotsspace@=\muskip17
+\c@parentequation=\count290
+\dspbrk@lvl=\count291
+\tag@help=\toks25
+\row@=\count292
+\column@=\count293
+\maxfields@=\count294
+\andhelp@=\toks26
+\eqnshift@=\dimen177
+\alignsep@=\dimen178
+\tagshift@=\dimen179
+\tagwidth@=\dimen180
+\totwidth@=\dimen181
+\lineht@=\dimen182
+\@envbody=\toks27
+\multlinegap=\skip59
+\multlinetaggap=\skip60
+\mathdisplay@stack=\toks28
+LaTeX Info: Redefining \[ on input line 2938.
+LaTeX Info: Redefining \] on input line 2939.
+) (/usr/local/texlive/2021/texmf-dist/tex/latex/listings/listings.sty
+\lst@mode=\count295
+\lst@gtempboxa=\box55
+\lst@token=\toks29
+\lst@length=\count296
+\lst@currlwidth=\dimen183
+\lst@column=\count297
+\lst@pos=\count298
+\lst@lostspace=\dimen184
+\lst@width=\dimen185
+\lst@newlines=\count299
+\lst@lineno=\count300
+\lst@maxwidth=\dimen186
+ (/usr/local/texlive/2021/texmf-dist/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2020/03/24 1.8d (Carsten Heinz)
+\c@lstnumber=\count301
+\lst@skipnumbers=\count302
+\lst@framebox=\box56
+) (/usr/local/texlive/2021/texmf-dist/tex/latex/listings/listings.cfg
+File: listings.cfg 2020/03/24 1.8d listings configuration
+))
+Package: listings 2020/03/24 1.8d (Carsten Heinz)
+ (/usr/local/texlive/2021/texmf-dist/tex/generic/babel/babel.sty
 Package: babel 2021/11/29 3.67 The Babel package
-\babel@savecnt=\count283
-\U@D=\dimen174
+\babel@savecnt=\count303
+\U@D=\dimen187
 \l@unhyphenated=\language87
  (/usr/local/texlive/2021/texmf-dist/tex/generic/babel/txtbabel.def)
 \bbl@readstream=\read2
-\bbl@dirlevel=\count284
+\bbl@dirlevel=\count304
  (/usr/local/texlive/2021/texmf-dist/tex/generic/babel-hungarian/magyar.ldf
 Language: magyar 2019/01/14 v1.5c Magyar (Hungarian) support for babel
 Package babel Info: Making ` an active character on input line 2819.
-\c@footnote@add=\count285
-\c@footnote@ch=\count286
+\c@footnote@add=\count305
+\c@footnote@ch=\count306
 ) (/usr/local/texlive/2021/texmf-dist/tex/generic/babel-english/english.ldf
 Language: english 2017/06/06 v3.3r English support from the babel system
 Package babel Info: Hyphen rules for 'canadian' set to \l@english
@@ -292,29 +368,29 @@ Package babel Info: Hyphen rules for 'newzealand' set to \l@ukenglish
 (babel)             (\language21). Reported on input line 108.
 )) (/usr/local/texlive/2021/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2021-10-18 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count287
-\l__pdf_internal_box=\box53
+\l__color_backend_stack_int=\count307
+\l__pdf_internal_box=\box57
 ) (./duckietowndoc.aux)
 \openout1 = `duckietowndoc.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 78.
-LaTeX Font Info:    ... okay on input line 78.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 78.
-LaTeX Font Info:    ... okay on input line 78.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 78.
-LaTeX Font Info:    ... okay on input line 78.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 78.
-LaTeX Font Info:    ... okay on input line 78.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 78.
-LaTeX Font Info:    ... okay on input line 78.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 78.
-LaTeX Font Info:    ... okay on input line 78.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 78.
-LaTeX Font Info:    ... okay on input line 78.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 78.
-LaTeX Font Info:    ... okay on input line 78.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 78.
-LaTeX Font Info:    ... okay on input line 78.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 81.
+LaTeX Font Info:    ... okay on input line 81.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 81.
+LaTeX Font Info:    ... okay on input line 81.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 81.
+LaTeX Font Info:    ... okay on input line 81.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 81.
+LaTeX Font Info:    ... okay on input line 81.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 81.
+LaTeX Font Info:    ... okay on input line 81.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 81.
+LaTeX Font Info:    ... okay on input line 81.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 81.
+LaTeX Font Info:    ... okay on input line 81.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 81.
+LaTeX Font Info:    ... okay on input line 81.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 81.
+LaTeX Font Info:    ... okay on input line 81.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -382,7 +458,7 @@ LaTeX Font Info:    ... okay on input line 78.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-Package hyperref Info: Link coloring OFF on input line 78.
+Package hyperref Info: Link coloring OFF on input line 81.
 (/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
  (/usr/local/texlive/2021/texmf-dist/tex/latex/refcount/refcount.sty
@@ -390,27 +466,27 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 ) (/usr/local/texlive/2021/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count288
+\c@section@level=\count308
 )
-LaTeX Info: Redefining \ref on input line 78.
-LaTeX Info: Redefining \pageref on input line 78.
-LaTeX Info: Redefining \nameref on input line 78.
+LaTeX Info: Redefining \ref on input line 81.
+LaTeX Info: Redefining \pageref on input line 81.
+LaTeX Info: Redefining \nameref on input line 81.
  (./duckietowndoc.out) (./duckietowndoc.out)
 \@outlinefile=\write3
 \openout3 = `duckietowndoc.out'.
 
-LaTeX Info: Redefining \microtypecontext on input line 78.
-Package microtype Info: Applying patch `item' on input line 78.
-Package microtype Info: Applying patch `toc' on input line 78.
-Package microtype Info: Applying patch `eqnum' on input line 78.
-Package microtype Info: Applying patch `footnote' on input line 78.
+LaTeX Info: Redefining \microtypecontext on input line 81.
+Package microtype Info: Applying patch `item' on input line 81.
+Package microtype Info: Applying patch `toc' on input line 81.
+Package microtype Info: Applying patch `eqnum' on input line 81.
+Package microtype Info: Applying patch `footnote' on input line 81.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
 Package microtype Info: Automatic font expansion enabled (level 2),
 (microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
 Package microtype Info: Using default expansion set `alltext-nott'.
-LaTeX Info: Redefining \showhyphens on input line 78.
+LaTeX Info: Redefining \showhyphens on input line 81.
 Package microtype Info: No adjustment of tracking.
 Package microtype Info: No adjustment of interword spacing.
 Package microtype Info: No adjustment of character kerning.
@@ -418,17 +494,17 @@ Package microtype Info: No adjustment of character kerning.
 File: mt-ptm.cfg 2006/04/20 v1.7 microtype config. file: Times (RS)
 ) (/usr/local/texlive/2021/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count289
-\scratchdimen=\dimen175
-\scratchbox=\box54
-\nofMPsegments=\count290
-\nofMParguments=\count291
-\everyMPshowfont=\toks24
-\MPscratchCnt=\count292
-\MPscratchDim=\dimen176
-\MPnumerator=\count293
-\makeMPintoPDFobject=\count294
-\everyMPtoPDFconversion=\toks25
+\scratchcounter=\count309
+\scratchdimen=\dimen188
+\scratchbox=\box58
+\nofMPsegments=\count310
+\nofMParguments=\count311
+\everyMPshowfont=\toks30
+\MPscratchCnt=\count312
+\MPscratchDim=\dimen189
+\MPnumerator=\count313
+\makeMPintoPDFobject=\count314
+\everyMPtoPDFconversion=\toks31
 ) (/usr/local/texlive/2021/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
@@ -438,101 +514,88 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: hungarian babel package is loaded.
 Package caption Info: hungarian babel package is loaded.
+Package caption Info: listings package is loaded.
 Package caption Info: End \AtBeginDocument code.
+\c@lstlisting=\count315
  (/usr/local/texlive/2021/texmf-dist/tex/latex/base/article.cls
 LaTeX Info: Redefining \cal on input line 497.
 LaTeX Info: Redefining \mit on input line 498.
 ) (/usr/local/texlive/2021/texmf-dist/tex/latex/microtype/mt-cmr.cfg
 File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msa on input line 82.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 85.
  (/usr/local/texlive/2021/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 ) (/usr/local/texlive/2021/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 82.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 85.
  (/usr/local/texlive/2021/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) (/usr/local/texlive/2021/texmf-dist/tex/latex/microtype/mt-msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
 
-Package natbib Warning: Citation `waymo' on page 1 undefined on input line 105.
+Package natbib Warning: Citation `waymo' on page 1 undefined on input line 110.
 
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \vbox (badness 7273) has occurred while \output is active []
 
  [1
 
 
 
 {/usr/local/texlive/2021/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-<rl.jpg, id=61, 421.575pt x 162.6075pt>
+<rl.jpg, id=57, 421.575pt x 162.6075pt>
 File: rl.jpg Graphic file (type jpg)
 <use rl.jpg>
-Package pdftex.def Info: rl.jpg  used on input line 120.
+Package pdftex.def Info: rl.jpg  used on input line 127.
 (pdftex.def)             Requested size: 317.9892pt x 122.65501pt.
-
-
-Package natbib Warning: Citation `dlr_book' on page 2 undefined on input line 125.
-
-
-Package natbib Warning: Citation `stablebase' on page 2 undefined on input line 129.
-
-<rawobs.jpg, id=62, 642.4pt x 481.8pt>
+<rawobs.jpg, id=58, 642.4pt x 481.8pt>
 File: rawobs.jpg Graphic file (type jpg)
 <use rawobs.jpg>
-Package pdftex.def Info: rawobs.jpg  used on input line 144.
+Package pdftex.def Info: rawobs.jpg  used on input line 148.
 (pdftex.def)             Requested size: 95.39772pt x 71.54642pt.
-<grayscale.jpg, id=63, 642.4pt x 381.425pt>
+<grayscale.jpg, id=59, 642.4pt x 381.425pt>
 File: grayscale.jpg Graphic file (type jpg)
 <use grayscale.jpg>
-Package pdftex.def Info: grayscale.jpg  used on input line 149.
+Package pdftex.def Info: grayscale.jpg  used on input line 153.
 (pdftex.def)             Requested size: 95.39772pt x 56.6409pt.
-<colorseg.jpg, id=64, 642.4pt x 481.8pt>
+<colorseg.jpg, id=60, 642.4pt x 481.8pt>
 File: colorseg.jpg Graphic file (type jpg)
 <use colorseg.jpg>
-Package pdftex.def Info: colorseg.jpg  used on input line 154.
+Package pdftex.def Info: colorseg.jpg  used on input line 158.
 (pdftex.def)             Requested size: 95.39772pt x 71.54642pt.
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-[2 <./rl.jpg>]
-
-LaTeX Warning: Reference `optimA2C' on page 3 undefined on input line 174.
-
-
+ [2 <./rl.jpg> <./rawobs.jpg> <./grayscale.jpg> <./colorseg.jpg>]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [3 <./rawobs.jpg> <./grayscale.jpg> <./colorseg.jpg>]
-Underfull \vbox (badness 10000) has occurred while \output is active []
+ [3]
+Underfull \hbox (badness 10000) in paragraph at lines 311--316
 
- [4]
+ []
+
+[4]
 No file duckietowndoc.bbl.
 
 Package natbib Warning: There were undefined citations.
 
 [5] (./duckietowndoc.aux)
-
-LaTeX Warning: There were undefined references.
-
 Package rerunfilecheck Info: File `duckietowndoc.out' has not changed.
-(rerunfilecheck)             Checksum: CE4A27AFAE6DBC1FF068C3EEA13E0B2D;1428.
+(rerunfilecheck)             Checksum: 51C6F10D01484ADF855214AB1FBA60D8;1269.
  ) 
 Here is how much of TeX's memory you used:
- 14964 strings out of 478353
- 249610 string characters out of 5848099
- 602383 words of memory out of 5000000
- 32764 multiletter control sequences out of 15000+600000
- 426926 words of font info for 119 fonts, out of 8000000 for 9000
+ 17002 strings out of 478353
+ 278400 string characters out of 5848099
+ 643817 words of memory out of 5000000
+ 34746 multiletter control sequences out of 15000+600000
+ 430755 words of font info for 138 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 70i,10n,77p,1148b,522s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 70i,10n,77p,1064b,528s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/texlive/2021/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/urw/times/utmr8a.pfb>
-Output written on duckietowndoc.pdf (5 pages, 126446 bytes).
+Output written on duckietowndoc.pdf (5 pages, 128657 bytes).
 PDF statistics:
- 109 PDF objects out of 1000 (max. 8388607)
- 93 compressed objects within 1 object stream
- 23 named destinations out of 1000 (max. 500000)
- 26229 words of extra memory for PDF output out of 29859 (max. 10000000)
+ 106 PDF objects out of 1000 (max. 8388607)
+ 90 compressed objects within 1 object stream
+ 22 named destinations out of 1000 (max. 500000)
+ 30317 words of extra memory for PDF output out of 35830 (max. 10000000)
 
