@@ -8,7 +8,7 @@ common_config:
   # Map name
   map_name: 'zigzag_dists'
   # Number of steps used for training
-  steps: '1e4'
+  steps: '5e3'
   # Number of parallel environments
   n_envs: 4
   # Number of frames to stack
@@ -20,19 +20,19 @@ common_config:
   # Checkpoint save frequency (divide it by the number of parallel envs)
   checkpoint_freq: 100000
   # Use checkpoints for saving
-  checkoint_cb: False
+  checkpoint_cb: False
   # Use domain randomization (1=yes, 0=no)
   domain_rand: 1
   # Learning rate scheduling ('linear' or 'constant')
   lr_schedule: 'linear'
   # Learning rate
-  learning_rate: 5e-5
+  learning_rate: 5.e-5
   # The number of steps to run for each environment per update (see SB3 doc.)
   n_steps: 32
   # Factor for trade-off of bias vs variance for Generalized Advantage Estimator
   gae_lambda: 0.92
   # Entropy coefficient for the loss calculation
-  ent_coef: 6.569939601034458e-05
+  ent_coef: 0.0000656
   # Value function coefficient for the loss calculation
   vf_coef: 0.24250834235539484
   # The maximum value for the gradient clipping

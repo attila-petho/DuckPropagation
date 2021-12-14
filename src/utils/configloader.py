@@ -13,4 +13,5 @@ if __name__ == '__main__':
     from rootdir import ROOT_DIR
     configpath = os.path.join(ROOT_DIR, 'config', 'train_config.yml')
     data = load_config(configpath)
-    print(data['common_config']['seed'])
+    print(data['common_config']['learning_rate'])
+    print(type(data['common_config']['learning_rate']))

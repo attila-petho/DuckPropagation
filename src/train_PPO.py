@@ -5,39 +5,53 @@ from stable_baselines3.common.callbacks import CheckpointCallback
 from stable_baselines3.common.cmd_util import make_vec_env
 from utils.env import make_env
 from utils.hyperparameters import linear_schedule
+from utils.rootdir import ROOT_DIR
+from utils.configloader import load_config
 from timeit import default_timer as timer
 
 
-# Arguments
-map_name        = "zigzag_dists"        # map used for training
-steps           = "2e6"                 # train for 2M steps
-FS              = 3                     # Frames to stack
-color_segment   = False                 # Use color segmentation or grayscale images
-action_wrapper  = "heading"             # Action Wrapper to use ("heading" or "leftrightbraking")
-checkpoint_freq = 100000                # Checkpoint save frequency
-seed            = 123                   # Seed for pseudo random generators
-domain_rand     = 1                     # Domain randomization (0 or 1)
-checkpoint_cb   = True                  # Use checkpoints
+# Load configuration and initialize variables
+configpath = os.path.join(ROOT_DIR, 'config', 'train_config.yml')
+configs = load_config(configpath)
+print('Seed: ', configs['common_config']['seed'], '\n')
 
-color = None
-if color_segment:
-        color = "ColS"
-else:
-        color = "GrayS"
+color = "ColS" if configs['common_config']['color_segment'] else "GrayS"
+activation = configs['common_config']['activation_fn']
+activation_fn = {"tanh": nn.Tanh, "relu": nn.ReLU, "elu": nn.ELU, "leaky_relu": nn.LeakyReLU}
+map_name = configs['common_config']['map_name']
+steps = configs['common_config']['steps']
+FS = configs['common_config']['FS']
+domain_rand = configs['common_config']['domain_rand']
+action_wrapper = configs['common_config']['action_wrapper']
+checkpoint_cb = configs['common_config']['checkpoint_cb']
+seed = configs['common_config']['seed']
+color_segment=configs['common_config']['color_segment']
+n_envs = configs['common_config']['n_envs']
+checkpoint_freq = configs['common_config']['checkpoint_freq']
+learning_rate = configs['common_config']['learning_rate']
+n_steps = configs['common_config']['n_steps']
+gae_lambda = configs['common_config']['gae_lambda']
+ent_coef = configs['common_config']['ent_coef']
+vf_coef = configs['common_config']['vf_coef']
+max_grad_norm = configs['common_config']['max_grad_norm']
+batch_size = configs['ppo_config']['batch_size']
+clip_range = configs['ppo_config']['clip_range']
+n_epochs = configs['ppo_config']['n_epochs']
 
 
+# Load model hyperparameters from config file
 model_hparams = {
-        "n_steps": 32,
-        "batch_size": 256,
-        "learning_rate": linear_schedule(0.8764017708061861),
-        "ent_coef": 6.569939601034458e-05,
-        "clip_range": 0.2,
-        "n_epochs": 5,
-        "gae_lambda": 0.92,
-        "max_grad_norm": 0.8,
-        "vf_coef": 0.24250834235539484,
+        "n_steps": n_steps,
+        "batch_size": batch_size,
+        "learning_rate": linear_schedule(learning_rate),
+        "ent_coef": ent_coef,
+        "clip_range": clip_range,
+        "n_epochs": n_epochs,
+        "gae_lambda": gae_lambda,
+        "max_grad_norm": max_grad_norm,
+        "vf_coef": vf_coef,
         "policy_kwargs": dict(
-            activation_fn=nn.ReLU
+            activation_fn=activation_fn[activation]
         ),
     }
 
@@ -58,7 +72,13 @@ tensorboard_log = f"../tensorboard/{map_name}/"
 os.makedirs(tensorboard_log, exist_ok=True)
 
 # Create wrapped, vectorized environment
-env = make_env(map_name, log_dir, seed=seed, domain_rand=domain_rand, color_segment=False, FS=3, action_wrapper=action_wrapper)
+env = make_env(map_name,
+                log_dir,
+                seed=seed,
+                domain_rand=domain_rand,
+                color_segment=color_segment,
+                FS=FS,
+                action_wrapper=action_wrapper)
 env = make_vec_env(lambda: env, n_envs=4, seed=0)
 env.reset()
 
