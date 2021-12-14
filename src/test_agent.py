@@ -19,11 +19,7 @@ action_wrapper  = "heading"             # Action Wrapper to use ("heading" or "l
 n_eval_episodes = 10                    # Number of evaluation episodes
 info            = "base"                # Model information (e.g. "optimized", "base", "id_num", etc.)
 
-color = None
-if color_segment:
-        color = "ColS"
-else:
-        color = "GrayS"
+color = 'Cols' if color_segment else "Grays"
 
 #Load trained model
 model_name = f"{algo}_{steps}steps_lr{LR}_{color}_FS{FS}_DR{domain_rand}_{action_wrapper}"

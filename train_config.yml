@@ -1,50 +1,54 @@
 ### Config file for training
 
-## Common options
-#
-seed: 123
-#
-map_name: 'zigzag_dists'
-#
-steps: '1e4'
-#
-color_segment: False
-# Action wrapper ('heading' or 'leftrightbraking')
-action_wrapper: 'heading'
-#
-checkpoint_freq: 100000
-#
-checkoint_cb: False
-# Domain randomization (0 or 1)
-domain_rand: 1
-# Learning rate scheduling ('linear' or 'constant')
-lr_schedule: 'linear'
-#
-learning_rate: 5e-5
-#
-n_steps: 64
-#
-gae_lambda: 0.98
-# 
-ent_coef: 0.00153493965623476
-#
-vf_coef: 0.737354020590313
-#
-max_grad_norm: 0.7
-# Activation function ('tanh', 'relu', 'elu', 'leaky_relu')
-activation_fn: 'relu'
+common_config:
+  # Seed
+  seed: 123
+  # Algorithm
+  algo: 'PPO'
+  #
+  map_name: 'zigzag_dists'
+  #
+  steps: '1e4'
+  #
+  color_segment: False
+  # Action wrapper ('heading' or 'leftrightbraking')
+  action_wrapper: 'heading'
+  #
+  checkpoint_freq: 100000
+  #
+  checkoint_cb: False
+  # Domain randomization (0 or 1)
+  domain_rand: 1
+  # Learning rate scheduling ('linear' or 'constant')
+  lr_schedule: 'linear'
+  #
+  learning_rate: 5e-5
+  #
+  n_steps: 32
+  #
+  gae_lambda: 0.92
+  # 
+  ent_coef: 6.569939601034458e-05
+  #
+  vf_coef: 0.24250834235539484
+  #
+  max_grad_norm: 0.7
+  # Activation function ('tanh', 'relu', 'elu', 'leaky_relu')
+  activation_fn: 'relu'
 
 ## PPO only
-#
-batch_size: 
-#
-clip_range:
-#
-n_epochs:
+ppo_config:
+  #
+  batch_size: 256
+  #
+  clip_range: 0.2
+  #
+  n_epochs: 5
 
 
 ## A2C only
-#
-use_rms_prop: False
-#
-normalize_advantage: False
+a2c_config:
+  #
+  use_rms_prop: False
+  #
+  normalize_advantage: False

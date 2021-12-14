@@ -6,7 +6,7 @@ In this project we are training Deep Reinforcement Learning agents to drive smal
 - **LFI** - lane following with intersections
 - **LFVI** - lane following with vehicles and intersections
 
-In order to conquer these challenges, autonomous driving agents are first trained in a simulator (gym-duckietown) and then the trained agents performance are also tested in the real environment on real Duckiebots.
+In order to conquer these challenges, autonomous driving agents are first trained in a simulator (gym-duckietown) and then the trained agents performance will also be tested in the real environment on real Duckiebots.
 
 
 ## Authors
@@ -18,7 +18,7 @@ Olivér Farkas
 
 
 ## Installation
-**Requirements**: `git` installed on your computer
+**Requirements**: `git` and `conda` installed on your computer
 
 Clone the repository:
 ```bash
@@ -32,10 +32,10 @@ bash env_setup.sh
 ```
 
 ## Usage
-Before running the scripts in this repo, make sure that the ```.dt_gym``` virtual environment is activated using
+Before running the scripts in this repo, make sure that the ```dtgym``` anaconda virtual environment is activated using
 ```bash
 cd DuckPropagation/
-source .dt_gym/bin/activate
+conda activate dtgym
 ```
 
 #### Training:
