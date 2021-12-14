@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021) (preloaded format=pdflatex 2021.12.12)  13 DEC 2021 22:34
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021) (preloaded format=pdflatex 2021.12.12)  14 DEC 2021 22:18
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -534,68 +534,80 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 85.
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) (/usr/local/texlive/2021/texmf-dist/tex/latex/microtype/mt-msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
-)
-
-Package natbib Warning: Citation `waymo' on page 1 undefined on input line 110.
-
-
-Underfull \vbox (badness 7273) has occurred while \output is active []
-
- [1
+) [1
 
 
 
 {/usr/local/texlive/2021/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-<rl.jpg, id=57, 421.575pt x 162.6075pt>
+<rl.jpg, id=75, 421.575pt x 162.6075pt>
 File: rl.jpg Graphic file (type jpg)
 <use rl.jpg>
 Package pdftex.def Info: rl.jpg  used on input line 127.
 (pdftex.def)             Requested size: 317.9892pt x 122.65501pt.
-<rawobs.jpg, id=58, 642.4pt x 481.8pt>
+<rawobs.jpg, id=77, 642.4pt x 481.8pt>
 File: rawobs.jpg Graphic file (type jpg)
 <use rawobs.jpg>
-Package pdftex.def Info: rawobs.jpg  used on input line 148.
+Package pdftex.def Info: rawobs.jpg  used on input line 147.
 (pdftex.def)             Requested size: 95.39772pt x 71.54642pt.
-<grayscale.jpg, id=59, 642.4pt x 381.425pt>
+<grayscale.jpg, id=78, 642.4pt x 381.425pt>
 File: grayscale.jpg Graphic file (type jpg)
 <use grayscale.jpg>
-Package pdftex.def Info: grayscale.jpg  used on input line 153.
+Package pdftex.def Info: grayscale.jpg  used on input line 152.
 (pdftex.def)             Requested size: 95.39772pt x 56.6409pt.
-<colorseg.jpg, id=60, 642.4pt x 481.8pt>
+<colorseg.jpg, id=79, 642.4pt x 481.8pt>
 File: colorseg.jpg Graphic file (type jpg)
 <use colorseg.jpg>
-Package pdftex.def Info: colorseg.jpg  used on input line 158.
+Package pdftex.def Info: colorseg.jpg  used on input line 157.
 (pdftex.def)             Requested size: 95.39772pt x 71.54642pt.
- [2 <./rl.jpg> <./rawobs.jpg> <./grayscale.jpg> <./colorseg.jpg>]
+
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [3]
-Underfull \hbox (badness 10000) in paragraph at lines 311--316
+ [2 <./rl.jpg>] [3 <./rawobs.jpg> <./grayscale.jpg> <./colorseg.jpg>] [4]
+Underfull \hbox (badness 10000) in paragraph at lines 312--317
 
  []
 
-[4]
-No file duckietowndoc.bbl.
+(./duckietowndoc.bbl
+LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 5.
+ (/usr/local/texlive/2021/texmf-dist/tex/latex/base/t1cmtt.fd
+File: t1cmtt.fd 2019/12/16 v2.5j Standard LaTeX font definitions
+)
+Package microtype Info: Loading generic protrusion settings for font family
+(microtype)             `cmtt' (encoding: T1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
 
-Package natbib Warning: There were undefined citations.
+Underfull \hbox (badness 1199) in paragraph at lines 8--11
+[]\T1/ptm/m/n/10 (+20) V. Mnih, A. P. Ba-dia, M. Mirza, A. Graves, T. P. Lil-l-i-crap, T. Harley, D. Sil-ver,
+ []
 
-[5] (./duckietowndoc.aux)
+
+Underfull \hbox (badness 1648) in paragraph at lines 46--49
+\T1/ptm/m/n/10 (+20) ``Simulation-based re-in-force-ment learn-ing for real-world au-tonomous driv-ing,'' \T1/ptm/m/it/10 (+20) CoRR\T1/ptm/m/n/10 (+20) ,
+ []
+
+
+Underfull \hbox (badness 1546) in paragraph at lines 55--57
+[]\T1/ptm/m/n/10 (+20) ``Stable base-lines docs,'' 2021.  []$\T1/cmtt/m/n/10 https : / / stable-[]baselines . readthedocs . io / en /
+ []
+
+[5]) [6] (./duckietowndoc.aux)
 Package rerunfilecheck Info: File `duckietowndoc.out' has not changed.
 (rerunfilecheck)             Checksum: 51C6F10D01484ADF855214AB1FBA60D8;1269.
  ) 
 Here is how much of TeX's memory you used:
- 17002 strings out of 478353
- 278400 string characters out of 5848099
- 643817 words of memory out of 5000000
- 34746 multiletter control sequences out of 15000+600000
- 430755 words of font info for 138 fonts, out of 8000000 for 9000
+ 17133 strings out of 478353
+ 281141 string characters out of 5848099
+ 643078 words of memory out of 5000000
+ 34810 multiletter control sequences out of 15000+600000
+ 436405 words of font info for 169 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  70i,10n,77p,1064b,528s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/texlive/2021/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/urw/times/utmr8a.pfb>
-Output written on duckietowndoc.pdf (5 pages, 128657 bytes).
+{/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}{/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/texlive/2021/texmf-dist/fonts/type1/public/cm-super/sftt1000.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2021/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on duckietowndoc.pdf (6 pages, 177455 bytes).
 PDF statistics:
- 106 PDF objects out of 1000 (max. 8388607)
- 90 compressed objects within 1 object stream
- 22 named destinations out of 1000 (max. 500000)
- 30317 words of extra memory for PDF output out of 35830 (max. 10000000)
+ 163 PDF objects out of 1000 (max. 8388607)
+ 141 compressed objects within 2 object streams
+ 37 named destinations out of 1000 (max. 500000)
+ 34925 words of extra memory for PDF output out of 35830 (max. 10000000)
 
