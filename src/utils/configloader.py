@@ -8,9 +8,9 @@ def load_config(file_path):
             print(exc)
 
 if __name__ == '__main__':
+    # check that config loading works
     import os
     from rootdir import ROOT_DIR
     configpath = os.path.join(ROOT_DIR, 'config', 'train_config.yml')
     data = load_config(configpath)
     print(data['common_config']['seed'])
-    #print(data.learning_rate)

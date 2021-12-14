@@ -5,50 +5,58 @@ common_config:
   seed: 123
   # Algorithm
   algo: 'PPO'
-  #
+  # Map name
   map_name: 'zigzag_dists'
-  #
+  # Number of steps used for training
   steps: '1e4'
-  #
+  # Number of parallel environments
+  n_envs: 4
+  # Number of frames to stack
+  FS: 3
+  # Use color segmentation or grayscale images
   color_segment: False
   # Action wrapper ('heading' or 'leftrightbraking')
   action_wrapper: 'heading'
-  #
+  # Checkpoint save frequency (divide it by the number of parallel envs)
   checkpoint_freq: 100000
-  #
+  # Use checkpoints for saving
   checkoint_cb: False
-  # Domain randomization (0 or 1)
+  # Use domain randomization (1=yes, 0=no)
   domain_rand: 1
   # Learning rate scheduling ('linear' or 'constant')
   lr_schedule: 'linear'
-  #
+  # Learning rate
   learning_rate: 5e-5
-  #
+  # The number of steps to run for each environment per update (see SB3 doc.)
   n_steps: 32
-  #
+  # Factor for trade-off of bias vs variance for Generalized Advantage Estimator
   gae_lambda: 0.92
-  # 
+  # Entropy coefficient for the loss calculation
   ent_coef: 6.569939601034458e-05
-  #
+  # Value function coefficient for the loss calculation
   vf_coef: 0.24250834235539484
-  #
+  # The maximum value for the gradient clipping
   max_grad_norm: 0.7
   # Activation function ('tanh', 'relu', 'elu', 'leaky_relu')
   activation_fn: 'relu'
 
 ## PPO only
 ppo_config:
-  #
+  # Minibatch size
   batch_size: 256
-  #
+  # Clipping parameter
   clip_range: 0.2
-  #
+  # Number of epoch when optimizing the surrogate loss
   n_epochs: 5
 
 
 ## A2C only
 a2c_config:
-  #
+  # Use RMSprop (default) or Adam as optimizer
   use_rms_prop: False
-  #
+  # Whether to normalize or not the advantage
   normalize_advantage: False
+
+## Paths
+#paths:
+  
