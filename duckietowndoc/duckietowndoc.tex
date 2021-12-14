@@ -118,7 +118,7 @@ It has started in a class at MIT in 2016. Duckietown has grown so much since the
 \subsection{\normalsize{Reinforcement Learning}}
 
 In a reinforcement learning setting, an agent interacts with its environment by choosing actions (a\textsubscript{t}) at every timestep, based on information called state (s\textsubscript{t}), and receives back the next state (s\textsubscript{t+1}) and the reward for the current action (r\textsubscript{t+1}), which will be used to select the next action (a\textsubscript{t+1}). \autoref{fig:statemachin} summarizes this process. 
-The agent tries to gradually improve its policy by exploring new ways to behave in the environment and observing the rewards received for its actions. The goal of the agent is to maximize the expected future rewards over a finite amount of steps. 
+The agent tries to gradually improve its policy by exploring new ways to behave in the environment and observing the rewards received for its actions\cite{dlr_book}. The goal of the agent is to maximize the expected future rewards over a finite amount of steps. 
 There are many ways of achieving this goal, which is reflected in the number of different reinforcement learning algorithms. A fairly simple one is Deep Q-Networks (DQN) which chooses actions based on an estimate of the action-value function that is calculated from previous steps in the environment. 
 Despite its beginner friendly nature, DQN would not be the best choice for this type of problem, because it can only utilize discrete actions, which could potentially cause wobbling and unstable behaviour [TODO 14]. For this reason, we chose two algorithms, Proximal Policy Optimization (PPO) and a synchronous, deterministic variant of Asynchronous Advantage Actor Critic (A2C), which both support continuous actions.
 
@@ -129,13 +129,13 @@ Despite its beginner friendly nature, DQN would not be the best choice for this 
 	\label{fig:statemachin}
 \end{figure}
 
-Implementing the above mentioned algorithms would be very time consuming, so we decided to use the Stable Baselines 3 library [TODO], which is a simlified version of OpenAI baselines. The SB3 library contains several implementations of state-of-the-art RL algorithms and useful tools to train, retrain and evaluate the models.
+Implementing the above mentioned algorithms would be very time consuming, so we decided to use the Stable Baselines 3 library [TODO], which is a simlified version of OpenAI baselines. The SB3 library contains several implementations of state-of-the-art RL algorithms and useful tools to train, retrain and evaluate the models\cite{stablebase}.
 [TODO: about the policy network]
 
 \subsection{\normalsize{Environment}}
 
 The environment gives us an 640x480 RGB image.
-We have to preprocess this image, because feeding the original images to the CNN would be a waste of resources because it makes training process much slower, and the network can learn from smaller images just as well.
+We have to preprocess this image, because feeding the original images to the CNN would be a waste of resources because it makes training process much slower, and the network can learn from smaller images just as well \cite{kalap}.
 
 \subsubsection{\normalsize{Observations}}
 
