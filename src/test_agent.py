@@ -7,45 +7,54 @@ from utils.env import make_env
 from stable_baselines3.common.vec_env import DummyVecEnv, VecTransposeImage
 from stable_baselines3.common.evaluation import evaluate_policy
 from stable_baselines3.common.cmd_util import make_vec_env
+from utils.rootdir import ROOT_DIR
+from utils.configloader import load_config
 
-algo            = "PPO"                 # name of RL algo
-map_name        = "zigzag_dists"        # map used for training
-steps           = "1e6"                 # train for 1M steps
-LR              = "5e-4"                # Learning Rate: 0.0005
-FS              = 3                     # Frames to stack
-color_segment   = False                 # Use color segmentation or grayscale images
-domain_rand     = 1                     # Domain randomization (0 or 1)
-action_wrapper  = "heading"             # Action Wrapper to use ("heading" or "leftrightbraking")
-n_eval_episodes = 10                    # Number of evaluation episodes
-info            = "base"                # Model information (e.g. "optimized", "base", "id_num", etc.)
+# Load configuration and initialize variables
+configpath = os.path.join(ROOT_DIR, 'config', 'train_config.yml')
+configs = load_config(configpath)
+print('Seed: ', configs['common_config']['seed'], '\n')
 
-color = 'Cols' if color_segment else "Grays"
+algo = configs['common_config']['algo']
+map_name = configs['common_config']['map_name']
+steps = configs['common_config']['steps']
+FS = configs['common_config']['FS']
+domain_rand = configs['common_config']['domain_rand']
+action_wrapper = configs['common_config']['action_wrapper']
+lr_schedule = configs['common_config']['lr_schedule']
+LR = configs['common_config']['learning_rate']
+color_segment = configs['common_config']['color_segment']
+ID = configs['eval_config']['ID']
+n_eval_episodes = configs['eval_config']['n_eval_episodes']
+color = 'ColS' if color_segment else "GrayS"
 
 #Load trained model
-model_name = f"{algo}_{steps}steps_lr{LR}_{color}_FS{FS}_DR{domain_rand}_{action_wrapper}"
-#model_name = f"{algo}_2e6steps_GrayS_FS3_DR1_heading_optimized"
+model_name = f"{algo}_{steps}steps_{color}_FS{FS}_DR{domain_rand}_{action_wrapper}_{ID}"
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
-save_dir    = f"../models/{map_name}/{algo}/"
+save_dir= os.path.join(ROOT_DIR, 'models', map_name, algo)
 
 if algo == "A2C":
-        model = A2C.load(save_dir + model_name, print_system_info=True)
+        model = A2C.load(save_dir + '/' + model_name, print_system_info=True)
 elif algo == "PPO":
-        model = PPO.load(save_dir + model_name, print_system_info=True)
+        model = PPO.load(save_dir + '/' + model_name, print_system_info=True)
 else:
         print("Invalid algorithm.")
 
-# Print model hyperparameters           -------- NOT WORKING NOW: NEED YAML CONFIG FOR HPARAMS!!
+# Print model hyperparameters  TODO
 # model_hparams = model.get_parameters()
 # print("\033[92m" + "Model hyperparameters:\n" + "\033[0m")
 # for key, value in model_hparams.items():
 #     print("\033[92m" + key + ' : ' + str(value) + "\033[0m")
 
+# Write evaluation results to csv
 with open(f'../results/{algo}_evaluation-log.csv', 'a') as csv_file:
-        csv_file.write(f'Evaluation results for {algo} id: {info};\n\n')
+        csv_file.write(f'Evaluation results for {algo} version: {ID};\n\n')
 
 eval_maps = ['zigzag_dists', 'small_loop', 'udem1']
 
 print("\nEvaluating model...\n")
+print("Algo: ", algo)
+print("ID: ", ID)
 
 for map in eval_maps:
         # Create and wrap evaluation environment

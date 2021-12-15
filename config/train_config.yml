@@ -8,7 +8,7 @@ common_config:
   # Map name
   map_name: 'zigzag_dists'
   # Number of steps used for training
-  steps: '5e3'
+  steps: '2e6'
   # Number of parallel environments
   n_envs: 4
   # Number of frames to stack
@@ -40,6 +40,7 @@ common_config:
   # Activation function ('tanh', 'relu', 'elu', 'leaky_relu')
   activation_fn: 'relu'
 
+
 ## PPO only
 ppo_config:
   # Minibatch size
@@ -56,6 +57,14 @@ a2c_config:
   use_rms_prop: False
   # Whether to normalize or not the advantage
   normalize_advantage: False
+
+
+## Evaluation only
+eval_config:
+  # ID ('base' or 'optimized')
+  ID: 'optimized'
+  # Number of evaluation episodes
+  n_eval_episodes: 10
 
 ## Paths
 #paths:

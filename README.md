@@ -18,6 +18,9 @@ Olivér Farkas
 
 
 ## Installation
+
+### Setup using conda
+
 **Requirements**: `git` and `conda` installed on your computer
 
 Clone the repository:
@@ -31,6 +34,13 @@ Run environment setup script:
 bash env_setup.sh
 ```
 
+### Setup using docker
+
+To build the docker image, run this from the root directory:
+```bash
+sudo docker build . -t attilap/duckpropagation:dtgym
+```
+
 ## Usage
 Before running the scripts in this repo, make sure that the ```dtgym``` anaconda virtual environment is activated using
 ```bash
@@ -39,10 +49,26 @@ conda activate dtgym
 ```
 
 #### Training:
-To train an A2C or PPO agent, first open the ```train_A2C.py``` or ```train_PPO.py``` file and edit the _Arguments_ section at the top.
+To train an A2C or PPO agent, first open the ```config/train_config.yml``` file and edit the *common_config* and *ppo_only* or *a2c_only* sections. You can choose the algorithm you want to use, its hyperparameters and the parameters of the training. Then run the training code for the chosen algorithm:
+```bash
+python3 src/train_PPO.py
+```
+or
+```bash
+python3 src/train_A2C.py
+```
+
 
 #### Evaluation:
-The trained agent's performance can be evaluated using the ```test_agent.py``` file. Before running the scipt make sure that the _Arguments_ section loads the correct **zip file** of the saved model.
+The trained agent's performance can be evaluated using the ```test_agent.py``` file. Before running the scipt make sure that the *eval_config* section of the ```config/train_config.yml``` is set to your needs. Note that the other sections of the config file must be set according to the model you would like to load. (Right now you can choose from the *base* and *optimized* versions of PPO and A2C, to load the right version set these variables in the config file:)
+
+```algo:``` PPO *or* A2C 
+```steps:``` 2e6 (for optimized) *or* 1e6 (for base)
+```color_segment:``` False 
+```FS:``` 3
+```domain_rand:``` 1
+```action_wrapper:``` heading
+```ID:``` optimized *or* base
 
 ## Preprocessing
 The simulator produces 640x480 RBG images that look like this:
