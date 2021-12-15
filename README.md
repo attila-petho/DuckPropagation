@@ -44,7 +44,6 @@ sudo docker build . -t attilap/duckpropagation:dtgym
 ## Usage
 Before running the scripts in this repo, make sure that the ```dtgym``` anaconda virtual environment is activated using
 ```bash
-cd DuckPropagation/
 conda activate dtgym
 ```
 
@@ -62,12 +61,12 @@ python3 src/train_A2C.py
 #### Evaluation:
 The trained agent's performance can be evaluated using the ```test_agent.py``` file. Before running the scipt make sure that the *eval_config* section of the ```config/train_config.yml``` is set to your needs. Note that the other sections of the config file must be set according to the model you would like to load. (Right now you can choose from the *base* and *optimized* versions of PPO and A2C, to load the right version set these variables in the config file:)
 
-```algo:``` PPO *or* A2C 
-```steps:``` 2e6 (for optimized) *or* 1e6 (for base)
-```color_segment:``` False 
-```FS:``` 3
-```domain_rand:``` 1
-```action_wrapper:``` heading
+```algo:``` PPO *or* A2C\
+```steps:``` 2e6 (for optimized) *or* 1e6 (for base)\
+```color_segment:``` False\
+```FS:``` 3\
+```domain_rand:``` 1\
+```action_wrapper:``` heading\
 ```ID:``` optimized *or* base
 
 ## Preprocessing
