@@ -26,6 +26,7 @@ def optimize_agent(trial):
     eval_env = make_vec_env(lambda: make_env(map_name="zigzag_dists", log_dir="../logs/zigzag_dists/PPO_log/eval"), n_envs=1, seed=1234)     # make it wrapped the same as "env" BUT WITH n_envs=1 !!!
     model = PPO('CnnPolicy', env, verbose=1, **model_hparams)
     
+    # Evaluation callback
     eval_callback = TrialEvalCallback(
             eval_env,
             trial,

@@ -38,6 +38,7 @@ max_grad_norm = configs['common_config']['max_grad_norm']
 batch_size = configs['ppo_config']['batch_size']
 clip_range = configs['ppo_config']['clip_range']
 n_epochs = configs['ppo_config']['n_epochs']
+ID = configs['common_config']['ID']
 
 
 # Load model hyperparameters from config file
@@ -99,7 +100,7 @@ model = PPO(
 if checkpoint_cb:
         checkpoint_callback = CheckpointCallback(
                 save_freq = checkpoint_freq,
-                save_path = f'../models/{map_name}/PPO/checkpoints/PPO_{steps}steps_{color}_FS{FS}_DR{domain_rand}_{action_wrapper}_optimized',
+                save_path = f'../models/{map_name}/PPO/checkpoints/PPO_{steps}steps_{color}_FS{FS}_DR{domain_rand}_{action_wrapper}_{ID}',
                 name_prefix = 'step_')
 else:
         checkpoint_callback = None
@@ -108,11 +109,11 @@ else:
 model.learn(
         total_timesteps = int(float(steps)),
         callback = checkpoint_callback,
-        tb_log_name = f"PPO_{steps}steps_{color}_FS{FS}_DR{domain_rand}_{action_wrapper}_optimized"
+        tb_log_name = f"PPO_{steps}steps_{color}_FS{FS}_DR{domain_rand}_{action_wrapper}_{ID}"
         )
 
 # Save trained model
-save_path = f"../models/{map_name}/PPO/PPO_{steps}steps_{color}_FS{FS}_DR{domain_rand}_{action_wrapper}_optimized"
+save_path = f"../models/{map_name}/PPO/PPO_{steps}steps_{color}_FS{FS}_DR{domain_rand}_{action_wrapper}_{ID}"
 model.save(save_path)
 env.close()
 

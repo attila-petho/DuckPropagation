@@ -13,7 +13,7 @@ from utils.configloader import load_config
 # Load configuration and initialize variables
 configpath = os.path.join(ROOT_DIR, 'config', 'train_config.yml')
 configs = load_config(configpath)
-print('Seed: ', configs['common_config']['seed'], '\n')
+print('\nSeed: ', configs['common_config']['seed'], '\n')
 
 algo = configs['common_config']['algo']
 map_name = configs['common_config']['map_name']
@@ -24,7 +24,7 @@ action_wrapper = configs['common_config']['action_wrapper']
 lr_schedule = configs['common_config']['lr_schedule']
 LR = configs['common_config']['learning_rate']
 color_segment = configs['common_config']['color_segment']
-ID = configs['eval_config']['ID']
+ID = configs['common_config']['ID']
 n_eval_episodes = configs['eval_config']['n_eval_episodes']
 color = 'ColS' if color_segment else "GrayS"
 
@@ -41,7 +41,6 @@ else:
         print("Invalid algorithm.")
 
 # Print model hyperparameters  TODO
-# model_hparams = model.get_parameters()
 # print("\033[92m" + "Model hyperparameters:\n" + "\033[0m")
 # for key, value in model_hparams.items():
 #     print("\033[92m" + key + ' : ' + str(value) + "\033[0m")

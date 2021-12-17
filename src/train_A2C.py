@@ -37,6 +37,7 @@ vf_coef = configs['common_config']['vf_coef']
 max_grad_norm = configs['common_config']['max_grad_norm']
 use_rms_prop = configs['a2c_config']['use_rms_prop']
 normalize_advantage = configs['a2c_config']['normalize_advantage']
+ID = configs['common_config']['ID']
 
 
 # Load model hyperparameters from config file
@@ -97,7 +98,7 @@ model = A2C(
 if checkpoint_cb:
         checkpoint_callback = CheckpointCallback(
                                         save_freq = checkpoint_freq,
-                                        save_path = f'../models/{map_name}/PPO/checkpoints/PPO_{steps}steps_{color}_FS{FS}_DR{domain_rand}_{action_wrapper}',
+                                        save_path = f'../models/{map_name}/PPO/checkpoints/PPO_{steps}steps_{color}_FS{FS}_DR{domain_rand}_{action_wrapper}_{ID}',
                                         name_prefix = 'step_')
 else:
         checkpoint_callback = None
@@ -106,11 +107,11 @@ else:
 model.learn(
         total_timesteps = int(float(steps)),
         callback = checkpoint_callback,
-        tb_log_name = f"A2C_{steps}steps_{color}_FS{FS}_DR{domain_rand}_{action_wrapper}_optimized"
+        tb_log_name = f"A2C_{steps}steps_{color}_FS{FS}_DR{domain_rand}_{action_wrapper}_{ID}"
         )
 
 # Save trained model
-save_path = f"../models/{map_name}/A2C/A2C_{steps}steps_{color}_FS{FS}_DR{domain_rand}_{action_wrapper}_optimized"
+save_path = f"../models/{map_name}/A2C/A2C_{steps}steps_{color}_FS{FS}_DR{domain_rand}_{action_wrapper}_{ID}"
 model.save(save_path)
 env.close()
 

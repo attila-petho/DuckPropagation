@@ -41,6 +41,11 @@ To build the docker image, run this from the root directory:
 sudo docker build . -t attilap/duckpropagation:dtgym
 ```
 
+Duckietown uses a very verbose logging by default, to make it a bit less overwhelming use this command in the running container:
+```bash
+echo "logger.setLevel('WARNING')" >> ./gym-duckietown/src/gym_duckietown/__init__.py
+```
+
 ## Usage
 Before running the scripts in this repo, make sure that the ```dtgym``` anaconda virtual environment is activated using
 ```bash
@@ -57,6 +62,15 @@ or
 python3 src/train_A2C.py
 ```
 
+#### Hyperparameter optimization:
+To optimize an A2C or PPO agent, run the optimization code for the chosen algorithm:
+```bash
+python3 src/optimize_PPO.py
+```
+or
+```bash
+python3 src/optimize_A2C.py
+```
 
 #### Evaluation:
 The trained agent's performance can be evaluated using the ```test_agent.py``` file. Before running the scipt make sure that the *eval_config* section of the ```config/train_config.yml``` is set to your needs. Note that the other sections of the config file must be set according to the model you would like to load. (Right now you can choose from the *base* and *optimized* versions of PPO and A2C, to load the right version set these variables in the config file:)
@@ -132,16 +146,19 @@ The trained agents will also be submitted to the AIDO lane following challenge t
 
 ## File Structure
 
-- `src/`              - The source folder.
-- `src/images/`       - Output samples of the wrappers are stored here.
-- `src/utils/`        - Contains the environment utilities (wrappers and env creator).
-- `src/tensorboard/`  - Tensorboard logs folder.
-- `src/test1.py`      - Test script used for checking the wrappers.
-- `src/train_A2C.py`  - Training script for the A2C agent.
-- `src/train_PPO.py`  - Training script for the PPO agent.
-- `src/test_agent.py` - Test script for evaluating the agent's performance.
-- `models/`           - Save location for the trained models.
-- `logs/`             - SB3 logs folder.
+- `src/`                            - The source folder.
+- `src/images/`                     - Output samples of the wrappers are stored here.
+- `src/utils/`                      - Contains the environment utilities (wrappers and env creator).
+- `src/tensorboard/`                - Tensorboard logs folder.
+- `src/test1.py`                    - Test script used for checking the wrappers.
+- `src/train_A2C.py`                - Training script for the A2C agent.
+- `src/train_PPO.py`                - Training script for the PPO agent.
+- `src/optimize_A2C.py`             - Training script for the A2C agent.
+- `src/optimize_PPO.py`             - Training script for the PPO agent.
+- `src/test_agent.py`               - Test script for evaluating the agent's performance.
+- `models/`                         - Save location for the trained models.
+- `logs/`                           - SB3 logs folder.
+- `duckietowndoc/duckietowndoc.pdf` - Document for the project.
 
 ## References
 1. András Kalapos, Csaba Gór, Róbert Moni and István Harmati. "Sim-to-real reinforcement learning applied to end-to-end vehicle control" arXiv:2012.07461

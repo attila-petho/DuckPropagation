@@ -1,6 +1,8 @@
 ### Config file for training
 
 common_config:
+  # ID ('base' or 'optimized' for our models, but you can give any unique name for you model)
+  ID: 'optimized'
   # Seed
   seed: 123
   # Algorithm
@@ -61,8 +63,6 @@ a2c_config:
 
 ## Evaluation only
 eval_config:
-  # ID ('base' or 'optimized')
-  ID: 'optimized'
   # Number of evaluation episodes
   n_eval_episodes: 10
 

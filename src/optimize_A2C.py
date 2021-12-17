@@ -26,6 +26,7 @@ def optimize_agent(trial):
     eval_env = make_vec_env(lambda: make_env(map_name="zigzag_dists", log_dir="../logs/zigzag_dists/A2C_log/eval"), n_envs=1, seed=1234)     # make it wrapped the same as "env" BUT WITH n_envs=1 !!!
     model = A2C('CnnPolicy', env, verbose=1, **model_hparams)
     
+    # Evaluation callback
     eval_callback = TrialEvalCallback(
             eval_env,
             trial,
@@ -37,7 +38,7 @@ def optimize_agent(trial):
         )
     
     try:
-        model.learn(50000, callback=eval_callback)                                    # TODO: should be 50k
+        model.learn(50000, callback=eval_callback)                                    # should be at least 50k
         with torch.no_grad():                                                         # Context-manager that disables gradient calculation
             ep_rewards, ep_lengths = evaluate_policy(model, eval_env, n_eval_episodes=5, return_episode_rewards=True)
         env.close()
