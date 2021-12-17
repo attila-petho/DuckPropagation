@@ -1,13 +1,13 @@
 # Fdb version 3
-["bibtex duckietowndoc"] 1639516526 "duckietowndoc.aux" "duckietowndoc.bbl" "duckietowndoc" 1639530298
+["bibtex duckietowndoc"] 1639516526 "duckietowndoc.aux" "duckietowndoc.bbl" "duckietowndoc" 1639756273
   "/usr/local/texlive/2021/texmf-dist/bibtex/bst/base/ieeetr.bst" 1292289607 18361 1a00e58565e7f19bf2b3e1bfb82254ae ""
   "bib.bib" 1639515377 6370 4209912a975af54e6237ead6187ecf2e ""
-  "duckietowndoc.aux" 1639530298 7971 4bf374ed15f93f301271aa3268e41f4c "pdflatex"
+  "duckietowndoc.aux" 1639756273 7971 4bf374ed15f93f301271aa3268e41f4c "pdflatex"
   (generated)
   "duckietowndoc.bbl"
   "duckietowndoc.blg"
-["pdflatex"] 1639530297 "/home/attila/duckietown/DuckPropagation/duckietowndoc/duckietowndoc.tex" "duckietowndoc.pdf" "duckietowndoc" 1639530298
-  "/home/attila/duckietown/DuckPropagation/duckietowndoc/duckietowndoc.tex" 1639530269 19594 eb3daf9e3eeb63795c45fa973bcbabc1 ""
+["pdflatex"] 1639756272 "/home/attila/duckietown/DuckPropagation/duckietowndoc/duckietowndoc.tex" "duckietowndoc.pdf" "duckietowndoc" 1639756273
+  "/home/attila/duckietown/DuckPropagation/duckietowndoc/duckietowndoc.tex" 1639756272 19604 02bd59be204862d452e57791a9a1b2fe ""
   "/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/texlive/2021/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1136849721 2971 def0b6c1f0b107b3b936def894055589 ""
   "/usr/local/texlive/2021/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -116,10 +116,10 @@
   "/usr/local/texlive/2021/texmf-var/web2c/pdftex/pdflatex.fmt" 1639325187 2820138 74d664a6558dcc9dd4923976ae066fd5 ""
   "/usr/local/texlive/2021/texmf.cnf" 1639325128 455 5b996dcaa0eb4ef14a83b026bc0a008c ""
   "colorseg.jpg" 1639216096 12139 bc71a12841764b47f1a7052725d0a26d ""
-  "duckietowndoc.aux" 1639530298 7971 4bf374ed15f93f301271aa3268e41f4c "pdflatex"
+  "duckietowndoc.aux" 1639756273 7971 4bf374ed15f93f301271aa3268e41f4c "pdflatex"
   "duckietowndoc.bbl" 1639516527 2653 3ff17b2b48a33f3e6459fb08f1e9865f "bibtex duckietowndoc"
-  "duckietowndoc.out" 1639530298 1269 51c6f10d01484adf855214ab1fba60d8 "pdflatex"
-  "duckietowndoc.tex" 1639530269 19594 eb3daf9e3eeb63795c45fa973bcbabc1 ""
+  "duckietowndoc.out" 1639756273 1269 51c6f10d01484adf855214ab1fba60d8 "pdflatex"
+  "duckietowndoc.tex" 1639756272 19604 02bd59be204862d452e57791a9a1b2fe ""
   "grayscale.jpg" 1639216096 16747 f91da94fed4eaddd4505d4348b308bda ""
   "nips_2016.sty" 1639229838 10683 73ae344bee48cba9642c2f6e5097de37 ""
   "rawobs.jpg" 1639216096 29270 3ac61639ba166f37542866d8d69a294d ""
