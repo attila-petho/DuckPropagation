@@ -1,6 +1,4 @@
-#FROM ufoym/deepo:pytorch-py36-cu90
-FROM duckietown/gym-duckietown:daffy-amd64-6.1.29
-#FROM nvidia/cuda:11.4.0-cudnn8-runtime-ubuntu20.04
+FROM nvidia/cuda:11.4.0-cudnn8-runtime-ubuntu20.04
 
 ARG DEBIAN_FRONTEND=noninteractive
 
@@ -19,25 +17,8 @@ RUN set -xe \
 	&& apt install -y xvfb\
 	&& apt-get update
 
-
-RUN pip3 install --upgrade pip&& \
-    # pip3 install librosa && \
-	# pip3 install unidecode &&\
-	# pip3 install inflect && \
-	# pip3 install matplotlib==3.5.0 &&\
-	# pip3 install torch==1.10.0 &&\
-	# pip3 install inflect &&\
-	# pip3 install scipy &&\
-	# pip3 install pillow &&\
-	rm -rf /var/lib/apt/lists/*
-	#pip3 install tensorboardX &&\
-	#pip3 install tensorflow-gpu &&\ 
-
 # Set up port for Tensorboard
 #EXPOSE 6006
-
-#RUN useradd -m duckprop
-#RUN echo 'duckprop:duckie' | chpasswd
 
 RUN wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
 RUN bash Miniconda3-latest-Linux-x86_64.sh -b -p /DuckPropagation/miniconda3
