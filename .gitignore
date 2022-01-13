@@ -17,7 +17,7 @@ models/zigzag_dists/A2C/checkpoints/
 models/zigzag_dists/PPO/checkpoints/
 models/zigzag_dists/TQC/checkpoints/
 logs/
-src/images/
+
 dtgym/
 duckietowndoc/
 .vscode/

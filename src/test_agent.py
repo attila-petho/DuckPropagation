@@ -1,4 +1,5 @@
 import os
+import cv2
 import numpy as np
 from gym_duckietown.simulator import Simulator
 from stable_baselines3 import A2C, PPO
@@ -46,8 +47,8 @@ else:
 #     print("\033[92m" + key + ' : ' + str(value) + "\033[0m")
 
 # Write evaluation results to csv
-with open(f'../results/{algo}_evaluation-log.csv', 'a') as csv_file:
-        csv_file.write(f'Evaluation results for {algo} version: {ID};\n\n')
+# with open(f'../results/{algo}_evaluation-log.csv', 'a') as csv_file:
+#         csv_file.write(f'Evaluation results for {algo} version: {ID};\n\n')
 
 eval_maps = ['zigzag_dists', 'small_loop', 'udem1']
 
@@ -65,38 +66,57 @@ for map in eval_maps:
         rewards = []
         lengths = []
 
-        rewards, lengths = evaluate_policy(model, eval_env, n_eval_episodes=n_eval_episodes, return_episode_rewards=True)
+        #rewards, lengths = evaluate_policy(model, eval_env, n_eval_episodes=n_eval_episodes, return_episode_rewards=True)
+        from PIL import Image
+        import imageio
+        img_dir = "images"
+        test_name = "TEST"
+        save_dir = img_dir + "/" + test_name
+        if not os.path.exists(save_dir):
+                os.makedirs(save_dir)
+        images = []
+        eval_env.render()
+        done = False
+        while(not done):
+                action = model.predict(obs)
+                obs, reward, done, info = eval_env.step(action)
+                images.append(cv2.resize(obs[0,:,:], (300, 300)))
+                cv2.imshow("Observation", cv2.resize(obs[0,:,:], (300, 300)))
+                cv2.waitKey(1)
+                eval_env.render()
+
+        imageio.mimsave(save_dir + '/' +algo+'_'+ID+'_'+ map +'.gif', images, fps=30)
         eval_env.close()
         del eval_env
 
-        # Write logs
-        with open(f'../results/{algo}_evaluation-log.csv', 'a') as csv_file:
-                csv_file.write('Map;' + map + '\n')
-                csv_file.write('Rewards;' + str(rewards) + '\n')
-                csv_file.write('Min;' + str(min(rewards)) + '\n')
-                csv_file.write('Max;' + str(max(rewards)) + '\n')
-                csv_file.write('Mean;' + str(np.mean(rewards)) + '\n')
-                csv_file.write('Stdev;' + str(np.mean(rewards)) + '\n')
-                csv_file.write('Lengths;' + str(lengths) + '\n')
-                csv_file.write('Min;' + str(min(lengths)) + '\n')
-                csv_file.write('Max;' + str(max(lengths)) + '\n')
-                csv_file.write('Mean;'+ str(np.mean(lengths)) + '\n')
-                csv_file.write('Stdev;' + str(np.mean(lengths)) + '\n')
-                csv_file.write('\n')
+        # # Write logs
+        # with open(f'../results/{algo}_evaluation-log.csv', 'a') as csv_file:
+        #         csv_file.write('Map;' + map + '\n')
+        #         csv_file.write('Rewards;' + str(rewards) + '\n')
+        #         csv_file.write('Min;' + str(min(rewards)) + '\n')
+        #         csv_file.write('Max;' + str(max(rewards)) + '\n')
+        #         csv_file.write('Mean;' + str(np.mean(rewards)) + '\n')
+        #         csv_file.write('Stdev;' + str(np.mean(rewards)) + '\n')
+        #         csv_file.write('Lengths;' + str(lengths) + '\n')
+        #         csv_file.write('Min;' + str(min(lengths)) + '\n')
+        #         csv_file.write('Max;' + str(max(lengths)) + '\n')
+        #         csv_file.write('Mean;'+ str(np.mean(lengths)) + '\n')
+        #         csv_file.write('Stdev;' + str(np.mean(lengths)) + '\n')
+        #         csv_file.write('\n')
 
-        # Print infos
-        print("==============================================================================")
-        print(f"Evaluation results for: {map}\n")
-        print('Rewards:    ', rewards)
-        print('Min reward: ', min(rewards))
-        print('Max reward: ', max(rewards))
-        print('Mean reward:', np.mean(rewards))
-        print('Std reward: ', np.std(rewards))
-        print('\nEpisode lengths:', lengths)
-        print('Min ep length:  ', min(lengths))
-        print('Max ep length:  ', max(lengths))
-        print('Mean ep length: ', np.mean(lengths))
-        print('Std ep length:  ', np.std(lengths))
+        # # Print infos
+        # print("==============================================================================")
+        # print(f"Evaluation results for: {map}\n")
+        # print('Rewards:    ', rewards)
+        # print('Min reward: ', min(rewards))
+        # print('Max reward: ', max(rewards))
+        # print('Mean reward:', np.mean(rewards))
+        # print('Std reward: ', np.std(rewards))
+        # print('\nEpisode lengths:', lengths)
+        # print('Min ep length:  ', min(lengths))
+        # print('Max ep length:  ', max(lengths))
+        # print('Mean ep length: ', np.mean(lengths))
+        # print('Std ep length:  ', np.std(lengths))
 
 del model
 print("==============================================================================")
