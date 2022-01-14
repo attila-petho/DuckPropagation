@@ -8,6 +8,7 @@ from utils.env import make_env
 from stable_baselines3.common.vec_env import DummyVecEnv, VecTransposeImage
 from stable_baselines3.common.evaluation import evaluate_policy
 from stable_baselines3.common.cmd_util import make_vec_env
+from utils.plot_trajectories import plot_trajectories
 from utils.rootdir import ROOT_DIR
 from utils.configloader import load_config
 
@@ -28,6 +29,7 @@ color_segment = configs['common_config']['color_segment']
 ID = configs['common_config']['ID']
 n_eval_episodes = configs['eval_config']['n_eval_episodes']
 color = 'ColS' if color_segment else "GrayS"
+plot_trajectory = configs['eval_config']['plot_trajectory']
 
 #Load trained model
 model_name = f"{algo}_{steps}steps_{color}_FS{FS}_DR{domain_rand}_{action_wrapper}_{ID}"
@@ -58,36 +60,62 @@ print("ID: ", ID)
 
 for map in eval_maps:
         # Create and wrap evaluation environment
-        eval_env = make_env(map_name=map, log_dir=f"../logs/zigzag_dists/{algo}_log/eval")     # make it wrapped the same as "env" but with n_envs=1
-        eval_env = make_vec_env(lambda: eval_env, n_envs=1, seed=12345)
+        # eval_env = make_env(map_name=map, log_dir=f"../logs/zigzag_dists/{algo}_log/eval")     # make it wrapped the same as "env" but with n_envs=1
+        # eval_env = make_vec_env(lambda: eval_env, n_envs=1, seed=12345)
 
         # Test the agent
-        obs = eval_env.reset()
+        # obs = eval_env.reset()
         rewards = []
         lengths = []
 
         #rewards, lengths = evaluate_policy(model, eval_env, n_eval_episodes=n_eval_episodes, return_episode_rewards=True)
-        from PIL import Image
-        import imageio
-        img_dir = "images"
-        test_name = "TEST"
-        save_dir = img_dir + "/" + test_name
-        if not os.path.exists(save_dir):
-                os.makedirs(save_dir)
-        images = []
-        eval_env.render()
-        done = False
-        while(not done):
-                action = model.predict(obs)
-                obs, reward, done, info = eval_env.step(action)
-                images.append(cv2.resize(obs[0,:,:], (300, 300)))
-                cv2.imshow("Observation", cv2.resize(obs[0,:,:], (300, 300)))
-                cv2.waitKey(1)
-                eval_env.render()
+        
+        ###########################################################
+        # Dotted trajectory plots
+        from tqdm import tqdm
+        from utils.plot_trajectories import correct_gym_duckietown_coordinates, plot_trajectories
+        if plot_trajectory:
+                trajectories = []
+                for i in tqdm(range(5)):
+                        eval_env = make_env(map_name=map, log_dir=f"../logs/zigzag_dists/{algo}_log/eval", seed=i)     # make it wrapped the same as "env" but with n_envs=1
+                        #eval_env = make_vec_env(lambda: eval_env, n_envs=1, seed=i)
+                        ego_robot_pos = []
+                        obs = eval_env.reset()
+                        done = False
+                        while not done:
+                                action = model.predict(obs)
+                                obs, reward, done, info = eval_env.step(action)
+                                ego_robot_pos.append(correct_gym_duckietown_coordinates(eval_env.unwrapped, eval_env.unwrapped.cur_pos))
+                        trajectories.append(ego_robot_pos)
+                        eval_env.close()
+                        del eval_env
 
-        imageio.mimsave(save_dir + '/' +algo+'_'+ID+'_'+ map +'.gif', images, fps=30)
-        eval_env.close()
-        del eval_env
+                plot_trajectories(trajectories, show_plot=True)
+                plot_trajectories(trajectories, show_plot=True, unify_start_tile=False)
+
+        ###########################################################
+        else:
+                from PIL import Image
+                import imageio
+                img_dir = "images"
+                test_name = "TEST"
+                save_dir = img_dir + "/" + test_name
+                if not os.path.exists(save_dir):
+                        os.makedirs(save_dir)
+                images = []
+                eval_env.render()
+                done = False
+                while(not done):
+                        action = model.predict(obs)
+                        obs, reward, done, info = eval_env.step(action)
+                        images.append(cv2.resize(obs[0,:,:], (300, 300)))
+                        cv2.imshow("Observation", cv2.resize(obs[0,:,:], (300, 300)))
+                        cv2.waitKey(1)
+                        eval_env.render()
+
+                imageio.mimsave(save_dir + '/' +algo+'_'+ID+'_'+ map +'.gif', images, fps=30)
+                eval_env.close()
+                del eval_env
 
         # # Write logs
         # with open(f'../results/{algo}_evaluation-log.csv', 'a') as csv_file:

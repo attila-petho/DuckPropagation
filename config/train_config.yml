@@ -28,17 +28,17 @@ common_config:
   # Learning rate scheduling ('linear' or 'constant')
   lr_schedule: 'linear'
   # Learning rate
-  learning_rate: 5.e-5
+  learning_rate: 0.87640177
   # The number of steps to run for each environment per update (see SB3 doc.)
   n_steps: 32
   # Factor for trade-off of bias vs variance for Generalized Advantage Estimator
   gae_lambda: 0.92
   # Entropy coefficient for the loss calculation
-  ent_coef: 0.0000656
+  ent_coef: 0.0000657
   # Value function coefficient for the loss calculation
   vf_coef: 0.24250834235539484
   # The maximum value for the gradient clipping
-  max_grad_norm: 0.7
+  max_grad_norm: 0.8
   # Activation function ('tanh', 'relu', 'elu', 'leaky_relu')
   activation_fn: 'relu'
 
@@ -65,6 +65,8 @@ a2c_config:
 eval_config:
   # Number of evaluation episodes
   n_eval_episodes: 10
+  # Plot trajectory of episodes
+  plot_trajectory: True
 
 ## Paths
 #paths:
