@@ -5,7 +5,7 @@ from utils.wrappers import *
 from stable_baselines3.common.env_checker import check_env
 from stable_baselines3.common.vec_env import DummyVecEnv, VecTransposeImage
 
-def make_env(map_name, log_dir, seed=123, domain_rand=1, color_segment=False, FS=3, action_wrapper="heading"):
+def make_env(map_name, log_dir, seed=123, domain_rand=1, color_segment=False, FS=3, action_wrapper="heading", reward_wrapper="orientation"):
     env = Simulator(
             seed=seed,                      # random seed
             map_name=map_name,
@@ -23,19 +23,24 @@ def make_env(map_name, log_dir, seed=123, domain_rand=1, color_segment=False, FS
     env = ResizeFrame(env, 84)
     env = CropFrame(env, 24)
     if color_segment:                       # GrayScale and ColorSegment wrappers should not be used at the same time!
-            env = ColorSegmentFrame(env)
+        env = ColorSegmentFrame(env)
     else:
-            env = GrayScaleFrame(env)
+        env = GrayScaleFrame(env)
     #env = NormalizeFrame(env)              # This is not needed since the CNN policy class does the normalization
     env = StackFrame(env, FS)
     if action_wrapper == "heading":         # Action wrappers ("heading" can be given a 'type' parameter)
-            env = Heading2WheelVelsWrapper(env)
+        env = Heading2WheelVelsWrapper(env)
     elif action_wrapper == "leftrightbraking":
-            env = LeftRightBraking2WheelVelsWrapper(env)
+        env = LeftRightBraking2WheelVelsWrapper(env)
     else:
-            print("Invalid action wrapper. Using default actions.")
-    env = DtRewardPosAngle(env)
-    env = DtRewardVelocity(env)
+        print("Invalid action wrapper. Using default actions.")
+    if reward_wrapper == "orientation":
+        env = DtRewardPosAngle(env)
+        env = DtRewardVelocity(env)
+    elif reward_wrapper == "distance":
+        env = DtRewardWrapperDistanceTravelled(env)
+    else:
+        print("Invalid reward wrapper. Using default rewards.")
 #    env = DummyVecEnv([lambda: env])
 #    env = VecTransposeImage(env)
     return env

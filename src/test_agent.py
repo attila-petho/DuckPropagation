@@ -30,11 +30,18 @@ ID = configs['common_config']['ID']
 n_eval_episodes = configs['eval_config']['n_eval_episodes']
 color = 'ColS' if color_segment else "GrayS"
 plot_trajectory = configs['eval_config']['plot_trajectory']
+load_checkpoint = configs['eval_config']['load_checkpoint']
+checkpoint_step = configs['eval_config']['checkpoint_step']
 
 #Load trained model
-model_name = f"{algo}_{steps}steps_{color}_FS{FS}_DR{domain_rand}_{action_wrapper}_{ID}"
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 save_dir= os.path.join(ROOT_DIR, 'models', map_name, algo)
+if load_checkpoint:
+        dir_name = f"{algo}_{steps}steps_{color}_FS{FS}_DR{domain_rand}_{action_wrapper}_{ID}"
+        save_dir = save_dir + '/checkpoints/' + dir_name
+        model_name = 'step__' + str(checkpoint_step) + '_steps.zip'
+else:
+        model_name = f"{algo}_{steps}steps_{color}_FS{FS}_DR{domain_rand}_{action_wrapper}_{ID}"
 
 if algo == "A2C":
         model = A2C.load(save_dir + '/' + model_name, print_system_info=True)
@@ -99,21 +106,29 @@ for map in eval_maps:
                 import imageio
                 img_dir = "images"
                 test_name = "TEST"
-                save_dir = img_dir + "/" + test_name
-                if not os.path.exists(save_dir):
-                        os.makedirs(save_dir)
+                gif_dir = img_dir + "/" + test_name + '/' + algo + '_' + ID
+                if not os.path.exists(gif_dir):
+                        os.makedirs(gif_dir)
+                
+                eval_env = make_env(map_name=map, log_dir=f"../logs/zigzag_dists/{algo}_log/eval")
+                obs = eval_env.reset()
+
                 images = []
                 eval_env.render()
                 done = False
                 while(not done):
                         action = model.predict(obs)
                         obs, reward, done, info = eval_env.step(action)
-                        images.append(cv2.resize(obs[0,:,:], (300, 300)))
-                        cv2.imshow("Observation", cv2.resize(obs[0,:,:], (300, 300)))
+                        images.append(cv2.resize(obs[:,:,0].astype(np.uint8), (300, 300)))
+                        cv2.imshow("Observation", cv2.resize(obs[:,:,0].astype(np.uint8), (300, 300)))
                         cv2.waitKey(1)
                         eval_env.render()
 
-                imageio.mimsave(save_dir + '/' +algo+'_'+ID+'_'+ map +'.gif', images, fps=30)
+                if load_checkpoint:
+                        gif_name = gif_dir + '/' + 'step_' + str(checkpoint_step) + '_' + map + '.gif'
+                else:
+                        gif_name = gif_dir + '/' + map + '.gif'
+                imageio.mimsave(gif_name, images, fps=30)
                 eval_env.close()
                 del eval_env
 

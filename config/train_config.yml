@@ -2,7 +2,7 @@
 
 common_config:
   # ID ('base' or 'optimized' for our models, but you can give any unique name for you model)
-  ID: 'optimized'
+  ID: '220114_distancereward-D0.04-R55_LR1e-3_lin'
   # Seed
   seed: 123
   # Algorithm
@@ -10,7 +10,7 @@ common_config:
   # Map name
   map_name: 'zigzag_dists'
   # Number of steps used for training
-  steps: '2e6'
+  steps: '5e5'
   # Number of parallel environments
   n_envs: 4
   # Number of frames to stack
@@ -19,16 +19,18 @@ common_config:
   color_segment: False
   # Action wrapper ('heading' or 'leftrightbraking')
   action_wrapper: 'heading'
+  # Reward wrapper ('orientation' or 'distance')
+  reward_wrapper: 'distance'
   # Checkpoint save frequency (divide it by the number of parallel envs)
-  checkpoint_freq: 100000
+  checkpoint_freq: 25000
   # Use checkpoints for saving
-  checkpoint_cb: False
+  checkpoint_cb: True
   # Use domain randomization (1=yes, 0=no)
   domain_rand: 1
   # Learning rate scheduling ('linear' or 'constant')
   lr_schedule: 'linear'
   # Learning rate
-  learning_rate: 0.87640177
+  learning_rate: 0.001
   # The number of steps to run for each environment per update (see SB3 doc.)
   n_steps: 32
   # Factor for trade-off of bias vs variance for Generalized Advantage Estimator
@@ -67,6 +69,10 @@ eval_config:
   n_eval_episodes: 10
   # Plot trajectory of episodes
   plot_trajectory: True
+  # Load saved checkpoint
+  load_checkpoint: True
+  # Checkpoint to load
+  checkpoint_step: 100000
 
 ## Paths
 #paths:
