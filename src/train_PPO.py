@@ -8,6 +8,7 @@ from utils.hyperparameters import linear_schedule
 from utils.rootdir import ROOT_DIR
 from utils.configloader import load_config
 from timeit import default_timer as timer
+from datetime import datetime
 
 
 # Load configuration and initialize variables
@@ -23,6 +24,7 @@ steps = configs['common_config']['steps']
 FS = configs['common_config']['FS']
 domain_rand = configs['common_config']['domain_rand']
 action_wrapper = configs['common_config']['action_wrapper']
+reward_wrapper = configs['common_config']['reward_wrapper']
 checkpoint_cb = configs['common_config']['checkpoint_cb']
 seed = configs['common_config']['seed']
 color_segment=configs['common_config']['color_segment']
@@ -39,6 +41,7 @@ batch_size = configs['ppo_config']['batch_size']
 clip_range = configs['ppo_config']['clip_range']
 n_epochs = configs['ppo_config']['n_epochs']
 ID = configs['common_config']['ID']
+comment = configs['common_config']['comment']
 
 
 # Load model hyperparameters from config file
@@ -80,7 +83,8 @@ env = make_env(map_name,
                 domain_rand=domain_rand,
                 color_segment=color_segment,
                 FS=FS,
-                action_wrapper=action_wrapper)
+                action_wrapper=action_wrapper,
+                reward_wrapper=reward_wrapper)
 env = make_vec_env(lambda: env, n_envs=4, seed=0)
 env.reset()
 
@@ -117,9 +121,18 @@ save_path = f"../models/{map_name}/PPO/PPO_{steps}steps_{color}_FS{FS}_DR{domain
 model.save(save_path)
 env.close()
 
-# Print training time
 end = timer()
-print(f"\nThe trained model is ready.\n\nElapsed Time: {int((end-start)/60)} mins\n")
-print(f"Saved model to:\t{save_path}.zip\n\nEnjoy!\n")
 
 del model, env
+
+# Write log to csv
+now = datetime.now()
+starttime = now.strftime("%Y/%m/%d_%H:%M:%S")
+with open(f'../logs/PPO_train-log.csv', 'a') as csv_file:
+        csv_log = (f'\n{starttime};{ID};{steps};{lr_schedule};{str(learning_rate)};{action_wrapper};{reward_wrapper};'
+                        f'{color_segment};{FS};{domain_rand};{map_name};{str(int((end-start)/60))};{comment};')
+        csv_file.write(csv_log)
+
+# Print training time
+print(f"\nThe trained model is ready.\n\nElapsed Time: {int((end-start)/60)} mins\n")
+print(f"Saved model to:\t{save_path}.zip\n\nEnjoy!\n")

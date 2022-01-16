@@ -1,6 +1,7 @@
 import os
 import cv2
 import numpy as np
+import imageio
 from gym_duckietown.simulator import Simulator
 from stable_baselines3 import A2C, PPO
 from stable_baselines3.common.monitor import Monitor
@@ -11,6 +12,8 @@ from stable_baselines3.common.cmd_util import make_vec_env
 from utils.plot_trajectories import plot_trajectories
 from utils.rootdir import ROOT_DIR
 from utils.configloader import load_config
+from tqdm import tqdm
+from utils.plot_trajectories import correct_gym_duckietown_coordinates, plot_trajectories
 
 # Load configuration and initialize variables
 configpath = os.path.join(ROOT_DIR, 'config', 'train_config.yml')
@@ -32,6 +35,7 @@ color = 'ColS' if color_segment else "GrayS"
 plot_trajectory = configs['eval_config']['plot_trajectory']
 load_checkpoint = configs['eval_config']['load_checkpoint']
 checkpoint_step = configs['eval_config']['checkpoint_step']
+save_gif = configs['eval_config']['save_gif']
 
 #Load trained model
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
@@ -79,8 +83,6 @@ for map in eval_maps:
         
         ###########################################################
         # Dotted trajectory plots
-        from tqdm import tqdm
-        from utils.plot_trajectories import correct_gym_duckietown_coordinates, plot_trajectories
         if plot_trajectory:
                 trajectories = []
                 for i in tqdm(range(5)):
@@ -101,14 +103,13 @@ for map in eval_maps:
                 plot_trajectories(trajectories, show_plot=True, unify_start_tile=False)
 
         ###########################################################
+        # Generate GIF
         else:
-                from PIL import Image
-                import imageio
-                img_dir = "images"
-                test_name = "TEST"
-                gif_dir = img_dir + "/" + test_name + '/' + algo + '_' + ID
+                img_dir = 'images/evaluation'
+                gif_dir = img_dir + '/' + algo + '_' + ID
                 if not os.path.exists(gif_dir):
-                        os.makedirs(gif_dir)
+                        if save_gif:
+                                os.makedirs(gif_dir)
                 
                 eval_env = make_env(map_name=map, log_dir=f"../logs/zigzag_dists/{algo}_log/eval")
                 obs = eval_env.reset()
@@ -119,16 +120,18 @@ for map in eval_maps:
                 while(not done):
                         action = model.predict(obs)
                         obs, reward, done, info = eval_env.step(action)
-                        images.append(cv2.resize(obs[:,:,0].astype(np.uint8), (300, 300)))
+                        if save_gif:
+                                images.append(cv2.resize(obs[:,:,0].astype(np.uint8), (300, 300)))
                         cv2.imshow("Observation", cv2.resize(obs[:,:,0].astype(np.uint8), (300, 300)))
                         cv2.waitKey(1)
                         eval_env.render()
 
                 if load_checkpoint:
-                        gif_name = gif_dir + '/' + 'step_' + str(checkpoint_step) + '_' + map + '.gif'
+                        gif_name = gif_dir + '/' + 'step_' + str(int(checkpoint_step/1000)) + 'k_' + map + '.gif'
                 else:
                         gif_name = gif_dir + '/' + map + '.gif'
-                imageio.mimsave(gif_name, images, fps=30)
+                if save_gif:
+                        imageio.mimsave(gif_name, images, fps=30)
                 eval_env.close()
                 del eval_env
 

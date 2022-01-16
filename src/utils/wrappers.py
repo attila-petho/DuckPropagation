@@ -205,13 +205,14 @@ class DtRewardPosAngle(gym.RewardWrapper):
     def __init__(self, env):
         if env is not None:
             super(DtRewardPosAngle, self).__init__(env)
-            # gym_duckietown.simulator.Simulator
 
         self.max_lp_dist = 0.05
         self.max_dev_from_target_angle_deg_narrow = 10
         self.max_dev_from_target_angle_deg_wide = 50
         self.target_angle_deg_at_edge = 45
-        self.scale = 1./2.
+        self.scale = 2.                             # CHANGED: from 1./2. --- THIS SHOULD BE UPSCALED FIRST
+        self.scaler_narrow = 0.95                    # scaler for the narrow angle [0,1]
+        self.scaler_wide = 1-self.scaler_narrow     # scaler for the wide angle
         self.orientation_reward = 0.
 
     def reward(self, reward):
@@ -221,18 +222,20 @@ class DtRewardPosAngle(gym.RewardWrapper):
             lp = self.unwrapped.get_lane_pos2(pos, angle)
             # print("Dist: {:3.2f} | DotDir: {:3.2f} | Angle_deg: {:3.2f}". format(lp.dist, lp.dot_dir, lp.angle_deg))
         except NotInLane:
-            return -10.
+            # In case a previous wrapper already did that, we should not do it again
+            if reward >= 0.:
+                return -10.
 
         # print("Dist: {:3.2f} | Angle_deg: {:3.2f}".format(normed_lp_dist, normed_lp_angle))
         angle_narrow_reward, angle_wide_reward = self.calculate_pos_angle_reward(lp.dist, lp.angle_deg)
-        logger.debug("Angle Narrow: {:4.3f} | Angle Wide: {:4.3f} ".format(angle_narrow_reward, angle_wide_reward))
-        self.orientation_reward = self.scale * (angle_narrow_reward + angle_wide_reward)
+        #logger.debug("Angle Narrow: {:4.3f} | Angle Wide: {:4.3f} ".format(angle_narrow_reward, angle_wide_reward))
+        self.orientation_reward = self.scale * (self.scaler_narrow*angle_narrow_reward + self.scaler_wide*angle_wide_reward)
 
-        early_termination_penalty = 0.
+        # early_termination_penalty = 0.
         # If the robot leaves the track or collides with an other object it receives a penalty
         # if reward <= -1000.:  # Gym Duckietown gives -1000 for this
         #     early_termination_penalty = -10.
-        return self.orientation_reward + early_termination_penalty
+        return reward + self.orientation_reward # + early_termination_penalty
 
     def step(self, action):
         observation, reward, done, info = self.env.step(action)
@@ -273,7 +276,7 @@ class DtRewardVelocity(gym.RewardWrapper):
         self.velocity_reward = 0.
 
     def reward(self, reward):
-        self.velocity_reward = np.max(self.unwrapped.wheelVels) * 0.25
+        self.velocity_reward = np.max(self.unwrapped.wheelVels) * 0.2 # CHANGED: from 0.25
         if np.isnan(self.velocity_reward):
             self.velocity_reward = 0.
             logger.error("Velocity reward is nan, likely because the action was [nan, nan]!")
@@ -321,21 +324,23 @@ class DtRewardWrapperDistanceTravelled(gym.RewardWrapper):
 
         try:
             lp = self.unwrapped.get_lane_pos2(pos, self.unwrapped.cur_angle)
-            # print("Dist: {:3.2f} | DotDir: {:3.2f} | Angle_deg: {:3.2f}".format(lp.dist, lp.dot_dir, lp.angle_deg))
+            print("Dist: {:3.2f} | DotDir: {:3.2f} | Angle_deg: {:3.2f} | DIST: {:3.2f}".format(lp.dist, lp.dot_dir, lp.angle_deg, dist))   # UNCHECK THIS FOR DISTANCE DATA
         except NotInLane:
+            my_reward = -10.0 # CHANGED
             return my_reward
 
-        # Dist is negative on the left side of the rignt lane center and is -0.1 on the lane center.
-        # The robot is 0.13 (m) wide, to keep the whole vehicle in the right lane, dist should be > -0.1+0.13/2=0.035
+        # Dist is negative on the left side of the right lane center and is -0.1 on the lane center.
+        # The robot is 0.13 (m) wide, to keep the whole vehicle in the right lane, dist should be > -0.1+0.13/2=-0.035
         # 0.05 is a little less conservative
         if lp.dist < -0.04: # CHANGED: from 0.05
-            return my_reward
+            return my_reward # (could be negative)
         # Check if the agent moved in the correct direction
         if np.dot(tangent, diff) < 0:
+            my_reward = -1.0 # CHANGED
             return my_reward
 
         # Reward is proportional to the distance travelled at each step
-        my_reward = 55 * dist # CHANGED: from 50
+        my_reward = 90 * dist # CHANGED: from 50
         if np.isnan(my_reward):
             my_reward = 0.
             logger.error("Reward is nan!!!")

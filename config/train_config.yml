@@ -2,7 +2,9 @@
 
 common_config:
   # ID ('base' or 'optimized' for our models, but you can give any unique name for you model)
-  ID: '220114_distancereward-D0.04-R55_LR1e-3_lin'
+  ID: '220116_04'
+  # Comments
+  comment: 'CHANGES: Distance R.: 100->90 , Orientation R.: scale:1->2 narrow:.9->.95, Checkpoints: -> , Other: LR:5e-6'
   # Seed
   seed: 123
   # Algorithm
@@ -10,7 +12,7 @@ common_config:
   # Map name
   map_name: 'zigzag_dists'
   # Number of steps used for training
-  steps: '5e5'
+  steps: '1e6'
   # Number of parallel environments
   n_envs: 4
   # Number of frames to stack
@@ -19,8 +21,8 @@ common_config:
   color_segment: False
   # Action wrapper ('heading' or 'leftrightbraking')
   action_wrapper: 'heading'
-  # Reward wrapper ('orientation' or 'distance')
-  reward_wrapper: 'distance'
+  # Reward wrapper ('orientation' or 'distance' or 'orientation+distance')
+  reward_wrapper: 'orientation+distance'
   # Checkpoint save frequency (divide it by the number of parallel envs)
   checkpoint_freq: 25000
   # Use checkpoints for saving
@@ -30,7 +32,7 @@ common_config:
   # Learning rate scheduling ('linear' or 'constant')
   lr_schedule: 'linear'
   # Learning rate
-  learning_rate: 0.001
+  learning_rate: 0.000005
   # The number of steps to run for each environment per update (see SB3 doc.)
   n_steps: 32
   # Factor for trade-off of bias vs variance for Generalized Advantage Estimator
@@ -67,12 +69,14 @@ a2c_config:
 eval_config:
   # Number of evaluation episodes
   n_eval_episodes: 10
-  # Plot trajectory of episodes
-  plot_trajectory: True
+  # Plot trajectory of episodes or Visualize camera feed
+  plot_trajectory: False
   # Load saved checkpoint
   load_checkpoint: True
   # Checkpoint to load
   checkpoint_step: 100000
+  # Save GIF
+  save_gif: True
 
 ## Paths
 #paths:

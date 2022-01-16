@@ -5,7 +5,7 @@ from utils.wrappers import *
 from stable_baselines3.common.env_checker import check_env
 from stable_baselines3.common.vec_env import DummyVecEnv, VecTransposeImage
 
-def make_env(map_name, log_dir, seed=123, domain_rand=1, color_segment=False, FS=3, action_wrapper="heading", reward_wrapper="orientation"):
+def make_env(map_name, log_dir, seed=123, domain_rand=1, color_segment=False, FS=3, action_wrapper="heading", reward_wrapper="orientation+distance"):
     env = Simulator(
             seed=seed,                      # random seed
             map_name=map_name,
@@ -33,14 +33,21 @@ def make_env(map_name, log_dir, seed=123, domain_rand=1, color_segment=False, FS
     elif action_wrapper == "leftrightbraking":
         env = LeftRightBraking2WheelVelsWrapper(env)
     else:
-        print("Invalid action wrapper. Using default actions.")
-    if reward_wrapper == "orientation":
+        print("\nInvalid action wrapper. Using default actions.")
+    if reward_wrapper == "distance":
+        env = DtRewardWrapperDistanceTravelled(env)
+        print("\033[93m\nUsing Travelled Distance Rewards.\n\033[0m")
+    elif reward_wrapper == "orientation":
         env = DtRewardPosAngle(env)
         env = DtRewardVelocity(env)
-    elif reward_wrapper == "distance":
+        print("\033[93m\nUsing Velocity Rewards.\n\033[0m")
+    elif reward_wrapper ==  "orientation+distance":
         env = DtRewardWrapperDistanceTravelled(env)
+        env = DtRewardPosAngle(env)
+        env = DtRewardVelocity(env)
+        print("\033[93m\nUsing Orientation and Velocity Rewards.\n\033[0m")
     else:
-        print("Invalid reward wrapper. Using default rewards.")
+        print("\033[93m\nInvalid reward wrapper. Using default rewards.\n\033[0m")
 #    env = DummyVecEnv([lambda: env])
 #    env = VecTransposeImage(env)
     return env
