@@ -11,7 +11,7 @@ from timeit import default_timer as timer
 from datetime import datetime
 
 
-# Load configuration and initialize variables
+# Load configuration and initialize variables - TODO: should be done by a function with a dict.
 configpath = os.path.join(ROOT_DIR, 'config', 'train_config.yml')
 configs = load_config(configpath)
 print('Seed: ', configs['common_config']['seed'], '\n')
@@ -45,10 +45,11 @@ comment = configs['common_config']['comment']
 
 
 # Load model hyperparameters from config file
+learning_rate = linear_schedule(learning_rate) if lr_schedule == 'linear' else learning_rate
 model_hparams = {
         "n_steps": n_steps,
         "batch_size": batch_size,
-        "learning_rate": linear_schedule(learning_rate),
+        "learning_rate": learning_rate,
         "ent_coef": ent_coef,
         "clip_range": clip_range,
         "n_epochs": n_epochs,
@@ -62,7 +63,7 @@ model_hparams = {
 
 # Print model hyperparameters
 print("\033[92m" + "Model hyperparameters:\n" + "\033[0m")
-for key, value in model_hparams.items():
+for key, value in model_hparams.items():        # TODO: this should iterate through a dict of config params, not the model_hparams
     print("\033[92m" + key + ' : ' + str(value) + "\033[0m")
 if checkpoint_cb:
     print("\nCheckpoints saving is on.\n")

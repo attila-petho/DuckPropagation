@@ -2,9 +2,9 @@
 
 common_config:
   # ID ('base' or 'optimized' for our models, but you can give any unique name for you model)
-  ID: '220116_04'
+  ID: '220117_02'
   # Comments
-  comment: 'CHANGES: Distance R.: 100->90 , Orientation R.: scale:1->2 narrow:.9->.95, Checkpoints: -> , Other: LR:5e-6'
+  comment: 'CHANGES: Distance R.: 150->200, NotInLane: -20->-10, Other: lp.dist<-.05: neg.reward, orientation scaling, lin.neg.rew. for angle_deg > 50, LR: C, 5e-5' # Orientation R.: scale:2->3 max_dev_wide:50->30, slope:0.05->0.1, steps: 5e5, Checkpoints: 25k->12.5k, 
   # Seed
   seed: 123
   # Algorithm
@@ -12,7 +12,7 @@ common_config:
   # Map name
   map_name: 'zigzag_dists'
   # Number of steps used for training
-  steps: '1e6'
+  steps: '5e5'
   # Number of parallel environments
   n_envs: 4
   # Number of frames to stack
@@ -24,15 +24,15 @@ common_config:
   # Reward wrapper ('orientation' or 'distance' or 'orientation+distance')
   reward_wrapper: 'orientation+distance'
   # Checkpoint save frequency (divide it by the number of parallel envs)
-  checkpoint_freq: 25000
+  checkpoint_freq: 12500
   # Use checkpoints for saving
   checkpoint_cb: True
   # Use domain randomization (1=yes, 0=no)
   domain_rand: 1
   # Learning rate scheduling ('linear' or 'constant')
-  lr_schedule: 'linear'
+  lr_schedule: 'constant'
   # Learning rate
-  learning_rate: 0.000005
+  learning_rate: 0.00005
   # The number of steps to run for each environment per update (see SB3 doc.)
   n_steps: 32
   # Factor for trade-off of bias vs variance for Generalized Advantage Estimator
@@ -76,7 +76,7 @@ eval_config:
   # Checkpoint to load
   checkpoint_step: 100000
   # Save GIF
-  save_gif: True
+  save_gif: False
 
 ## Paths
 #paths:

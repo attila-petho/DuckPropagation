@@ -208,11 +208,11 @@ class DtRewardPosAngle(gym.RewardWrapper):
 
         self.max_lp_dist = 0.05
         self.max_dev_from_target_angle_deg_narrow = 10
-        self.max_dev_from_target_angle_deg_wide = 50
+        self.max_dev_from_target_angle_deg_wide = 30
         self.target_angle_deg_at_edge = 45
-        self.scale = 2.                             # CHANGED: from 1./2. --- THIS SHOULD BE UPSCALED FIRST
-        self.scaler_narrow = 0.95                    # scaler for the narrow angle [0,1]
-        self.scaler_wide = 1-self.scaler_narrow     # scaler for the wide angle
+        self.scale = 1./2.                             # CHANGED: from 1./2. --- THIS SHOULD BE UPSCALED FIRST
+        self.scaler_narrow = 1.5                    # scaler for the narrow angle [0,1]
+        self.scaler_wide = 0.1                      # scaler for the wide angle
         self.orientation_reward = 0.
 
     def reward(self, reward):
@@ -332,7 +332,7 @@ class DtRewardWrapperDistanceTravelled(gym.RewardWrapper):
         # Dist is negative on the left side of the right lane center and is -0.1 on the lane center.
         # The robot is 0.13 (m) wide, to keep the whole vehicle in the right lane, dist should be > -0.1+0.13/2=-0.035
         # 0.05 is a little less conservative
-        if lp.dist < -0.04: # CHANGED: from 0.05
+        if lp.dist < -0.05: # CHANGED: from 0.05
             return my_reward # (could be negative)
         # Check if the agent moved in the correct direction
         if np.dot(tangent, diff) < 0:
