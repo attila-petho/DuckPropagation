@@ -324,7 +324,7 @@ class DtRewardWrapperDistanceTravelled(gym.RewardWrapper):
 
         try:
             lp = self.unwrapped.get_lane_pos2(pos, self.unwrapped.cur_angle)
-            print("Dist: {:3.2f} | DotDir: {:3.2f} | Angle_deg: {:3.2f} | DIST: {:3.2f}".format(lp.dist, lp.dot_dir, lp.angle_deg, dist))   # UNCHECK THIS FOR DISTANCE DATA
+            #print("Dist: {:3.2f} | DotDir: {:3.2f} | Angle_deg: {:3.2f} | DIST: {:3.2f}".format(lp.dist, lp.dot_dir, lp.angle_deg, dist))   # UNCHECK THIS FOR DISTANCE DATA
         except NotInLane:
             my_reward = -10.0 # CHANGED
             return my_reward

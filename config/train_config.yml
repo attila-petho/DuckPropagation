@@ -2,13 +2,13 @@
 
 common_config:
   # ID ('base' or 'optimized' for our models, but you can give any unique name for you model)
-  ID: '220117_02'
+  ID: '220117_01'
   # Comments
   comment: 'CHANGES: Distance R.: 150->200, NotInLane: -20->-10, Other: lp.dist<-.05: neg.reward, orientation scaling, lin.neg.rew. for angle_deg > 50, LR: C, 5e-5' # Orientation R.: scale:2->3 max_dev_wide:50->30, slope:0.05->0.1, steps: 5e5, Checkpoints: 25k->12.5k, 
   # Seed
   seed: 123
   # Algorithm
-  algo: 'PPO'
+  algo: 'A2C'
   # Map name
   map_name: 'zigzag_dists'
   # Number of steps used for training
@@ -32,19 +32,19 @@ common_config:
   # Learning rate scheduling ('linear' or 'constant')
   lr_schedule: 'constant'
   # Learning rate
-  learning_rate: 0.00005
+  learning_rate: 0.0001
   # The number of steps to run for each environment per update (see SB3 doc.)
-  n_steps: 32
+  n_steps: 64
   # Factor for trade-off of bias vs variance for Generalized Advantage Estimator
-  gae_lambda: 0.92
+  gae_lambda: 0.98
   # Entropy coefficient for the loss calculation
-  ent_coef: 0.0000657
+  ent_coef: 0.0015
   # Value function coefficient for the loss calculation
-  vf_coef: 0.24250834235539484
+  vf_coef: 0.7373
   # The maximum value for the gradient clipping
-  max_grad_norm: 0.8
+  max_grad_norm: 0.7
   # Activation function ('tanh', 'relu', 'elu', 'leaky_relu')
-  activation_fn: 'relu'
+  activation_fn: 'tanh'
 
 
 ## PPO only
