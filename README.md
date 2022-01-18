@@ -8,13 +8,14 @@ In this project we are training Deep Reinforcement Learning agents to drive smal
 
 In order to conquer these challenges, autonomous driving agents are first trained in a simulator (gym-duckietown) and then the trained agents performance will also be tested in the real environment on real Duckiebots.
 
+:tv: The **presentation video** for this work can be found [here.](https://www.youtube.com/watch?v=kkLZT__tk4c)
+
 
 ## Authors
-Attila Pethő
-
-Gyula Faragó
-
-Olivér Farkas
+Team DuckPropagation:
+- Attila Pethő
+- Gyula Faragó
+- Olivér Farkas
 
 
 ## Installation
@@ -131,7 +132,7 @@ The Duckiebots are two-wheel differential-drive vehicles, and the default action
 Reward shaping is essential in RL, since this is the basis for the agent's learning. Without a good reward function the agent will maximize its score, but won't learn the intended behaviour. The goal of the robot should be to move forward in the right lane as fast as possible. To encourage this behaviour we used a reward fuction<sup>1</sup> that considers both the orientation and the velocity of the Duckiebot. The orientation reward is based on the lateral position of the robot, so it should always face towards the center of the right lane, while the velocity reward is given based on the fastest moving wheel to encourage high velocity in both straight and curved sections.
 
 ## Training
-For the training we used the *Stable Baselines 3* library, which contains several implementations of state-of-the-art RL algorithms. We used **A2C** and **PPO** agents with mostly default settings and 0.0005 learning rate for 1 million steps on the _'straight_road'_ and _'zigzag_dists'_ maps. The algorithm hyperparameters that were used for the first trainings are shown in the table below. The trained models and the tensorboard logs of the first trainings can be found in the corresponding folders. The next step will be to optimize the agents' hyperparameters using an optimization library.
+For the training we used the *Stable Baselines 3* library, which contains several implementations of state-of-the-art RL algorithms. We used **A2C** and **PPO** agents with mostly default settings and 0.0005 learning rate for 1 million steps on the _'zigzag_dists'_ maps. The algorithm hyperparameters that were used for the first trainings are shown in the table below. The trained models and the tensorboard logs of the first trainings can be found in the corresponding folders. The next step will be to optimize the agents' hyperparameters using an optimization library.
 
 |Hyperparameter | A2C, PPO  | 
 | ------------- |:---------:|
@@ -146,19 +147,22 @@ The trained agents will also be submitted to the AIDO lane following challenge t
 
 ## File Structure
 
-- `src/`                            - The source folder.
-- `src/images/`                     - Output samples of the wrappers are stored here.
-- `src/utils/`                      - Contains the environment utilities (wrappers and env creator).
-- `src/tensorboard/`                - Tensorboard logs folder.
-- `src/test1.py`                    - Test script used for checking the wrappers.
-- `src/train_A2C.py`                - Training script for the A2C agent.
-- `src/train_PPO.py`                - Training script for the PPO agent.
-- `src/optimize_A2C.py`             - Training script for the A2C agent.
-- `src/optimize_PPO.py`             - Training script for the PPO agent.
-- `src/test_agent.py`               - Test script for evaluating the agent's performance.
-- `models/`                         - Save location for the trained models.
-- `logs/`                           - SB3 logs folder.
-- `duckietowndoc/duckietowndoc.pdf` - Document for the project.
+|File or folder name | Description  | 
+| ------------- |---------|
+| `src/`                            | The source folder. |
+| `src/images/`                     | Output samples of the wrappers and GIFs are stored here. |
+| `src/utils/`                      | Contains the environment and system utilities. |
+| `src/tensorboard/`                | Tensorboard logs folder. |
+| `src/test1.py`                    | Test script used for checking the wrappers. |
+| `src/train_A2C.py`                | Training script for the A2C agent. |
+| `src/train_PPO.py`                | Training script for the PPO agent. |
+| `src/optimize_A2C.py`             | Hyperparameter optimization script for the A2C agent. |
+| `src/optimize_PPO.py`             | Hyperparameter optimization script for the PPO agent. |
+| `src/test_agent.py`               | Test script for evaluating the agent's performance. |
+| `models/`                         | Save location for the trained models. |
+| `logs/`                           | SB3 and training logs folder. |
+| `duckietowndoc/duckietowndoc.pdf` | Document for the project. |
+| `DuckPropagation_presentation.pptx` | Presentation slides.  |
 
 ## References
 1. András Kalapos, Csaba Gór, Róbert Moni and István Harmati. "Sim-to-real reinforcement learning applied to end-to-end vehicle control" arXiv:2012.07461
