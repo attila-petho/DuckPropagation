@@ -2,9 +2,9 @@
 
 common_config:
   # ID ('base' or 'optimized' for our models, but you can give any unique name for you model)
-  ID: '220117_01'
+  ID: 'base'
   # Comments
-  comment: 'CHANGES: Distance R.: 150->200, NotInLane: -20->-10, Other: lp.dist<-.05: neg.reward, orientation scaling, lin.neg.rew. for angle_deg > 50, LR: C, 5e-5' # Orientation R.: scale:2->3 max_dev_wide:50->30, slope:0.05->0.1, steps: 5e5, Checkpoints: 25k->12.5k, 
+  comment: ''
   # Seed
   seed: 123
   # Algorithm
@@ -12,7 +12,7 @@ common_config:
   # Map name
   map_name: 'zigzag_dists'
   # Number of steps used for training
-  steps: '5e5'
+  steps: '1e6'
   # Number of parallel environments
   n_envs: 4
   # Number of frames to stack
@@ -67,16 +67,19 @@ a2c_config:
 
 ## Evaluation only
 eval_config:
-  # Number of evaluation episodes
-  n_eval_episodes: 10
-  # Plot trajectory of episodes or Visualize camera feed
-  plot_trajectory: False
   # Load saved checkpoint
-  load_checkpoint: True
+  load_checkpoint: False
   # Checkpoint to load
   checkpoint_step: 100000
-  # Save GIF
+  # Number of evaluation episodes
+  n_eval_episodes: 10
+  # Plot trajectory of episodes
+  plot_trajectory: False
+  # Visualize camera feed
+  camera_feed: False
+  # Save GIF (camera feed must be on to save GIF)
   save_gif: False
+  
 
 ## Paths
 #paths:

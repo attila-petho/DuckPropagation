@@ -74,15 +74,23 @@ python3 src/optimize_A2C.py
 ```
 
 #### Evaluation:
-The trained agent's performance can be evaluated using the ```test_agent.py``` file. Before running the scipt make sure that the *eval_config* section of the ```config/train_config.yml``` is set to your needs. Note that the other sections of the config file must be set according to the model you would like to load. (Right now you can choose from the *base* and *optimized* versions of PPO and A2C, to load the right version set these variables in the config file:)
+The trained agent's performance can be evaluated using the ```test_agent.py``` file. Before running the scipt make sure that the *eval_config* section of the ```config/train_config.yml``` is set to your needs. Note that the other sections of the config file must be set according to the model you would like to load. (Right now you can choose from the *base* and *optimized* versions of PPO and A2C, to load the right version, set these variables in the config file:)
 
-```algo:``` PPO *or* A2C\
-```steps:``` 2e6 (for optimized) *or* 1e6 (for base)\
-```color_segment:``` False\
-```FS:``` 3\
-```domain_rand:``` 1\
-```action_wrapper:``` heading\
-```ID:``` optimized *or* base
+| *common_config* | |
+| ------------- |---------|
+| ```algo:``` | PPO *or* A2C |
+| ```steps:``` | 2e6 (for optimized) *or* 1e6 (for base) |
+| ```color_segment:``` | False |
+| ```FS:``` | 3 |
+| ```domain_rand:``` | 1 |
+| ```action_wrapper:``` | heading |
+| ```ID:``` | optimized *or* base |
+| *eval_config* | |
+| ```load_checkpoint:``` | False* |
+| ```plot_trajectory:``` | Visualize the trajectory of the robot (optional) |
+| ```camera_feed:``` | Visualize the camera feed (optional) |
+
+\* The _'base'_ and _'optimized'_ models don't have checkpoints saved. Check the saved checkpoints in the __models/*map_name*/*algo*/checkpoints__ folder.
 
 ## Preprocessing
 The simulator produces 640x480 RBG images that look like this:
@@ -147,8 +155,8 @@ The trained agents will also be submitted to the AIDO lane following challenge t
 
 ## File Structure
 
-|File or folder name | Description  | 
-| ------------- |---------|
+|File or folder name | Description | 
+| ------------------ | ----------- |
 | `src/`                            | The source folder. |
 | `src/images/`                     | Output samples of the wrappers and GIFs are stored here. |
 | `src/utils/`                      | Contains the environment and system utilities. |

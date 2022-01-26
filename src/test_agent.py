@@ -14,6 +14,8 @@ from utils.rootdir import ROOT_DIR
 from utils.configloader import load_config
 from tqdm import tqdm
 from utils.plot_trajectories import correct_gym_duckietown_coordinates, plot_trajectories
+from datetime import datetime
+
 
 # Load configuration and initialize variables
 configpath = os.path.join(ROOT_DIR, 'config', 'train_config.yml')
@@ -36,6 +38,7 @@ plot_trajectory = configs['eval_config']['plot_trajectory']
 load_checkpoint = configs['eval_config']['load_checkpoint']
 checkpoint_step = configs['eval_config']['checkpoint_step']
 save_gif = configs['eval_config']['save_gif']
+camera_feed = configs['eval_config']['camera_feed']
 
 #Load trained model
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
@@ -43,7 +46,7 @@ save_dir= os.path.join(ROOT_DIR, 'models', map_name, algo)
 if load_checkpoint:
         dir_name = f"{algo}_{steps}steps_{color}_FS{FS}_DR{domain_rand}_{action_wrapper}_{ID}"
         save_dir = save_dir + '/checkpoints/' + dir_name
-        model_name = 'step__' + str(checkpoint_step) + '_steps.zip'
+        model_name = 'step__' + str(checkpoint_step) + '_steps'
 else:
         model_name = f"{algo}_{steps}steps_{color}_FS{FS}_DR{domain_rand}_{action_wrapper}_{ID}"
 
@@ -60,8 +63,11 @@ else:
 #     print("\033[92m" + key + ' : ' + str(value) + "\033[0m")
 
 # Write evaluation results to csv
-# with open(f'../results/{algo}_evaluation-log.csv', 'a') as csv_file:
-#         csv_file.write(f'Evaluation results for {algo} version: {ID};\n\n')
+now = datetime.now()
+time = now.strftime("%Y/%m/%d_%H:%M:%S")
+with open(f'../results/{algo}_evaluation-log.csv', 'a') as csv_file:
+        csv_file.write(f'Evaluation results for {algo} ID: {ID};\n')
+        csv_file.write(f'Time;{time}\n\n')
 
 eval_maps = ['zigzag_dists', 'small_loop', 'udem1']
 
@@ -71,7 +77,7 @@ print("ID: ", ID)
 
 for map in eval_maps:
         # Create and wrap evaluation environment
-        # eval_env = make_env(map_name=map, log_dir=f"../logs/zigzag_dists/{algo}_log/eval")     # make it wrapped the same as "env" but with n_envs=1
+        eval_env = make_env(map_name=map, log_dir=f"../logs/zigzag_dists/{algo}_log/eval")     # make it wrapped the same as "env" but with n_envs=1
         # eval_env = make_vec_env(lambda: eval_env, n_envs=1, seed=12345)
 
         # Test the agent
@@ -79,7 +85,7 @@ for map in eval_maps:
         rewards = []
         lengths = []
 
-        #rewards, lengths = evaluate_policy(model, eval_env, n_eval_episodes=n_eval_episodes, return_episode_rewards=True)
+        rewards, lengths = evaluate_policy(model, eval_env, n_eval_episodes=n_eval_episodes, return_episode_rewards=True)
         
         ###########################################################
         # Dotted trajectory plots
@@ -103,8 +109,8 @@ for map in eval_maps:
                 plot_trajectories(trajectories, show_plot=True, unify_start_tile=False)
 
         ###########################################################
-        # Generate GIF
-        else:
+        # Visualize the camera feed (and Generate GIF)
+        if camera_feed:
                 img_dir = 'images/evaluation'
                 gif_dir = img_dir + '/' + algo + '_' + ID
                 if not os.path.exists(gif_dir):
@@ -135,34 +141,34 @@ for map in eval_maps:
                 eval_env.close()
                 del eval_env
 
-        # # Write logs
-        # with open(f'../results/{algo}_evaluation-log.csv', 'a') as csv_file:
-        #         csv_file.write('Map;' + map + '\n')
-        #         csv_file.write('Rewards;' + str(rewards) + '\n')
-        #         csv_file.write('Min;' + str(min(rewards)) + '\n')
-        #         csv_file.write('Max;' + str(max(rewards)) + '\n')
-        #         csv_file.write('Mean;' + str(np.mean(rewards)) + '\n')
-        #         csv_file.write('Stdev;' + str(np.mean(rewards)) + '\n')
-        #         csv_file.write('Lengths;' + str(lengths) + '\n')
-        #         csv_file.write('Min;' + str(min(lengths)) + '\n')
-        #         csv_file.write('Max;' + str(max(lengths)) + '\n')
-        #         csv_file.write('Mean;'+ str(np.mean(lengths)) + '\n')
-        #         csv_file.write('Stdev;' + str(np.mean(lengths)) + '\n')
-        #         csv_file.write('\n')
+        # Write logs
+        with open(f'../results/{algo}_evaluation-log.csv', 'a') as csv_file:
+                csv_file.write('Map;' + map + '\n')
+                csv_file.write('Rewards;' + str(rewards) + '\n')
+                csv_file.write('Min;' + str(min(rewards)) + '\n')
+                csv_file.write('Max;' + str(max(rewards)) + '\n')
+                csv_file.write('Mean;' + str(np.mean(rewards)) + '\n')
+                csv_file.write('Stdev;' + str(np.mean(rewards)) + '\n')
+                csv_file.write('Lengths;' + str(lengths) + '\n')
+                csv_file.write('Min;' + str(min(lengths)) + '\n')
+                csv_file.write('Max;' + str(max(lengths)) + '\n')
+                csv_file.write('Mean;'+ str(np.mean(lengths)) + '\n')
+                csv_file.write('Stdev;' + str(np.mean(lengths)) + '\n')
+                csv_file.write('\n')
 
-        # # Print infos
-        # print("==============================================================================")
-        # print(f"Evaluation results for: {map}\n")
-        # print('Rewards:    ', rewards)
-        # print('Min reward: ', min(rewards))
-        # print('Max reward: ', max(rewards))
-        # print('Mean reward:', np.mean(rewards))
-        # print('Std reward: ', np.std(rewards))
-        # print('\nEpisode lengths:', lengths)
-        # print('Min ep length:  ', min(lengths))
-        # print('Max ep length:  ', max(lengths))
-        # print('Mean ep length: ', np.mean(lengths))
-        # print('Std ep length:  ', np.std(lengths))
+        # Print infos
+        print("==============================================================================")
+        print(f"Evaluation results for: {map}\n")
+        print('Rewards:    ', rewards)
+        print('Min reward: ', min(rewards))
+        print('Max reward: ', max(rewards))
+        print('Mean reward:', np.mean(rewards))
+        print('Std reward: ', np.std(rewards))
+        print('\nEpisode lengths:', lengths)
+        print('Min ep length:  ', min(lengths))
+        print('Max ep length:  ', max(lengths))
+        print('Mean ep length: ', np.mean(lengths))
+        print('Std ep length:  ', np.std(lengths))
 
 del model
 print("==============================================================================")

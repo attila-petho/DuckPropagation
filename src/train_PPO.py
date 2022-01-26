@@ -128,9 +128,9 @@ del model, env
 
 # Write log to csv
 now = datetime.now()
-starttime = now.strftime("%Y/%m/%d_%H:%M:%S")
+finishtime = now.strftime("%Y/%m/%d_%H:%M:%S")
 with open(f'../logs/PPO_train-log.csv', 'a') as csv_file:
-        csv_log = (f'\n{starttime};{ID};{steps};{lr_schedule};{str(learning_rate)};{action_wrapper};{reward_wrapper};'
+        csv_log = (f'\n{finishtime};{ID};{steps};{lr_schedule};{str(learning_rate)};{action_wrapper};{reward_wrapper};'
                         f'{color_segment};{FS};{domain_rand};{map_name};{str(int((end-start)/60))};{comment};')
         csv_file.write(csv_log)
 
